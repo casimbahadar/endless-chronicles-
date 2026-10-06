@@ -3,71 +3,85 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1024">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Chronicle">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
 <title>Endless Chronicle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Nunito+Sans:opsz,wght@6..12,500;6..12,700;6..12,800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
 :root{
-  --bg:#0b1024; --bg2:#141b3a; --ink:#f2f4ff; --ink2:#aeb8e6; --rule:rgba(160,175,240,.18);
-  --w1:#4f6fe0; --w2:#26388f; --edge:#dfe5ff; --edgeDark:#121a52; --gold:#f4cb63; --goldDeep:#c58e1f; --bad:#ff8c78; --good:#86e39a;
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --r:8px; --btn:44px;
-  --font:"Pixelify Sans", ui-monospace, "Courier New", monospace;
+  --font:"Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif; --display:"Cinzel", Georgia, serif;
   box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#0b1024; --bg2:#16204a; --ink:#f2f4ff;
+  --w1:#4766d8; --w2:#24358a; --winInk:#ffffff; --winMuted:#cdd6ff; --edge:#e3e8ff; --edgeDark:#111a50; --rowRule:rgba(230,236,255,.2);
+  --gold:#f4cb63; --goldDeep:#c58e1f; --goldInk:#2a1900; --bad:#ff9a88; --good:#8ee6a1; --chip:rgba(10,18,70,.45);
 }
-@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){ --bg:#e7ebf7; --bg2:#d6ddf2; --ink:#141a40; --ink2:#46518a; --rule:rgba(40,55,120,.18); } }
-:root[data-theme="dark"]{ --bg:#0b1024; --bg2:#141b3a; --ink:#f2f4ff; --ink2:#aeb8e6; }
-:root[data-theme="light"]{ --bg:#e7ebf7; --bg2:#d6ddf2; --ink:#141a40; --ink2:#46518a; }
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){
+  --bg:#ece3cf; --bg2:#f7f1e3; --ink:#2a2140;
+  --w1:#fffaf0; --w2:#f1e5c9; --winInk:#2a2140; --winMuted:#6b5a3e; --edge:#8a6a36; --edgeDark:#f9f1df; --rowRule:rgba(110,85,40,.22);
+  --gold:#b9781a; --goldDeep:#8a5609; --goldInk:#fffaf0; --bad:#b4321f; --good:#2f7d3e; --chip:rgba(138,106,54,.12); } }
+:root[data-theme="light"]{
+  --bg:#ece3cf; --bg2:#f7f1e3; --ink:#2a2140;
+  --w1:#fffaf0; --w2:#f1e5c9; --winInk:#2a2140; --winMuted:#6b5a3e; --edge:#8a6a36; --edgeDark:#f9f1df; --rowRule:rgba(110,85,40,.22);
+  --gold:#b9781a; --goldDeep:#8a5609; --goldInk:#fffaf0; --bad:#b4321f; --good:#2f7d3e; --chip:rgba(138,106,54,.12); }
 html{ height:100%; scroll-padding-top:env(safe-area-inset-top,0px); }
 *,*::before,*::after{ box-sizing:inherit; }
 body{ margin:0; min-height:100%; background:radial-gradient(120% 90% at 30% 0%, var(--bg2), var(--bg)); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.35; -webkit-tap-highlight-color:transparent; }
 .app{ max-width:760px; margin:0 auto; padding:var(--s3) var(--s3) var(--s5); display:grid; gap:var(--s3); }
-.win{ position:relative; color:#fff; background:linear-gradient(180deg,var(--w1),var(--w2)); border-radius:var(--r);
+.win{ position:relative; color:var(--winInk); background:linear-gradient(180deg,var(--w1),var(--w2)); border-radius:var(--r);
   box-shadow:inset 0 0 0 2px var(--edge), inset 0 0 0 4px var(--edgeDark), 0 3px 0 rgba(0,0,0,.28); }
 .head{ display:flex; align-items:center; justify-content:space-between; gap:var(--s3); padding:var(--s2) var(--s4); }
-h1{ margin:0; font-size:20px; font-weight:700; white-space:nowrap; letter-spacing:.3px; }
+h1{ margin:0; font-family:var(--display); font-size:21px; font-weight:700; white-space:nowrap; letter-spacing:.6px; }
 h1 b{ color:var(--gold); font-weight:700; }
 .status{ display:flex; gap:var(--s2); flex-wrap:wrap; justify-content:flex-end; }
-.chip{ font-size:13px; padding:3px var(--s2); border-radius:999px; background:rgba(10,18,70,.45); box-shadow:inset 0 0 0 1px rgba(230,236,255,.35); white-space:nowrap; }
+.chip{ font-size:13px; font-weight:700; padding:3px var(--s2); border-radius:999px; background:var(--chip); box-shadow:inset 0 0 0 1px var(--rowRule); white-space:nowrap; }
 .chip strong{ color:var(--gold); font-weight:600; }
 .stage{ position:relative; border-radius:var(--r); overflow:hidden; background:#000; box-shadow:0 0 0 2px var(--edge), 0 0 0 5px var(--edgeDark), 0 6px 18px rgba(0,0,0,.45); touch-action:none; }
 canvas#cv{ display:block; width:100%; height:auto; aspect-ratio:3/2; image-rendering:pixelated; }
 #menu{ position:absolute; top:var(--s2); right:var(--s2); width:min(42%,230px); display:grid; gap:2px; padding:var(--s2); }
 #menu.left{ right:auto; left:var(--s2); } #menu.low{ top:auto; bottom:var(--s2); } #menu:empty{ display:none; }
-#menu button{ min-height:40px; width:100%; text-align:left; padding:0 var(--s3); background:transparent; box-shadow:none; color:#fff; font-size:16px; }
+#menu button{ min-height:40px; width:100%; text-align:left; padding:0 var(--s3); background:transparent; box-shadow:none; color:var(--winInk); font-size:16px; }
 #menu button:hover, #menu button:focus-visible{ background:rgba(255,255,255,.14); }
 #menu button.primary{ background:rgba(244,203,99,.95); color:#2a1900; }
 #menu button.quiet{ color:#d6defc; }
 .side{ display:grid; gap:var(--s3); align-content:start; }
-.hint{ padding:var(--s3) var(--s4); min-height:62px; font-size:15px; }
+.hint{ padding:var(--s3) var(--s4); min-height:62px; font-size:16px; font-weight:600; }
 .hint #speaker{ color:var(--gold); font-weight:600; margin-right:var(--s1); }
-button{ font-family:var(--font); font-size:15px; line-height:1; color:#fff; min-height:var(--btn); padding:0 var(--s3); border:0; border-radius:var(--r); cursor:pointer;
+button{ font-family:var(--font); font-size:15px; font-weight:700; line-height:1; color:var(--winInk); min-height:var(--btn); padding:0 var(--s3); border:0; border-radius:var(--r); cursor:pointer;
   background:linear-gradient(180deg,var(--w1),var(--w2)); box-shadow:inset 0 0 0 2px var(--edge), inset 0 0 0 4px var(--edgeDark); }
 button:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
 button[aria-pressed="true"]{ color:var(--gold); box-shadow:inset 0 0 0 2px var(--gold), inset 0 0 0 4px var(--edgeDark), 0 0 0 2px rgba(244,203,99,.35); }
-button.primary{ background:linear-gradient(180deg,var(--gold),var(--goldDeep)); color:#2a1900; box-shadow:inset 0 0 0 2px #fff1c4, inset 0 0 0 4px #7a5310; font-weight:600; }
-button.quiet{ background:rgba(10,18,70,.35); box-shadow:inset 0 0 0 2px rgba(220,228,255,.4); }
+button.primary{ background:linear-gradient(180deg,var(--gold),var(--goldDeep)); color:var(--goldInk); box-shadow:inset 0 0 0 2px #fff1c4, inset 0 0 0 4px #7a5310; font-weight:600; }
+button.quiet{ background:var(--chip); box-shadow:inset 0 0 0 2px var(--rowRule); color:var(--winInk); }
 .bar{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s2); }
 .seg{ display:grid; grid-template-columns:1fr 1fr; gap:var(--s2); }
 #cmdRow{ display:grid; grid-template-columns:1fr 1fr; gap:var(--s2); } #cmdRow[hidden]{ display:none; }
 .tabs{ display:grid; grid-template-columns:repeat(5,1fr); gap:var(--s1); }
 .tabs button{ font-size:13px; padding:0 2px; min-height:38px; }
 #panel{ padding:var(--s2) var(--s4); max-height:320px; overflow:auto; font-size:14px; }
-.line{ display:grid; grid-template-columns:1fr auto; gap:var(--s2); padding:7px 0; border-bottom:1px solid rgba(230,236,255,.18); }
+.line{ display:grid; grid-template-columns:1fr auto; gap:var(--s2); padding:7px 0; border-bottom:1px solid var(--rowRule); }
 .line:last-child{ border-bottom:0; }
-.unit{ display:grid; grid-template-columns:1.2fr 1.1fr auto auto; gap:var(--s2); padding:6px 0; border-bottom:1px solid rgba(230,236,255,.18); align-items:center; }
+.unit{ display:grid; grid-template-columns:1.2fr 1.1fr auto auto; gap:var(--s2); padding:6px 0; border-bottom:1px solid var(--rowRule); align-items:center; }
 .unit:last-child{ border-bottom:0; }
-.muted{ color:#c4cdf6; } .good{ color:var(--good); } .bad{ color:var(--bad); } .lord{ color:var(--gold); }
-.tag{ font-size:11px; color:#c4cdf6; opacity:.85; }
-.opt{ display:grid; gap:var(--s2); padding:var(--s2) 0 var(--s3); border-bottom:1px solid rgba(230,236,255,.18); }
+.muted{ color:var(--winMuted); } .good{ color:var(--good); } .bad{ color:var(--bad); } .lord{ color:var(--gold); }
+.tag{ font-size:11px; font-weight:700; color:var(--winMuted); }
+.opt{ display:grid; gap:var(--s2); padding:var(--s2) 0 var(--s3); border-bottom:1px solid var(--rowRule); }
 .opt:last-child{ border-bottom:0; } .opt .seg button{ min-height:38px; font-size:14px; }
 #gate p{ margin:var(--s2) 0 var(--s3); } #gate{ padding:var(--s4); } #gate .stack{ display:grid; gap:var(--s2); }
 .pick{ position:relative; display:block; } .pick input{ position:absolute; inset:0; opacity:0; width:100%; height:100%; cursor:pointer; }
-.pick span{ display:flex; align-items:center; justify-content:center; min-height:var(--btn); border-radius:var(--r); font-weight:600; background:linear-gradient(180deg,var(--gold),var(--goldDeep)); color:#2a1900; box-shadow:inset 0 0 0 2px #fff1c4, inset 0 0 0 4px #7a5310; }
+.pick span{ display:flex; align-items:center; justify-content:center; min-height:var(--btn); border-radius:var(--r); font-weight:800; background:linear-gradient(180deg,var(--gold),var(--goldDeep)); color:var(--goldInk); box-shadow:inset 0 0 0 2px #fff1c4, inset 0 0 0 4px #7a5310; }
 .pick input:focus-visible + span{ outline:3px solid #fff; outline-offset:2px; }
 #gateMsg{ color:#ffe1b0; margin:var(--s2) 0 0; }
-.credit a{ color:#fff; }
+.credit a{ color:var(--winInk); }
 .sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 button{ white-space:nowrap; }
 .hint{ display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
@@ -98,6 +112,18 @@ button{ white-space:nowrap; }
   .tabs{ grid-template-columns:repeat(5, 1fr); } .tabs button{ font-size:11px; min-height:30px; }
   #panel{ padding:var(--s1) var(--s2); font-size:12px; } .unit{ padding:3px 0; } .tag{ font-size:10px; }
 }
+/* theater mode: the map fills the screen; a small toolbar floats over it */
+.float{ position:absolute; top:8px; right:8px; display:flex; gap:6px; z-index:3; }
+.float button{ min-height:34px; font-size:13px; padding:0 10px; background:rgba(12,18,52,.62); color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.35); backdrop-filter:blur(4px); }
+.float #tPause, .float #tSpeed{ display:none; }
+.strip{ display:none; position:absolute; left:8px; right:8px; bottom:8px; padding:6px 12px; font-size:15px; font-weight:700; z-index:2; pointer-events:none; }
+body.theater .float #tPause, body.theater .float #tSpeed{ display:inline-flex; align-items:center; }
+body.theater .strip.on{ display:block; }
+body.theater .side, body.theater .head{ display:none !important; }
+body.theater .app{ grid-template-columns:1fr !important; grid-template-areas:"stage" !important; grid-template-rows:1fr !important; height:100dvh; padding:4px !important; }
+body.theater .stageWrap{ height:100%; display:flex; align-items:center; justify-content:center; }
+body.theater .stage{ height:100%; max-height:100%; aspect-ratio:3/2; width:auto; max-width:100%; }
+body.theater canvas#cv{ height:100%; width:auto; max-width:100%; }
 @media (prefers-reduced-motion: reduce){ *{ transition:none!important; animation:none!important; } }
 </style>
 </head>
@@ -113,7 +139,7 @@ button{ white-space:nowrap; }
     </div>
     <p id="gateMsg"></p>
   </section>
-  <div class="stageWrap"><div class="stage"><canvas id="cv" width="960" height="640" aria-label="Battle map"></canvas><div id="menu" class="win" role="menu"></div></div></div>
+  <div class="stageWrap"><div class="stage"><canvas id="cv" width="960" height="640" aria-label="Battle map"></canvas><div id="menu" class="win" role="menu"></div><div class="float" id="floatBar"><button id="tPause" class="quiet" aria-label="Pause">Pause</button><button id="tSpeed" class="quiet" aria-label="Speed">2×</button><button id="tTheater" class="quiet" aria-label="Theater mode" aria-pressed="false">Full map</button></div><div class="strip win" id="strip" aria-hidden="true"></div></div></div>
   <aside class="side">
     <div class="hint win" aria-live="polite"><span id="speaker"></span><span id="line">The march is about to begin.</span></div>
     <div class="seg" role="group" aria-label="Who plays your army"><button id="mWatch" aria-pressed="true">Watch</button><button id="mCommand" aria-pressed="false">Command</button></div>
@@ -198,6 +224,12 @@ const SYL2 = ['ran','vin','lia','dor','mir','ric','nna','sha','th','ren','gus','
 const PLACES1 = ['Ash','Raven','Glen','Thorn','Frost','Ember','Stone','Mist','Iron','Willow','Grey','Amber','Hollow','Storm'];
 const PLACES2 = ['ford','moor','vale','watch','reach','mere','crest','fell','haven','gate','wood','march'];
 const TITLES = ['Ashes at {p}','The Road to {p}','Siege of {p}','Night over {p}','The {p} Crossing','Blood on {p}','Shadows of {p}','The Fall of {p}','Last Light at {p}','Embers of {p}'];
+function uniqueName(camp, rng) {
+  if (!(camp.usedNames instanceof Set)) camp.usedNames = new Set([...(camp.army || []).map(u => u.name), ...(camp.fallen || []).map(f => f.name)]);
+  for (let i = 0; i < 60; i++) { const n = makeName(rng); if (!camp.usedNames.has(n)) { camp.usedNames.add(n); return n; } }
+  const n = makeName(rng) + ' ' + rng.pick(['the Younger', 'of the Vale', 'the Bold', 'of the March']); camp.usedNames.add(n); return n;
+}
+function unitLabel(u) { return u.name || className(u); }
 function makeName(rng) { let n = rng.pick(SYL1) + rng.pick(SYL2); if (rng.chance(25)) n += rng.pick(['a','e','o','n']); return n; }
 function makePlace(rng) { return rng.pick(PLACES1) + rng.pick(PLACES2); }
 
@@ -543,7 +575,8 @@ function newCampaign(seed) {
   const starters = POOL ? [poolPick(rng, c => !c.healer && (c.mov >= 7)), poolPick(rng, c => !c.healer && c.wpn !== 'bow' && c.wpn !== 'fire' && c.mov < 7), poolPick(rng, c => c.wpn === 'bow' || c.wpn === 'fire'), poolPick(rng, c => c.healer)]
     : [rng.pick(['Cavalier','Knight','Soldier']), rng.pick(['Mercenary','Myrmidon','Fighter']), rng.pick(['Archer','Mage']), 'Cleric'];
   for (const cls of starters) army.push(makeUnit(rng, cls, 'player', rng.int(1, 2)));
-  return { seed, rng, chapter: 0, lord: lord.id, army, fallen: [], log: [], realm: makePlace(rng) };
+  const tmp = { army: [], fallen: [] }; for (const u of army) u.name = uniqueName(tmp, rng);
+  return { seed, rng, chapter: 0, lord: lord.id, army, fallen: [], log: [], realm: makePlace(rng), usedNames: tmp.usedNames };
 }
 function poolPick(rng, test, promoted) {
   const keys = (promoted ? POOL.advanced : POOL.basic).filter(k => test(CLASSES[k]));
@@ -609,17 +642,26 @@ function newChapter(camp) {
   const count = Math.min(20, Math.round((3 + Math.floor(n * 0.6) + rng.int(0, 1)) * scale));
   if (goal === 'seize' || goal === 'boss') {
     const bc = POOL && POOL.advanced.length ? poolPick(rng, c => !c.healer, true) : rng.pick(['Knight','Fighter','Mercenary','Soldier']);
-    const boss = makeUnit(rng, bc, 'enemy', lv + 3); boss.boss = true; boss.ai = 'hold'; boss.name = makeName(rng);
+    const boss = makeUnit(rng, bc, 'enemy', lv + 3); boss.boss = true; boss.ai = 'hold'; boss.name = uniqueName(camp, rng);
     boss.x = st.map.throne.x; boss.y = st.map.throne.y; taken.add(boss.y * W + boss.x); st.units.push(boss); st.bossName = boss.name;
   }
   for (let i = 0; i < count; i++) {
     const mon = POOL && POOL.monsters.length && n >= 4 && rng.chance(Math.min(35, n * 3));
     const e = makeUnit(rng, mon ? rng.pick(n >= 10 && POOL.monstersHi.length && rng.chance(40) ? POOL.monstersHi : POOL.monsters) : POOL ? poolPick(rng, c => !c.healer, n >= 9 && rng.chance(Math.min(60, (n - 8) * 8))) : rng.pick(ENEMY_POOL), 'enemy', Math.max(1, lv + rng.int(-1, 1)));
     if (!deploy(e, eSlots)) continue;
+    e.name = null;
     e.ai = rng.chance(15) ? 'hold' : (rng.chance(50) ? 'wake' : 'pursue');
     if (goal === 'rout' && e.ai === 'hold') e.ai = 'wake';
     st.units.push(e);
   }
+  // captains: one or two named, stronger officers besides the commander
+  const regulars = st.units.filter(u => u.team === 'enemy' && !u.boss).sort((a, b) => b.level - a.level);
+  for (const old of regulars.slice(0, n >= 5 && regulars.length > 6 ? 2 : regulars.length > 2 ? 1 : 0)) {
+    const c = makeUnit(rng, old.cls, 'enemy', old.level + 2); c.captain = true; c.name = uniqueName(camp, rng); c.x = old.x; c.y = old.y; c.ai = old.ai === 'pursue' ? 'wake' : old.ai;
+    st.units[st.units.indexOf(old)] = c;
+  }
+  const boss0 = st.units.find(u => u.boss);
+  st.enemyArmy = boss0 ? `${boss0.name}\u2019s army` : `the ${place} garrison`;
   st.goalText = GOAL_TEXT[goal].replace('{n}', st.surviveTurns);
   st.intro = introText(camp, st);
   failsafe(st);
@@ -652,7 +694,7 @@ function endChapter(camp, st, result) {
     if (camp.army.length < 12 && (rng.chance(65) || camp.army.length < 4)) {
       const wild = OPTIONS.recruits === 'anything' && POOL, roll = rng.int(0, 99);
       const cls = !POOL ? rng.pick(PLAYER_POOL) : POOL.dancers.length && roll < 8 && !camp.army.some(u => CLASSES[u.cls].dancer) ? rng.pick(POOL.dancers)
-        : wild && POOL.monsters.length && roll < 30 ? rng.pick(POOL.monsters) : poolPick(rng, () => true, camp.chapter >= 10 && rng.chance(30)); const r = makeUnit(rng, cls, 'player', Math.max(1, Math.round(avgLevel(camp.army)) + rng.int(-1, 0)));
+        : wild && POOL.monsters.length && roll < 30 ? rng.pick(POOL.monsters) : poolPick(rng, () => true, camp.chapter >= 10 && rng.chance(30)); const r = makeUnit(rng, cls, 'player', Math.max(1, Math.round(avgLevel(camp.army)) + rng.int(-1, 0))); r.name = uniqueName(camp, rng);
       camp.army.push(r); summary.recruits.push(r.name);
       lines.push([r.name, rng.pick([`I saw what you did at ${st.place}. Let me fight for you.`, `You need another ${(CLASSES[cls].name || cls).toLowerCase()}? Then I am yours.`, `My village owes you. Take my blade.`])]);
     }
@@ -682,7 +724,13 @@ function setClassPool(list) {
 function className(u) { return (CLASSES[u.cls] && CLASSES[u.cls].name) || u.cls; }
 function mapCount() { return ROMD ? ROMD.maps.length : 0; }
 function mapList() { return ROMD ? ROMD.maps : []; }
-const api = { setOptions, OPTIONS, setClassPool, className, romClass, mapCount, mapList, saveCampaign, loadCampaign, pathTo, inRange, foes, danger, get W() { return W; }, get H() { return H; }, setRomData, RNG, TERRAIN, WEAPONS, CLASSES, newCampaign, newChapter, moveCost, endChapter, plan, apply, outcome, phaseOrder, startPhase, forecast, reach };
+function sceneKind(st, x, y) {
+  if (st.map.terr) { const t = tid(st, x, y);
+    if ([0x0C, 0x0D].includes(t)) return 'forest'; if ([0x11, 0x12, 0x26].includes(t)) return 'mountain'; if ([0x0E, 0x0F].includes(t)) return 'desert';
+    if ([0x10, 0x13, 0x15, 0x16].includes(t)) return 'water'; if ([0x17, 0x1D, 0x1E, 0x1F, 0x20, 0x1A, 0x1B].includes(t)) return 'indoor'; return 'plains'; }
+  const t = st.map.tiles[y][x]; return t === 'forest' ? 'forest' : t === 'hill' ? 'mountain' : t === 'water' || t === 'bridge' ? 'water' : t === 'floor' || t === 'throne' || t === 'wall' ? 'indoor' : 'plains';
+}
+const api = { sceneKind, unitLabel, setOptions, OPTIONS, setClassPool, className, romClass, mapCount, mapList, saveCampaign, loadCampaign, pathTo, inRange, foes, danger, get W() { return W; }, get H() { return H; }, setRomData, RNG, TERRAIN, WEAPONS, CLASSES, newCampaign, newChapter, moveCost, endChapter, plan, apply, outcome, phaseOrder, startPhase, forecast, reach };
 if (typeof module !== 'undefined') module.exports = api; else root.Chronicle = api;
 })(this);
 
@@ -764,14 +812,20 @@ function b64cells(s) { const bin = atob(s), out = new Uint16Array(bin.length / 2
 function load(buffer) { const bytes = new Uint8Array(buffer), crc = crc32(bytes); if (crc !== CRC_FE8U) return { ok: false, crc };
   base = Game(bytes); base.loc = { asset: 0x8B363C, chap: 0x8B0894, stride: 0x94 }; games.BE8E = base; return { ok: true }; }
 // any other GBA Fire Emblem: found by its data
-const dsSets = {};
+const dsSets = {}, musicRoms = [];
 function addGame(buffer) {
   const bytes = new Uint8Array(buffer);
-  if (bytes.length > 0x200 && bytes[0xB2] !== 0x96 && root.FE8.dsLayouts) { const ds = root.FE8.dsLayouts(bytes);
-    if (ds) { if (!ds.layouts.length) return { ok: false, why: `No battle maps were found in ${ds.title}.` }; dsSets[ds.code] = ds; return { ok: true, game: { code: ds.code, title: ds.title } }; } }
+  if (bytes.length > 0x200 && bytes[0xB2] !== 0x96 && DSGAMES[String.fromCharCode(bytes[0xC], bytes[0xD], bytes[0xE], bytes[0xF])]) return { ok: false, ds: true, why: 'DS games are read by the DS reader.' };
   if (bytes.length > 0x200 && bytes[0xB2] !== 0x96 && root.FE8.addSnes && (bytes.length % 0x8000 === 0 || bytes.length % 1024 === 512)) { const s = root.FE8.addSnes(buffer); if (s) return s; }
   if (bytes.length < 0x200 || bytes[0xB2] !== 0x96) return { ok: false, why: 'This game isn\u2019t readable yet. GBA, DS, FE4 and FE5 work now; console readers are still being built.' };
-  const g = Game(bytes); if (g.code === 'BE8E') return { ok: false, why: 'Sacred Stones is already loaded.' };
+  const g = Game(bytes);
+  if (g.code === 'BE8E') {   // another FE8-family ROM (SRR, SRR+ builds): its music joins the jukebox
+    let same = bytes.length === base.R.length; if (same) for (let i = 0; i < 64 && same; i++) { const a = Math.floor(i * (bytes.length - 1) / 63); same = bytes[a] === base.R[a]; }
+    if (same) return { ok: false, why: 'Sacred Stones is already loaded.' };
+    if (musicRoms.some(m => m.R.length === bytes.length)) return { ok: false, why: 'That build\u2019s music is already in the jukebox.' };
+    const title = bytes.length > 0x1000000 ? 'SRR build (' + (bytes.length / 1048576).toFixed(1) + ' MB)' : 'Sacred Stones variant';
+    musicRoms.push({ R: bytes, title }); return { ok: true, music: true, game: { code: 'MUS' + bytes.length, title: title + ' music' } };
+  }
   const loc = g.locate(); if (!loc) return { ok: false, why: `No Fire Emblem map tables were found in ${g.title}.` };
   g.loc = loc; games[g.code] = g; return { ok: true, game: g };
 }
@@ -827,7 +881,7 @@ function spriteOf(code, smsId, team, smsTable) {
   return smsCache[key] = { frames, w: fw, h: fh };
 }
 function library() { return Object.values(games).map(g => ({ code: g.code, title: g.title })).concat(Object.values(dsSets).map(d => ({ code: d.code, title: d.title, ds: true, n: d.layouts.length }))).concat(root.FE8.snesLibrary ? root.FE8.snesLibrary() : []); }
-root.FE8 = { _base: () => base, gbaGames, spriteOf, load, addGame, maps, classes, mapCanvas, sprite, library, loaded: () => !!base, CRC_FE8U };
+root.FE8 = { _base: () => base, musicRoms: () => musicRoms, gbaGames, spriteOf, addDsSet: set => { if (set && set.layouts && set.layouts.length) { dsSets[set.code] = set; return true; } return false; }, load, addGame, maps, classes, mapCanvas, sprite, library, loaded: () => !!base, CRC_FE8U };
 })(this);
 // ---------------------------------------------------------------- FE8 interface art: window frames and fonts
 (function (root) {
@@ -884,20 +938,46 @@ root.FE8 = { _base: () => base, gbaGames, spriteOf, load, addGame, maps, classes
         if (t & 0x80) { const sub = u16(p); p += 2; walk(sub, path + name + '/'); } else { out[path + name] = [u32(fat + fid * 8), u32(fat + fid * 8 + 4)]; fid++; } } })(0xF000, '');
     return out;
   }
-  function dsLayouts(bytes) {
-    const R = bytes, code = String.fromCharCode(R[0xC], R[0xD], R[0xE], R[0xF]), info = DSGAMES[code];
+  // DS LZ10 / LZ11 (used for compressed .cmp files)
+  function lzDS(R) {
+    const type = R[0]; let size = R[1] | R[2] << 8 | R[3] << 16, p = 4; if (!size) { size = R[4] | R[5] << 8 | R[6] << 16 | R[7] << 24; p = 8; }
+    const out = new Uint8Array(size); let o = 0;
+    while (o < size && p < R.length) { const f = R[p++];
+      for (let b = 0; b < 8 && o < size; b++) {
+        if (!(f & (0x80 >> b))) { out[o++] = R[p++]; continue; }
+        let n, d;
+        if (type === 0x10) { const v = R[p] << 8 | R[p + 1]; p += 2; n = (v >> 12) + 3; d = (v & 0xFFF) + 1; }
+        else { const h = R[p] >> 4;
+          if (h === 0) { n = ((R[p] & 0xF) << 4 | R[p + 1] >> 4) + 0x11; d = ((R[p + 1] & 0xF) << 8 | R[p + 2]) + 1; p += 3; }
+          else if (h === 1) { n = ((R[p] & 0xF) << 12 | R[p + 1] << 4 | R[p + 2] >> 4) + 0x111; d = ((R[p + 2] & 0xF) << 8 | R[p + 3]) + 1; p += 4; }
+          else { n = h + 1; d = ((R[p] & 0xF) << 8 | R[p + 1]) + 1; p += 2; } }
+        for (let k = 0; k < n && o < size; k++, o++) out[o] = out[o - d]; } }
+    return out;
+  }
+  // reads only what it needs through readAt(offset, length) -> Promise<Uint8Array>, so big DS files never sit in memory whole
+  async function dsLayoutsFrom(readAt) {
+    const H = await readAt(0, 0x200), code = String.fromCharCode(H[0xC], H[0xD], H[0xE], H[0xF]), info = DSGAMES[code];
     if (!info) return null;
-    const files = dsFiles(R), out = [];
+    const u32b = (R, a) => (R[a] | R[a + 1] << 8 | R[a + 2] << 16 | R[a + 3] << 24) >>> 0, u16b = (R, a) => R[a] | R[a + 1] << 8;
+    const fntOff = u32b(H, 0x40), fntLen = u32b(H, 0x44), fatOff = u32b(H, 0x48), fatLen = u32b(H, 0x4C);
+    const FNT = await readAt(fntOff, fntLen), FAT = await readAt(fatOff, fatLen), files = {};
+    (function walk(dir, path) { const base = (dir & 0xFFF) * 8; let p = u32b(FNT, base), fid = u16b(FNT, base + 4);
+      for (;;) { const t = FNT[p++]; if (!t) break; const n = t & 0x7F; let name = ''; for (let i = 0; i < n; i++) name += String.fromCharCode(FNT[p + i]); p += n;
+        if (t & 0x80) { const sub = u16b(FNT, p); p += 2; walk(sub, path + name + '/'); } else { files[path + name] = [u32b(FAT, fid * 8), u32b(FAT, fid * 8 + 4)]; fid++; } } })(0xF000, '');
+    const out = [];
     for (const [k, [s, e]] of Object.entries(files)) {
-      if (!k.startsWith('map/') || k.endsWith('.ta')) continue;
-      const u32 = a => (R[a] | R[a + 1] << 8 | R[a + 2] << 16 | R[a + 3] << 24) >>> 0;
-      if (u32(s) !== e - s) continue; const d = s + 0x20, w = R[d + 0x0C], h = R[d + 0x0D], gp = u32(d + 0x10);
-      if (w < 15 || w > 64 || h < 10 || h > 64) continue; const stride = w <= 32 ? 32 : 64;
+      if (!k.startsWith('map/') || /\.ta$/i.test(k) || e - s > 0x40000 || e <= s) continue;
+      let R = await readAt(s, e - s);
+      if ((R[0] === 0x10 || R[0] === 0x11) && u32b(R, 0) !== R.length) { try { R = lzDS(R); } catch (err) { continue; } }
+      if (u32b(R, 0) !== R.length) continue;
+      const d = 0x20, w = R[d + 0x0C], h = R[d + 0x0D], gp = u32b(R, d + 0x10);
+      if (w < 15 || w > 64 || h < 10 || h > 64 || d + gp + h * 64 > R.length + 64) continue; const stride = w <= 32 ? 32 : 64;
       const terr = []; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { let v = R[d + gp + y * stride + x]; if (info[1] === 'fe12') v = FE12[v] !== undefined ? FE12[v] : 1; terr.push(FE11[v] !== undefined ? FE11[v] : 0x01); }
-      out.push({ name: k.slice(4), w, h, terr });
+      out.push({ name: k.slice(4).replace(/\.cmp$/i, ''), w, h, terr });
     }
     return { code, title: info[0], layouts: out };
   }
+  function dsLayouts(bytes) { let res = null, err = null; dsLayoutsFrom((o, n) => Promise.resolve(bytes.subarray(o, o + n))).then(r => res = r, e => err = e); return { pending: true, get: () => res, err: () => err }; }
   // ---- painter: choose FE8 tiles for a terrain grid from how real maps place them
   const OUT = [1, 0, 2, 3], IN = [0x18, 0, 0x48, 0x1A];
   function learn(maps) {
@@ -922,7 +1002,7 @@ root.FE8 = { _base: () => base, gbaGames, spriteOf, load, addGame, maps, classes
     for (const m of libraryMaps) { if (m.game.code !== 'BE8E') continue; const k = m.ids.join(','); if (k === OUT.join(',')) by.out.push(m); else if (k === IN.join(',')) by.in.push(m); }
     return models = { out: learn(by.out), in: learn(by.in) };
   }
-  F.dsLayouts = dsLayouts;
+  F.dsLayouts = dsLayouts; F.dsLayoutsFrom = dsLayoutsFrom;
   F.paintLayouts = function (layoutSets, libraryMaps) {
     const M = painterModels(libraryMaps), base = F._base(), out = [];
     for (const set of layoutSets) for (const L of set.layouts) {
@@ -1211,6 +1291,7 @@ const FE5_NAMES = ['Cavalier', 'LanceKnight', 'BowKnight', 'AxeKnight', 'SwordKn
 const FE5_PROMOTED = /^(KnightLord|DukeKnight|MasterKnight|Paladin|PaladinF|ArchKnight|ForestKnight|MageKnight|GreatKnight|FalconKnight|WyvernKnight|WyvernMaster|Swordmaster|Sniper|HeroFE4|General|Berserker|Warrior|HighPriest|Bishop|Sage|Rogue)$/;
 function nice(n) { return n.replace(/FE4$/, '').replace(/([a-z])([A-Z])/g, '$1 $2').replace(/ F$/, ''); }
 function fe5Classes(set) {
+  if (set._classes) return set._classes;
   const R = set.R; let start = -1;
   for (let s = 0; s + 36 * 60 < R.length && start < 0; s++) { let k = 0;
     while (k < 60) { const a = s + k * 36, p = [0, 1, 2, 3].map(i => R[a + 0x17 + i * 2] | R[a + 0x18 + i * 2] << 8);
@@ -1224,11 +1305,27 @@ function fe5Classes(set) {
     const b = { hp: R[a], str: R[a + 1], mag: R[a + 2], skl: R[a + 3], spd: R[a + 4], def: R[a + 5], con: R[a + 6], mov: R[a + 7], res: Math.round(R[a + 2] * 0.8) };
     const dancer = /Dancer|Bard/.test(raw); let best = -1, bi = -1; ranks.forEach((v, k) => { if (v > best) { best = v; bi = k; } });
     if (best <= 0 && !dancer) continue;
-    out.push({ game: 'FE5', id: i + 1, raw, name: nice(raw), base: b, ranks, promoted: FE5_PROMOTED.test(raw), wpn: dancer ? 'dance' : WP[bi], magic: bi >= 5, dancer });
+    out.push({ game: 'FE5', id: i + 1, raw, name: nice(raw), base: b, ranks, sprite: R[a + 0x16], promoted: FE5_PROMOTED.test(raw), wpn: dancer ? 'dance' : WP[bi], magic: bi >= 5, dancer });
   }
-  return out;
+  return set._classes = out;
 }
 F.fe5Classes = () => sets.FE5 ? fe5Classes(sets.FE5) : [];
+// FE5 map sprites: foot units are 3 idle frames of 2x2 tiles from $F1:8000 + id*0x180; mounted units (bit 7) are 3 frames of
+// 6 tiles (a 2x2 body, then the 2-tile row above it) from $F3:8000 + (id & 0x7F)*0x240. Unit palettes sit at 0x3A7F80: blue, red, green, grey.
+const fe5SprCache = {};
+F.fe5Sprite = function (id, team) {
+  const set = sets.FE5; if (!set) return null; const k = id + ':' + team; if (fe5SprCache[k]) return fe5SprCache[k];
+  const R = set.R, mounted = id & 0x80, h = mounted ? 3 : 2, fsz = 2 * h * 32, base = mounted ? 0x398000 + (id & 0x7F) * 0x240 : 0x388000 + id * 0x180;
+  const po = 0x3A7F80 + [0, 1, 2, 3][team === 4 ? 3 : team] * 32, P = []; for (let c = 0; c < 16; c++) { const v = R[po + c * 2] | R[po + c * 2 + 1] << 8; P.push([(v & 31) << 3, (v >> 5 & 31) << 3, (v >> 10 & 31) << 3]); }
+  const frames = [];
+  for (let f = 0; f < 3; f++) { const c = document.createElement('canvas'); c.width = 16; c.height = h * 8; const g = c.getContext('2d'), img = g.createImageData(16, h * 8), d = img.data;
+    for (let t = 0; t < 2 * h; t++) { const b0 = base + f * fsz + t * 32, ox = mounted && t >= 4 ? (t - 4) * 8 : (t & 1) * 8, oy = mounted ? (t >= 4 ? 0 : 8 + (t >> 1) * 8) : (t >> 1) * 8;
+      for (let y = 0; y < 8; y++) { const p0 = R[b0 + y * 2], p1 = R[b0 + y * 2 + 1], p2 = R[b0 + 16 + y * 2], p3 = R[b0 + 17 + y * 2];
+        for (let x = 0; x < 8; x++) { const bit = 7 - x, ci = (p0 >> bit & 1) | (p1 >> bit & 1) << 1 | (p2 >> bit & 1) << 2 | (p3 >> bit & 1) << 3; if (!ci) continue;
+          const px = ((oy + y) * 16 + ox + x) * 4; d[px] = P[ci][0]; d[px + 1] = P[ci][1]; d[px + 2] = P[ci][2]; d[px + 3] = 255; } } }
+    g.putImageData(img, 0, 0); frames.push(c); }
+  return fe5SprCache[k] = { frames, w: 16, h: h * 8 };
+};
 F.addSnes = addSnes;
 F.snesMaps = () => Object.values(sets).flatMap(s => s.layouts.map(L => ({ src: 'snes', snes: s.code, layout: L, w: L.w, h: L.h, terr: L.terr, name: L.name, credit: s.title })));
 F.snesCanvas = canvasFor;
@@ -1293,7 +1390,7 @@ const DANCE = /Dancer|Bard/i;
 F.classPool = function () {
   const all = [], byGame = {}, sheets = new Map();
   const order = F.gbaGames().sort((a, b) => (a.code === 'BE8E' ? -1 : 1));
-  for (const g of order) { const d = gbaClassData(g); if (!d || d.sms === null) continue; byGame[g.code] = d;
+  for (const g of order) { const d = g._classData || (g._classData = gbaClassData(g)); if (!d || d.sms === null) continue; byGame[g.code] = d;
     const st = d.table, sum = b => b.hp + b.str + b.skl + b.spd + b.def + b.res, byId = {}; d.classes.forEach(x => byId[x.id] = x);
     for (const cl of d.classes) { const t = g.R[st.start + cl.id * st.stride + 5], other = byId[t];
       cl.promoted = t && t !== cl.id && other ? sum(cl.base) > sum(other.base) : sum(cl.base) >= 40; cl.smsTable = d.sms;
@@ -1328,10 +1425,163 @@ F.classPool = function () {
     const b = k.base, gr = { hp: g(60 + b.hp), str: g(k.magic ? 10 : 25 + b.str * 3), skl: g(25 + b.skl * 3), spd: g(25 + b.spd * 3), def: g(15 + b.def * 3), res: g(15 + b.mag * 3), lck: 30 };
     all.push({ key: 'FE5:' + k.id, game: 'FE5', name: k.name, wpn: k.wpn, magic: k.magic, flier, healer: k.wpn === 'staff', dancer: k.dancer, monster: false, lord: /Lord|Prince/.test(k.name), promoted: k.promoted,
       base: { hp: b.hp, str: k.magic ? b.mag : b.str, skl: b.skl, spd: b.spd, def: b.def, res: b.res, con: b.con, mov: b.mov }, gr,
-      terrain: Object.assign({}, t, { sms: twin.terrain.sms, smsTable: twin.terrain.smsTable, game: twin.terrain.game }) });
+      terrain: Object.assign({}, t, { sms: twin.terrain.sms, smsTable: twin.terrain.smsTable, game: twin.terrain.game, fe5Sprite: k.sprite }) });
   }
   return all;
 };
+})(this);
+
+</script>
+<script>
+// MP2K ("Sappy") music player: plays songs straight from the player's own GBA ROM through Web Audio.
+(function (root) {
+'use strict';
+const LEN = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,28,30,32,36,40,42,44,48,52,54,56,60,64,66,68,72,76,78,80,84,88,90,92,96];
+function Player(R, opts) {
+  opts = opts || {};
+  const u32 = a => (R[a] | R[a + 1] << 8 | R[a + 2] << 16 | R[a + 3] << 24) >>> 0, ok = p => p >= 0x08000000 && p < 0x08000000 + R.length, off = p => p - 0x08000000;
+  let ctx = null, master = null, timer = null, song = null, sampleCache = new Map(), psgCache = {}, volume = opts.volume ?? 0.9;
+  function audio() { if (!ctx) { const AC = window.AudioContext || window.webkitAudioContext; ctx = opts.ctx || new AC(); master = ctx.createGain(); master.gain.value = volume; master.connect(ctx.destination); } return ctx; }
+  function sample(ptr) {
+    if (sampleCache.has(ptr)) return sampleCache.get(ptr);
+    const a = off(ptr), flags = R[a + 3], pitch = u32(a + 4), loopStart = u32(a + 8), size = u32(a + 12);
+    if (!size || size > 0x200000 || a + 16 + size > R.length) { sampleCache.set(ptr, null); return null; }
+    const buf = ctx.createBuffer(1, size, 22050), d = buf.getChannelData(0);
+    for (let i = 0; i < size; i++) { const v = R[a + 16 + i]; d[i] = (v > 127 ? v - 256 : v) / 128; }
+    const s = { buf, rate: pitch / 1024, loop: !!(flags & 0x40), loopStart: loopStart / 22050, loopEnd: size / 22050 };
+    sampleCache.set(ptr, s); return s;
+  }
+  function psgWave(kind, arg) {          // square duty cycles, programmable wave, noise
+    const k = kind + ':' + arg; if (psgCache[k]) return psgCache[k];
+    let buf;
+    if (kind === 'noise') { buf = ctx.createBuffer(1, 32768, 32768); const d = buf.getChannelData(0); let lfsr = 0x7FFF; const narrow = arg & 1;
+      for (let i = 0; i < d.length; i++) { const bit = (lfsr ^ (lfsr >> 1)) & 1; lfsr = (lfsr >> 1) | (bit << 14); if (narrow) lfsr = (lfsr & ~0x40) | (bit << 6); d[i] = lfsr & 1 ? 0.5 : -0.5; } }
+    else if (kind === 'wave') { buf = ctx.createBuffer(1, 32, 32 * 261.63); const d = buf.getChannelData(0); const a = off(arg);
+      for (let i = 0; i < 32; i++) { const b = R[a + (i >> 1)]; d[i] = (((i & 1) ? b & 15 : b >> 4) - 7.5) / 8; } }
+    else { const duty = [0.125, 0.25, 0.5, 0.75][arg & 3]; buf = ctx.createBuffer(1, 64, 64 * 261.63); const d = buf.getChannelData(0); for (let i = 0; i < 64; i++) d[i] = i < 64 * duty ? 0.45 : -0.45; }
+    return psgCache[k] = buf;
+  }
+  function voiceAt(vg, idx) { const a = off(vg) + idx * 12; return a + 12 <= R.length ? Array.from(R.subarray(a, a + 12)) : null; }
+  function resolve(vg, voiceIdx, key) {   // follow key-split and drum tables to the real instrument
+    let v = voiceAt(vg, voiceIdx); if (!v) return null; let k = key, drum = false;
+    for (let guard = 0; guard < 3 && v; guard++) {
+      if (v[0] === 0x40) { const sub = u32(off(vg) + voiceIdx * 12 + 4), map = u32(off(vg) + voiceIdx * 12 + 8); if (!ok(sub) || !ok(map)) return null; const i = R[off(map) + key]; v = voiceAt(sub, i); vg = sub; voiceIdx = i; continue; }
+      if (v[0] === 0x80) { const sub = u32(off(vg) + voiceIdx * 12 + 4); if (!ok(sub)) return null; v = voiceAt(sub, key); vg = sub; voiceIdx = key; drum = true; continue; }
+      break;
+    }
+    if (!v || v[0] === 0x40 || v[0] === 0x80) return null;
+    return { v, vg, idx: voiceIdx, key: drum ? v[1] : k, drum, ptr: (v[4] | v[5] << 8 | v[6] << 16 | v[7] << 24) >>> 0 };
+  }
+  function playNote(tr, key, vel, t, dur) {
+    const r = resolve(song.vg, tr.voice, key); if (!r) return null;
+    const type = r.v[0] & 7, fixed = (r.v[0] & 8) && type === 0, A = r.v[8], D = r.v[9], S = r.v[10], Rr = r.v[11];
+    const semis = (r.key + tr.keySh - 60) + tr.bend * tr.bendR / 64 + tr.tune / 64;
+    const src = ctx.createBufferSource(), g = ctx.createGain(); let rate;
+    if (type === 0) { if (!ok(r.ptr)) return null; const s = sample(r.ptr); if (!s) return null; src.buffer = s.buf; rate = fixed ? s.rate / 22050 : s.rate / 22050 * Math.pow(2, semis / 12);
+      if (s.loop) { src.loop = true; src.loopStart = s.loopStart; src.loopEnd = s.loopEnd; } }
+    else if (type === 1 || type === 2) { src.buffer = psgWave('sq', r.v[4]); src.loop = true; rate = Math.pow(2, semis / 12); }
+    else if (type === 3) { if (!ok(r.ptr)) return null; src.buffer = psgWave('wave', r.ptr); src.loop = true; rate = Math.pow(2, semis / 12); }
+    else if (type === 4) { src.buffer = psgWave('noise', r.v[4]); src.loop = true; rate = Math.min(4, Math.pow(2, (r.key - 60) / 12)); }
+    else return null;
+    src.playbackRate.setValueAtTime(Math.max(0.01, Math.min(64, rate)), t);
+    const peak = (vel / 127) * (type === 0 ? 1 : 0.32);
+    g.gain.setValueAtTime(0, t);
+    if (type === 0) { const at = A >= 255 ? 0.002 : 255 / Math.max(1, A) / 60; g.gain.linearRampToValueAtTime(peak, t + at);
+      const sus = peak * S / 255, tau = D >= 255 ? 1e4 : D <= 0 ? 0.001 : -1 / Math.log(D / 256) / 60; g.gain.setTargetAtTime(sus, t + at, tau); }
+    else { const at = (A & 7) * 0.016 + 0.002; g.gain.linearRampToValueAtTime(peak, t + at); g.gain.setTargetAtTime(peak * (S & 15) / 15, t + at, Math.max(0.01, (D & 7) * 0.05)); }
+    src.connect(g); g.connect(tr.out); src.start(t);
+    const n = { src, g, key, type, Rr, base: rate, semisNoBend: semis - tr.bend * tr.bendR / 64, fixed };
+    if (dur !== null) release(n, t + dur);
+    return n;
+  }
+  function release(n, t) { const tau = n.type === 0 ? (n.Rr >= 255 ? 0.5 : n.Rr <= 0 ? 0.005 : -1 / Math.log(n.Rr / 256) / 60) : Math.max(0.01, (n.Rr & 7) * 0.04);
+    try { n.g.gain.cancelScheduledValues(t); n.g.gain.setTargetAtTime(0, t, tau); n.src.stop(t + Math.min(3, tau * 6) + 0.02); } catch (e) {} }
+  function start(songId, tableOff) {
+    stop(); audio(); if (ctx.state === 'suspended') ctx.resume();
+    const head = u32(tableOff + songId * 8); if (!ok(head)) return false;
+    const h = off(head), n = R[h], vg = u32(h + 4); if (!n || n > 16 || !ok(vg)) return false;
+    const tracks = [];
+    for (let i = 0; i < n; i++) { const out = ctx.createGain(), pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null; if (pan) { out.connect(pan); pan.connect(master); } else out.connect(master);
+      tracks.push({ pc: off(u32(h + 8 + i * 4)), wait: 0, stack: [], rept: {}, last: 0, key: 60, vel: 100, voice: 0, vol: 100, pan: 0, bend: 0, bendR: 2, keySh: 0, tune: 0, out, panNode: pan, notes: [], done: false }); }
+    song = { id: songId, vg, tracks, tempo: 150, t: ctx.currentTime + 0.08, guard: 0 };
+    for (const tr of tracks) setVol(tr, song.t);
+    timer = setInterval(pump, 25); pump(); return true;
+  }
+  function setVol(tr, t) { tr.out.gain.setValueAtTime(Math.pow(tr.vol / 127, 1.6) * 0.8, t); if (tr.panNode) tr.panNode.pan.setValueAtTime(Math.max(-1, Math.min(1, tr.pan / 64)), t); }
+  function bendAll(tr, t) { for (const n of tr.notes) if (n.type !== 4 && !n.fixed) { const r = n.base * Math.pow(2, (tr.bend * tr.bendR / 64) / 12); try { n.src.playbackRate.setValueAtTime(Math.max(0.01, Math.min(64, r)), t); } catch (e) {} } }
+  function step(tr, t, tick) {
+    let guard = 0;
+    while (tr.wait === 0 && !tr.done && guard++ < 400) {
+      let b = R[tr.pc];
+      if (b < 0x80) { b = tr.last; } else { tr.pc++; if (b >= 0xBD) tr.last = b; }
+      if (b >= 0x80 && b <= 0xB0) { tr.wait = LEN[b - 0x80]; continue; }
+      if (b >= 0xCF) {                                   // notes (TIE and N01..N96) with optional key / velocity / gate
+        let len = b === 0xCF ? null : LEN[b - 0xCF];
+        if (R[tr.pc] < 0x80) { tr.key = R[tr.pc++]; if (R[tr.pc] < 0x80) { tr.vel = R[tr.pc++]; if (R[tr.pc] < 0x80 && len !== null) len += R[tr.pc++]; } }
+        const n = playNote(tr, tr.key, tr.vel, t, len === null ? null : len * tick);
+        if (n) { tr.notes.push(n); if (tr.notes.length > 24) tr.notes.shift(); if (len === null) n.tie = true; }
+        continue;
+      }
+      switch (b) {
+        case 0xB1: tr.done = true; break;
+        case 0xB2: { const p = u32(tr.pc); tr.pc = ok(p) ? off(p) : tr.pc + 4; song.looped = true; break; }
+        case 0xB3: { const p = u32(tr.pc); tr.stack.push(tr.pc + 4); tr.pc = ok(p) ? off(p) : tr.pc + 4; break; }
+        case 0xB4: tr.pc = tr.stack.length ? tr.stack.pop() : tr.pc; break;
+        case 0xB5: { const cnt = R[tr.pc], p = u32(tr.pc + 1), here = tr.pc; tr.rept[here] = (tr.rept[here] || 0) + 1; if (cnt === 0 || tr.rept[here] < cnt) tr.pc = off(p); else { tr.rept[here] = 0; tr.pc += 5; } break; }
+        case 0xB9: tr.pc += 3; break;
+        case 0xBA: tr.pc++; break;
+        case 0xBB: song.tempo = R[tr.pc++] * 2; break;
+        case 0xBC: { const v = R[tr.pc++]; tr.keySh = v > 127 ? v - 256 : v; break; }
+        case 0xBD: tr.voice = R[tr.pc++]; break;
+        case 0xBE: tr.vol = R[tr.pc++]; setVol(tr, t); break;
+        case 0xBF: tr.pan = R[tr.pc++] - 64; setVol(tr, t); break;
+        case 0xC0: tr.bend = R[tr.pc++] - 64; bendAll(tr, t); break;
+        case 0xC1: tr.bendR = R[tr.pc++]; break;
+        case 0xC2: case 0xC3: case 0xC4: case 0xC5: tr.pc++; break;
+        case 0xC8: { const v = R[tr.pc++]; tr.tune = v - 64; break; }
+        case 0xCD: tr.pc += 2; break;
+        case 0xCE: { let k = null; if (R[tr.pc] < 0x80) k = R[tr.pc++]; for (const n of tr.notes) if (n.tie && !n.off && (k === null || n.key === k)) { release(n, t); n.off = true; if (k !== null) break; } break; }
+        default: tr.pc++; break;
+      }
+    }
+    if (tr.wait > 0) tr.wait--;
+  }
+  function pump(until) {
+    if (!song || !ctx) return;
+    const ahead = until !== undefined ? until : ctx.currentTime + 0.3;
+    while (song && song.t < ahead) {
+      const tick = 60 / (Math.max(20, song.tempo) * 24);
+      for (const tr of song.tracks) step(tr, song.t, tick);
+      for (const tr of song.tracks) tr.notes = tr.notes.filter(n => !n.off || n.tie === undefined);
+      song.t += tick;
+      if (song.tracks.every(tr => tr.done)) { stop(); return; }
+    }
+  }
+  function stop(fade) {
+    if (timer) clearInterval(timer); timer = null;
+    if (song && ctx) { const t = ctx.currentTime; for (const tr of song.tracks) { tr.out.gain.cancelScheduledValues(t); tr.out.gain.setTargetAtTime(0, t, fade ? 0.25 : 0.03); const o = tr.out; setTimeout(() => { try { o.disconnect(); } catch (e) {} }, 1500); } }
+    song = null;
+  }
+  function setVolume(v) { volume = v; if (master) master.gain.setTargetAtTime(v, ctx.currentTime, 0.05); }
+  function resume() { audio(); if (ctx.state === 'suspended') ctx.resume(); }
+  function renderTo(secs) { if (timer) clearInterval(timer); timer = null; pump(secs); }
+  return { start, stop, setVolume, resume, renderTo, get playing() { return song ? song.id : null; }, get ctx() { return ctx; } };
+}
+// find a song table and a Sound Room (track names) in any FE8-family ROM
+function findMusic(R) {
+  const u32 = a => (R[a] | R[a + 1] << 8 | R[a + 2] << 16 | R[a + 3] << 24) >>> 0, ok = p => p >= 0x08000000 && p < 0x08000000 + R.length;
+  const isSong = p => { if (!ok(p)) return false; const a = p - 0x08000000, n = R[a]; if (n < 1 || n > 16 || a + 8 + 4 * n > R.length || !ok(u32(a + 4))) return false; for (let k = 0; k < n; k++) if (!ok(u32(a + 8 + 4 * k))) return false; return true; };
+  let best = null;
+  for (let s = 0; s + 8 * 64 < R.length; s += 4) {
+    if (!isSong(u32(s))) continue; let k = 0; const first = u32(s);
+    while (s + k * 8 + 8 <= R.length) { const p = u32(s + k * 8); if (!(isSong(p) || (k && p === first))) break; k++; }
+    if (k > 60 && (!best || k > best.n)) best = { off: s, n: k };
+    if (best && best.n > 300) break;
+  }
+  if (best) { const prev = u32(best.off - 8); if (ok(prev) && R[prev - 0x08000000] === 0) { best.off -= 8; best.n++; } }   // song 0 is an empty song
+  return best;
+}
+root.MP2K = { Player, findMusic };
 })(this);
 
 </script>
@@ -1444,10 +1694,11 @@ function render(now) {
     ctx.globalAlpha = view.fade[u.id] !== undefined ? view.fade[u.id] : 1;
     const grey = u.moved && st.phase === u.team, sx = (p.x - cam.x) * T * SC, sy = (p.y - cam.y) * T * SC;
     if (sx > -T * SC * 2 && sy > -T * SC * 2 && sx < cv.width + T * SC && sy < cv.height + T * SC) {
-      if (useRom) { const rc = E.romClass(u.fe8) || E.romClass(0x0F), team = grey ? 4 : u.team === 'player' ? 0 : 1; const sp = rc.smsTable ? FE8.spriteOf(rc.game, rc.sms, team, rc.smsTable) : FE8.sprite(rc.sms, team);
-        ctx.drawImage(sp.frames[grey ? 0 : idle], Math.round(sx - (sp.w - 16) / 2 * SC), Math.round(sy - (sp.h - 16) * SC), sp.w * SC, sp.h * SC); }
+      if (useRom) { const rc = E.romClass(u.fe8) || E.romClass(0x0F), team = grey ? 4 : u.team === 'player' ? 0 : 1; const sp = (rc.fe5Sprite !== undefined && FE8.fe5Sprite && FE8.fe5Sprite(rc.fe5Sprite, team)) || (rc.smsTable ? FE8.spriteOf(rc.game, rc.sms, team, rc.smsTable) : FE8.sprite(rc.sms, team));
+        ctx.drawImage(sp.frames[grey ? 0 : view.walking === u.id ? [0, 1, 2, 1][Math.floor(now / 110) % 4] : idle], Math.round(sx - (sp.w - 16) / 2 * SC), Math.round(sy - (sp.h - 16) * SC), sp.w * SC, sp.h * SC); }
       else ctx.drawImage(unitSprite(u, grey), Math.round(sx), Math.round(sy - (grey ? 0 : bob) * SC), T * SC, T * SC);
       const hp = view.hp[u.id] !== undefined ? view.hp[u.id] : u.hp;
+      if (u.boss || u.captain) drawRankIcon(sx + 2, sy - 2, u.boss);
       if (hp < u.maxhp) { ctx.fillStyle = '#10142e'; ctx.fillRect(sx + 6, sy + T * SC - 9, T * SC - 12, 7); ctx.fillStyle = u.team === 'player' ? '#7fd0ff' : '#ff8c7a'; ctx.fillRect(sx + 8, sy + T * SC - 7, (T * SC - 16) * hp / u.maxhp, 3); }
     }
     ctx.globalAlpha = 1;
@@ -1456,10 +1707,110 @@ function render(now) {
   view.pops = view.pops.filter(pp => now - pp.t < 900);
   for (const pp of view.pops) { const k = (now - pp.t) / 900; txt(pp.s, (pp.x - cam.x + .5) * T * SC, (pp.y - cam.y - .2 - k * .6) * T * SC, 36, pp.c, 'center'); }
   if (view.talk && view.talk.text) drawTalkBox(view.talk);
-  if (view.combat) drawCombat(view.combat);
+  if (view.hud && !view.battle && !view.combat && !(view.talk && view.talk.text)) drawHud(view.hud);
+  if (view.battle) drawBattle(view.battle, now);
+  if (view.statCard && !view.battle) drawStatCard(view.statCard);
+  if (view.combat && !view.battle) drawCombat(view.combat);
   if (view.levelup) drawLevelUp(view.levelup);
   if (view.banner) { winBox(120, 260, 720, 110); txt(view.banner, 480, 285, 56, view.bannerColor || '#fff', 'center'); }
   if (view.card) { ctx.fillStyle = 'rgba(8,12,40,.82)'; ctx.fillRect(0, 0, cv.width, cv.height); txt(view.card[0], 480, 200, 40, '#f2c65c', 'center'); txt(view.card[1], 480, 262, 56, '#fff', 'center'); if (view.card[2]) txt(view.card[2], 480, 352, 32, '#cbd6ff', 'center'); }
+}
+// FE-style rank marks: a gold crown for commanders, a silver star for captains
+// ---------------------------------------------------------------- battle scene
+const SKY = { plains: ['#7fb8f0', '#d8ecff', '#6fae4c', '#3f7d33'], forest: ['#5f9fd6', '#c7e2f5', '#3e7f3a', '#245a26'], mountain: ['#8fb4dc', '#e2eef8', '#9b8a6a', '#6b5b40'],
+  desert: ['#9cc8f0', '#f4ecd2', '#e2c98a', '#b8984e'], water: ['#78aee6', '#d6eafc', '#4d8fcf', '#2c5e9a'], indoor: ['#2a2238', '#4a3d5e', '#7d6f62', '#544638'] };
+async function tween(ms, fn) { let t = 0, last = performance.now(); const dur = ms / (PACE[speed] || 1) * 0.75;
+  while (t < dur) { if (abortFlag) throw new Abort(); await nextFrame(); const now = performance.now(); if (!paused) t += Math.min(50, now - last); last = now; fn(Math.min(1, t / dur)); } fn(1); }
+function spriteFor(u, team) { const rc = E.romClass(u.fe8) || E.romClass(0x0F); return (rc.fe5Sprite !== undefined && FE8.fe5Sprite && FE8.fe5Sprite(rc.fe5Sprite, team)) || (rc.smsTable ? FE8.spriteOf(rc.game, rc.sms, team, rc.smsTable) : FE8.sprite(rc.sms, team)); }
+const whiteCache = new WeakMap();
+function whiteOf(c) { let w = whiteCache.get(c); if (w) return w; w = document.createElement('canvas'); w.width = c.width; w.height = c.height; const g = w.getContext('2d'); g.drawImage(c, 0, 0); g.globalCompositeOperation = 'source-atop'; g.fillStyle = '#fff'; g.fillRect(0, 0, w.width, w.height); whiteCache.set(c, w); return w; }
+async function battleScene(A, D, r, fc) {
+  const right = A.team === 'player' ? A : D, left = right === A ? D : A;
+  const kind = E.sceneKind(st, D.x, D.y);
+  const b = view.battle = { kind, L: left, R: right, s: { [left.id]: { dx: 0, flash: 0, shake: 0, alpha: 1 }, [right.id]: { dx: 0, flash: 0, shake: 0, alpha: 1 } }, fade: 0, crit: 0, proj: null, pops: [], fA: fc.A, fD: fc.D, a: A.id };
+  await tween(220, k => b.fade = k);
+  await wait(300);
+  for (const s of r.strikes) {
+    const by = st.units.find(o => o.id === s.by), on = st.units.find(o => o.id === s.on), dir = by === right ? -1 : 1, w = E.WEAPONS[by.weapon];
+    const ranged = w.magic || by.weapon === 'bow';
+    if (ranged) { await tween(140, k => b.s[by.id].dx = dir * 18 * k);
+      const col = by.weapon === 'bow' ? '#e8e0c8' : by.weapon === 'eye' ? '#c070ff' : by.weapon === 'breath' ? '#ff6a3a' : '#ffb23a';
+      await tween(300, k => b.proj = { from: by, to: on, k, col, arrow: by.weapon === 'bow' }); b.proj = null; }
+    else await tween(170, k => b.s[by.id].dx = dir * 230 * k * k);
+    if (s.hit) { if (s.crit) b.crit = 1; view.hp[on.id] = view.hp[on.id];
+      const from = view.hp[on.id], to = s.hpAfter;
+      b.pops.push({ s: s.crit ? 'Critical! ' + s.dmg : String(s.dmg), who: on.id, t: performance.now(), c: s.crit ? '#ffd75a' : '#ffffff' });
+      await tween(260, k => { b.s[on.id].flash = k < .5 ? 1 : 0; b.s[on.id].shake = Math.round(Math.sin(k * 30) * 10 * (1 - k)); b.crit = s.crit ? 1 - k : 0; view.hp[on.id] = Math.round(from + (to - from) * k); });
+      b.s[on.id].flash = 0; b.s[on.id].shake = 0; }
+    else { b.pops.push({ s: 'Miss', who: on.id, t: performance.now(), c: '#cfe0ff' }); const back = by === right ? -1 : 1; await tween(220, k => b.s[on.id].dx = back * 60 * Math.sin(k * Math.PI)); }
+    await tween(ranged ? 140 : 190, k => b.s[by.id].dx = ranged ? dir * 18 * (1 - k) : dir * 230 * (1 - k));
+    if (s.hpAfter <= 0) await tween(420, k => b.s[on.id].alpha = 1 - k);
+    await wait(260);
+  }
+  await wait(380); await tween(200, k => b.fade = 1 - k); view.battle = null;
+}
+function drawBattle(b, now) {
+  const W = cv.width, H = cv.height, sky = SKY[b.kind] || SKY.plains;
+  ctx.save(); ctx.globalAlpha = b.fade;
+  let g = ctx.createLinearGradient(0, 0, 0, 330); g.addColorStop(0, sky[0]); g.addColorStop(1, sky[1]); ctx.fillStyle = g; ctx.fillRect(0, 0, W, 330);
+  g = ctx.createLinearGradient(0, 330, 0, H); g.addColorStop(0, sky[2]); g.addColorStop(1, sky[3]); ctx.fillStyle = g; ctx.fillRect(0, 330, W, H - 330);
+  for (const [cx, u] of [[270, b.L], [690, b.R]]) { ctx.fillStyle = 'rgba(0,0,0,.28)'; ctx.beginPath(); ctx.ellipse(cx, 418, 150, 26, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = sky[3]; ctx.beginPath(); ctx.ellipse(cx, 410, 140, 22, 0, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = sky[2]; ctx.beginPath(); ctx.ellipse(cx, 404, 132, 17, 0, 0, Math.PI * 2); ctx.fill(); }
+  const frame = Math.floor(now / 200) % 4;
+  for (const [cx, u, flip] of [[270, b.L, true], [690, b.R, false]]) { const st0 = b.s[u.id], sp = spriteFor(u, u.team === 'player' ? 0 : 1); if (!sp) continue;
+    const S = 7, img = sp.frames[[0, 1, 2, 1][frame]], dw = sp.w * S, dh = sp.h * S, x = cx - dw / 2 + st0.dx + st0.shake, y = 410 - dh + 10;
+    ctx.save(); ctx.globalAlpha = b.fade * st0.alpha; if (flip) { ctx.translate(x + dw, y); ctx.scale(-1, 1); ctx.drawImage(st0.flash ? whiteOf(img) : img, 0, 0, dw, dh); } else ctx.drawImage(st0.flash ? whiteOf(img) : img, x, y, dw, dh); ctx.restore(); }
+  if (b.proj) { const p = b.proj, fx = p.from === b.R ? 640 : 320, tx = p.to === b.R ? 660 : 300, x = fx + (tx - fx) * p.k, y = 300 - Math.sin(p.k * Math.PI) * 40;
+    if (p.arrow) { ctx.strokeStyle = p.col; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(x - 30 * Math.sign(tx - fx), y); ctx.lineTo(x, y); ctx.stroke(); }
+    else { const rg = ctx.createRadialGradient(x, y, 2, x, y, 34); rg.addColorStop(0, '#fff'); rg.addColorStop(.35, p.col); rg.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(x, y, 34, 0, Math.PI * 2); ctx.fill(); } }
+  for (const p of b.pops) { const age = (now - p.t) / 900; if (age > 1) continue; const x = p.who === b.R.id ? 690 : 270; feText(p.s, x, 150 - age * 50, 4, p.c, 'center'); }
+  b.pops = b.pops.filter(p => now - p.t < 900);
+  // windows: names and weapons on top, HP and forecast below
+  const side = (u, x, f) => { const col = u.team === 'player' ? '#a9c2ff' : '#ffb2a2';
+    winBox(x, 8, 452, 76); feText(fitName(E.unitLabel(u), 3, 250), x + 18, 18, 3, col); feText(fitName(E.WEAPONS[u.weapon].name, 2, 170), x + 434, 32, 2, '#e9eeff', 'right');
+    winBox(x, H - 158, 452, 150); const hp = view.hp[u.id] !== undefined ? view.hp[u.id] : u.hp;
+    feText('HP', x + 18, H - 140, 2, '#f4cb63'); feText(String(hp), x + 120, H - 146, 3, '#fff', 'right'); hpBar(x + 136, H - 134, 298, hp, u.maxhp);
+    if (f) [['HIT', f.hit], ['DMG', f.dmg + (f.dbl ? ' x2' : '')], ['CRT', f.crit]].forEach(([k, v], i) => { const cx = x + 18 + i * 142; feText(k, cx, H - 82, 2, '#f4cb63'); feText(String(v), cx + 56, H - 88, 3, '#fff'); });
+    else feText('No counterattack', x + 18, H - 82, 2, '#c9d4ff'); };
+  const fL = b.L.id === b.a ? b.fA : b.fD, fR = b.R.id === b.a ? b.fA : b.fD;
+  side(b.L, 14, fL); side(b.R, 494, fR);
+  if (b.crit > 0) { ctx.globalAlpha = b.crit * 0.7; ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H); }
+  ctx.restore();
+}
+// ---------------------------------------------------------------- unit info: the acting unit's box and the full stat card
+function drawHud(u) {
+  const right = (u.x - cam.x) < VW / 2, x = right ? cv.width - 392 : 12, y = (u.y - cam.y) < VH / 2 ? cv.height - 132 : 12;
+  winBox(x, y, 380, 120); const col = u.team === 'player' ? '#a9c2ff' : '#ffb2a2';
+  feText(fitName(E.unitLabel(u), 3, 230), x + 18, y + 8, 3, col);
+  feText(`${E.className(u)}  Lv ${u.level}`, x + 362, y + 22, 2, '#e9eeff', 'right');
+  const hp = view.hp[u.id] !== undefined ? view.hp[u.id] : u.hp;
+  feText('HP', x + 18, y + 72, 2, '#f4cb63'); feText(`${hp}/${u.maxhp}`, x + 150, y + 66, 3, '#fff', 'right'); hpBar(x + 164, y + 76, 196, hp, u.maxhp);
+}
+function drawStatCard(card) {
+  const u = card.u, W = 640, H = 430, x = Math.round((cv.width - W) / 2), y = Math.round((cv.height - H) / 2);
+  winBox(x, y, W, H); const col = u.team === 'player' ? '#a9c2ff' : '#ffb2a2';
+  const sp = useRom ? spriteFor(u, u.team === 'player' ? 0 : 1) : null;
+  if (sp) { const S = 5, f = sp.frames[[0, 1, 2, 1][Math.floor(performance.now() / 260) % 4]]; ctx.drawImage(f, x + 34, y + 30 + (24 - sp.h) * S / 2, sp.w * S, sp.h * S); }
+  feText(fitName(E.unitLabel(u), 3, 400), x + 150, y + 18, 3, col);
+  if (u.boss || u.captain) drawRankIcon(x + 150 + Math.min(400, feWidth(E.unitLabel(u), 3)) + 12, y + 26, u.boss);
+  const tag = gameTag(u); feText(`${E.className(u)}${tag ? '  (' + tag + ')' : ''}${u.leader ? '  Leader' : u.boss ? '  Commander' : u.captain ? '  Captain' : ''}`, x + 150, y + 66, 2, '#e9eeff');
+  feText(`Lv ${u.level}`, x + 150, y + 100, 2, '#f4cb63'); if (u.team === 'player') feText(`EXP ${u.exp}`, x + 260, y + 100, 2, '#f4cb63');
+  feText('HP', x + 34, y + 160, 2, '#f4cb63'); feText(`${u.hp}/${u.maxhp}`, x + 190, y + 154, 3, '#fff', 'right'); hpBar(x + 204, y + 164, 400, u.hp, u.maxhp);
+  const rows = [['Str', u.str], ['Mag', u.mag], ['Skl', u.skl], ['Spd', u.spd], ['Lck', u.lck], ['Def', u.def], ['Res', u.res], ['Mov', E.CLASSES[u.cls] ? E.CLASSES[u.cls].mov : 0]];
+  rows.forEach(([k, v], i) => { const cx = x + 34 + (i % 2) * 300, cy = y + 200 + Math.floor(i / 2) * 44;
+    feText(k, cx, cy + 4, 2, '#f4cb63'); feText(String(v), cx + 120, cy, 3, '#fff', 'right');
+    ctx.fillStyle = '#1a1a2a'; ctx.fillRect(cx + 134, cy + 12, 130, 10); ctx.fillStyle = '#8fd0ff'; ctx.fillRect(cx + 136, cy + 14, Math.min(126, 126 * v / 30), 6); });
+  const w = E.WEAPONS[u.weapon]; feText(`${w.name}${w.heal ? '' : `  Mt ${w.mt}  Hit ${w.hit}`}`, x + 34, y + H - 44, 2, '#e9eeff');
+  feText('Tap to close', x + W - 24, y + H - 44, 2, '#c9d4ff', 'right');
+}
+function drawRankIcon(x, y, boss) {
+  const p = 3; ctx.save(); ctx.translate(Math.round(x), Math.round(y));
+  const px = (cx, cy, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(cx * p, cy * p, w * p, h * p); };
+  if (boss) { const out = '#3a1d00', g1 = '#ffd75a', g2 = '#c8870f';
+    px(0, 1, 9, 6, out); px(1, 2, 7, 4, g2); px(1, 2, 1, 2, g1); px(4, 1, 1, 3, g1); px(7, 2, 1, 2, g1); px(1, 4, 7, 2, g1); px(2, 5, 1, 1, '#e8412f'); px(4, 5, 1, 1, '#3a8ef0'); px(6, 5, 1, 1, '#e8412f'); }
+  else { const out = '#1c2033', s1 = '#f2f6ff', s2 = '#9aa6c6';
+    px(3, 0, 3, 8, out); px(0, 3, 9, 3, out); px(1, 2, 7, 4, out); px(4, 1, 1, 6, s1); px(1, 3, 7, 2, s1); px(2, 4, 5, 1, s2); px(3, 5, 1, 2, s2); px(5, 5, 1, 2, s2); }
+  ctx.restore();
 }
 function fitName(s, sc, w) { let t = String(s); while (t.length > 3 && feWidth(t, sc) > w) t = t.slice(0, -1); return t; }
 function drawCombat(c) {
@@ -1469,7 +1820,7 @@ function drawCombat(c) {
   const side = (u, x, s) => {
     winBox(x, y, 452, H);
     const col = u.team === 'player' ? '#a9c2ff' : '#ffb2a2';
-    feText(fitName(u.name, 3, 240), x + 18, y + 10, 3, col);
+    feText(fitName(E.unitLabel(u), 3, 240), x + 18, y + 10, 3, col);
     feText(fitName(E.WEAPONS[u.weapon].name, 2, 170), x + 434, y + 22, 2, '#e9eeff', 'right');
     const hp = view.hp[u.id] !== undefined ? view.hp[u.id] : u.hp;
     feText('HP', x + 18, y + 64, 2, '#f4cb63'); feText(String(hp), x + 120, y + 58, 3, '#ffffff', 'right'); hpBar(x + 136, y + 70, 298, hp, u.maxhp);
@@ -1491,7 +1842,8 @@ function drawLevelUp(l) {
 // ---------------------------------------------------------------- timing
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 class Abort extends Error {}
-async function wait(ms) { let left = ms; while (left > 0) { if (abortFlag) throw new Abort(); if (!paused) left -= 30 * speed; await sleep(30); } if (abortFlag) throw new Abort(); }
+const PACE = { 1: 0.75, 2: 1.5, 4: 3 };
+async function wait(ms) { let left = ms; while (left > 0) { if (abortFlag) throw new Abort(); if (!paused) left -= 30 * (PACE[speed] || 1); await sleep(30); } if (abortFlag) throw new Abort(); }
 function drawTalk() {}
 function drawTalkBox(t) {
   const H = 196, y = cv.height - H - 10, x = 10, W = cv.width - 20;
@@ -1512,7 +1864,7 @@ function oldDrawTalk() {
   for (const wd of words) { const t = cur ? cur + ' ' + wd : wd; if (FE8.ui.textWidth(t, 'talk') * 3 > 880 && cur) { lines.push(cur); cur = wd; } else cur = t; } if (cur) lines.push(cur);
   lines.slice(0, 2).forEach((l, i) => FE8.ui.drawText(tctx, l, 40, 110 + i * 50, 3, 'talk', ['#e0e0d8', '#8a8a90', '#303038']));
 }
-function show(speaker, line) { $('speaker').textContent = speaker ? speaker + ':' : ''; $('line').textContent = line || ''; }
+function show(speaker, line) { $('speaker').textContent = speaker ? speaker + ':' : ''; $('line').textContent = line || ''; const s = $('strip'); if (s) { s.textContent = (speaker ? speaker + ': ' : '') + (line || ''); s.classList.toggle('on', !!line && !view.talk); } }
 async function say(speaker, line) { show(speaker, line); view.talk = { speaker: speaker || '', text: '' }; for (let i = 1; i <= line.length; i += 2) { view.talk.text = line.slice(0, i); await wait(26); } view.talk.text = line; await wait(1400); }
 function setMenu(items) { const m = $('menu'); m.innerHTML = '';
   const u = human && human.sel, p = u && (view.pos[u.id] || u); let cx = p ? p.x : 0;
@@ -1533,13 +1885,19 @@ function rangesFor(u, limit) {
 }
 
 // ---------------------------------------------------------------- playing actions
+const nextFrame = () => new Promise(r => requestAnimationFrame(r));
 async function animatePath(u, path) {
-  for (let i = 1; i < path.length; i++) { const [ax, ay] = path[i - 1], [bx, by] = path[i];
-    for (let s = 1; s <= 4; s++) { view.pos[u.id] = { x: ax + (bx - ax) * s / 4, y: ay + (by - ay) * s / 4 }; focus(view.pos[u.id].x, view.pos[u.id].y); await wait(28); } }
-  delete view.pos[u.id];
+  const tileMs = { 1: 200, 2: 110, 4: 55 }[speed] || 200;
+  for (let i = 1; i < path.length; i++) { const [ax, ay] = path[i - 1], [bx, by] = path[i]; let t = 0, last = performance.now();
+    while (t < tileMs) { if (abortFlag) throw new Abort(); await nextFrame(); const now = performance.now(); if (!paused) t += Math.min(50, now - last); last = now;
+      const k = Math.min(1, t / tileMs); view.pos[u.id] = { x: ax + (bx - ax) * k, y: ay + (by - ay) * k }; view.walking = u.id; focus(view.pos[u.id].x, view.pos[u.id].y); } }
+  delete view.pos[u.id]; view.walking = null;
 }
 async function playAction(u, act, opts) {
-  opts = opts || {};
+  opts = opts || {}; view.hud = u;
+  try { return await playActionInner(u, act, opts); } finally { view.hud = null; }
+}
+async function playActionInner(u, act, opts) {
   const before = {}; st.units.forEach(o => before[o.id] = o.hp);
   const sx = u.x, sy = u.y;
   { const ox = cam.tx, oy = cam.ty; focus(u.x, u.y); if (Math.abs(cam.tx - ox) + Math.abs(cam.ty - oy) > 2) await wait(380); }
@@ -1550,10 +1908,12 @@ async function playAction(u, act, opts) {
   const r = E.apply(st, u, act); delete view.pos[u.id];
   if (r.type === 'attack') {
     const A = st.units.find(o => o.id === r.a), D = st.units.find(o => o.id === r.d);
-    show(A.name, `attacks ${D.name}${D.boss ? ', the commander' : ''}.`);
+    show(E.unitLabel(A), `attacks ${E.unitLabel(D)}${D.boss ? ', the commander' : D.captain ? ', a captain' : ''}.`);
     view.hp = { [r.a]: before[r.a], [r.d]: before[r.d] }; focus((A.x + D.x) / 2, (A.y + D.y) / 2);
-    view.combat = { a: r.a, d: r.d, fa: fc.A, fd: fc.D }; await wait(500);
-    for (const s of r.strikes) {
+    const scene = useRom && (OPTS.battles === 'on' || (OPTS.battles === 'boss' && (A.boss || D.boss || A.captain || D.captain)));
+    if (scene) { Music.battle(A, D); await battleScene(A, D, r, fc); Music.afterBattle(); }
+    else { view.combat = { a: r.a, d: r.d, fa: fc.A, fd: fc.D }; await wait(500); }
+    if (!scene) for (const s of r.strikes) {
       const by = st.units.find(o => o.id === s.by), on = st.units.find(o => o.id === s.on);
       view.pos[by.id] = { x: by.x + Math.sign(on.x - by.x) * .25, y: by.y + Math.sign(on.y - by.y) * .25 }; await wait(140); delete view.pos[by.id];
       view.hp[on.id] = s.hpAfter;
@@ -1563,9 +1923,9 @@ async function playAction(u, act, opts) {
     for (const id of r.deaths) { const d = st.units.find(o => o.id === id); for (let a = 10; a >= 0; a--) { view.fade[id] = a / 10; await wait(45); } delete view.fade[id];
       if (d.team === 'player') { await say(d.name, ['I\u2019m sorry. Go on without me.', 'Tell them I held.', 'Not here. Not yet.', 'Keep marching.'][(d.id * 7) % 4]); view.talk = null; } }
     await wait(300); view.combat = null; view.hp = {};
-  } else if (r.type === 'heal') { const t = st.units.find(o => o.id === r.target); show(u.name, `heals ${t.name}.`); view.pops.push({ s: '+' + r.amount, x: t.x, y: t.y, c: '#7fe08a', t: performance.now() }); await wait(600); }
-  else if (r.type === 'refresh') { const t = st.units.find(o => o.id === r.target); show(u.name, `${E.WEAPONS[u.weapon].name === 'Dance' && /Bard/.test(E.className(u)) ? 'plays for' : 'dances for'} ${t.name}.`); view.pops.push({ s: 'Again!', x: t.x, y: t.y, c: '#f4cb63', t: performance.now() }); await wait(600); }
-  else if (r.type === 'vulnerary') { show(u.name, 'uses a Vulnerary.'); view.pops.push({ s: '+' + r.amount, x: u.x, y: u.y, c: '#7fe08a', t: performance.now() }); await wait(600); }
+  } else if (r.type === 'heal') { const t = st.units.find(o => o.id === r.target); show(E.unitLabel(u), `heals ${E.unitLabel(t)}.`); view.pops.push({ s: '+' + r.amount, x: t.x, y: t.y, c: '#7fe08a', t: performance.now() }); await wait(600); }
+  else if (r.type === 'refresh') { const t = st.units.find(o => o.id === r.target); show(E.unitLabel(u), `${E.WEAPONS[u.weapon].name === 'Dance' && /Bard/.test(E.className(u)) ? 'plays for' : 'dances for'} ${E.unitLabel(t)}.`); view.pops.push({ s: 'Again!', x: t.x, y: t.y, c: '#f4cb63', t: performance.now() }); await wait(600); }
+  else if (r.type === 'vulnerary') { show(E.unitLabel(u), 'uses a Vulnerary.'); view.pops.push({ s: '+' + r.amount, x: u.x, y: u.y, c: '#7fe08a', t: performance.now() }); await wait(600); }
   else await wait(120);
   for (const e of (r.exp || [])) for (const g of e.levels) { const lu = st.units.find(o => o.id === e.id); view.levelup = { name: lu.name, level: lu.level, gains: g, u: lu }; show(lu.name, `reached level ${lu.level}.`); await wait(1500); view.levelup = null; }
   if (r.seized) await banner('Seized!', '#f2c65c');
@@ -1614,7 +1974,7 @@ function pickTarget(u, list, kind) {
 function forecastFor(u, t) {
   const [x, y] = human.dest, f = E.forecast(st, u, t, x, y);
   const ox = u.x, oy = u.y; u.x = x; u.y = y; view.combat = { a: u.id, d: t.id, fa: f.A, fd: f.D }; view.combatPreview = [ox, oy]; u.x = ox; u.y = oy;
-  show(u.name, `${t.name}: you hit ${f.A.hit}% for ${f.A.dmg}${f.A.dbl ? ' twice' : ''}. ${f.D ? `They hit back ${f.D.hit}% for ${f.D.dmg}${f.D.dbl ? ' twice' : ''}.` : 'No counterattack.'}`);
+  show(u.name, `${E.unitLabel(t)}: you hit ${f.A.hit}% for ${f.A.dmg}${f.A.dbl ? ' twice' : ''}. ${f.D ? `They hit back ${f.D.hit}% for ${f.D.dmg}${f.D.dbl ? ' twice' : ''}.` : 'No counterattack.'}`);
   human.focusTarget = t; human.stage = 'forecast';
   setMenu([['Attack', () => commit(u, { type: 'attack', target: t.id }), 'primary'], ['Back', () => { view.combat = null; human.focusTarget = null; pickTarget(u, human.list, 'attack'); }, 'quiet']]);
 }
@@ -1628,15 +1988,18 @@ async function commit(u, act) {
   if (playerUnits().every(v => v.moved)) finishHuman(false); else idleHint();
 }
 function onTap(x, y) {
-  if (!human || human.stage === 'busy') return;
+  if (!st) return;
+  if (view.statCard) { view.statCard = null; return; }
   const at = st.units.find(o => o.hp > 0 && o.x === x && o.y === y);
+  if (!human || human.stage === 'busy') { if (at) view.statCard = { u: at, t: performance.now() }; return; }
+  if (at && (at.team !== 'player' || at.moved) && human.stage === 'idle') view.statCard = { u: at, t: performance.now() };
   if (human.stage === 'idle' || human.stage === 'move') {
     if (at && at.team === 'player' && !at.moved && (!human.sel || at !== human.sel || human.stage === 'idle')) { if (human.sel !== at) return selectUnit(at); }
     if (human.stage === 'move' && human.sel) {
       if ((x === human.sel.x && y === human.sel.y) || (human.ranges.move.some(([a, b]) => a === x && b === y) && !(at && at !== human.sel))) return moveTo(human.sel, x, y);
       return cancelSelection();
     }
-    if (at && at.team === 'enemy') { view.tiles = rangesFor(at); view.cursor = [x, y]; show(at.name, `${at.boss ? 'Commander, ' : ''}${E.className(at)}  Lv ${at.level}  HP ${at.hp}/${at.maxhp}  ${E.WEAPONS[at.weapon].name}. Purple and red show where it can reach.`); return; }
+    if (at && at.team === 'enemy') { view.tiles = rangesFor(at); view.cursor = [x, y]; show(E.unitLabel(at), `${at.boss ? 'Commander, ' : at.captain ? 'Captain, ' : ''}${E.className(at)}  Lv ${at.level}  HP ${at.hp}/${at.maxhp}  ${E.WEAPONS[at.weapon].name}. Purple and red show where it can reach.`); return; }
     view.tiles = null; view.cursor = null; idleHint(); return;
   }
   if (human.stage === 'target') { const t = human.list.find(o => o.x === x && o.y === y);
@@ -1655,8 +2018,10 @@ function onTap(x, y) {
 // ---------------------------------------------------------------- chapter flow
 async function aiUnits(team, units) { const q = units.slice(); for (let i = 0; i < q.length; i++) { const u = q[i]; if (u.hp <= 0 || u.moved) continue; const act = E.plan(st, u); await playAction(u, act, { showRange: true }); if (act.type === 'refresh') { const t = st.units.find(o => o.id === act.target); if (t) q.push(t); } const o = E.outcome(st); if (o) return o; } return null; }
 async function playChapter() {
+  Music.chapter();
   for (;;) {
     for (const team of ['player', 'enemy']) {
+      Music.phase(team);
       await banner(team === 'player' ? 'Player Phase' : 'Enemy Phase', team === 'player' ? '#9cb6ff' : '#ff9c8a');
       const heals = E.startPhase(st, team);
       for (const h of heals) { const u = st.units.find(o => o.id === h.id); view.pops.push({ s: '+' + h.amount, x: u.x, y: u.y, c: '#7fe08a', t: performance.now() }); }
@@ -1687,6 +2052,7 @@ async function runCampaign(resume) {
     view.talk = null;
     const res = await playChapter();
     const end = E.endChapter(camp, st, res);
+    Music.result(res);
     view.card = [res === 'victory' ? 'Victory' : (res === 'retreat' ? 'Retreat' : 'Defeat'), st.title, `${st.turn} turns${end.summary.lost.length ? ', lost ' + end.summary.lost.join(', ') : ''}`];
     await wait(2600); view.card = null;
     for (const [s, l] of end.lines) await say(s, l);
@@ -1712,7 +2078,8 @@ function renderPanel() {
   if (tab === 'army') {
     const live = st ? st.units.filter(u => u.team === 'player') : camp.army;
     p.innerHTML = camp.army.map(u => { const cur = live.find(o => o.id === u.id) || u;
-      return `<div class="unit"><span>${u.leader || u.id === camp.lord ? '<span class="lord">\u2605</span> ' : ''}${u.name}</span><span class="muted">${E.className(u)} <span class="tag">${gameTag(u)}</span></span><span>Lv ${u.level}</span><span>${cur.hp > 0 ? cur.hp + '/' + u.maxhp : '<span class="bad">fallen</span>'}</span></div>`; }).join('');
+      return `<div class="unit" role="button" tabindex="0" data-uid="${u.id}" style="cursor:pointer"><span>${u.leader || u.id === camp.lord ? '<span class="lord">\u2605</span> ' : ''}${u.name}</span><span class="muted">${E.className(u)} <span class="tag">${gameTag(u)}</span></span><span>Lv ${u.level}</span><span>${cur.hp > 0 ? cur.hp + '/' + u.maxhp : '<span class="bad">fallen</span>'}</span></div>`; }).join('');
+    p.querySelectorAll('[data-uid]').forEach(el => el.onclick = () => { const id = +el.dataset.uid, unit = (st ? st.units : camp.army).find(o => o.id === id) || camp.army.find(o => o.id === id); if (!unit) return; view.statCard = { u: unit, t: performance.now() }; if (st && unit.hp > 0 && unit.x >= 0) focus(unit.x, unit.y); });
   } else if (tab === 'log') {
     p.innerHTML = camp.log.length ? camp.log.slice().reverse().map(s => `<div class="line"><span>Chapter ${s.chapter}: ${s.title}${s.lost.length ? `<br><span class="muted">Lost ${s.lost.join(', ')}</span>` : ''}${s.recruits.length ? `<br><span class="muted">Joined: ${s.recruits.join(', ')}</span>` : ''}</span><span class="${s.result === 'victory' ? 'good' : 'bad'}">${s.result === 'victory' ? 'Won' : (s.result === 'retreat' ? 'Retreat' : 'Lost')}, ${s.turns} turns</span></div>`).join('') : '<div class="muted">No chapters finished yet.</div>';
   } else {
@@ -1721,14 +2088,22 @@ function renderPanel() {
 }
 const TAGS = { BE8E: 'FE8', AE7E: 'FE7', AFEJ: 'FE6', AE7J: 'FE7', FE5: 'FE5' };
 function gameTag(u) { const g = E.CLASSES[u.cls] && E.CLASSES[u.cls].game; return g ? (TAGS[g] || g) : ''; }
-const OPTS = Object.assign({ leader: 'lord', recruits: 'standard' }, JSON.parse(store.get('ec-opts') || '{}')); E.setOptions(OPTS);
+const OPTS = Object.assign({ leader: 'lord', recruits: 'standard', theme: 'system', battles: 'on', music: 'fe8', volume: 70 }, JSON.parse(store.get('ec-opts') || '{}')); E.setOptions(OPTS);
+function applyTheme() { if (OPTS.theme === 'system') delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = OPTS.theme; }
+applyTheme();
 function optionsHtml() {
   const seg = (key, a, b) => `<div class="seg"><button data-o="${key}" data-v="${a[0]}" aria-pressed="${OPTS[key] === a[0]}">${a[1]}</button><button data-o="${key}" data-v="${b[0]}" aria-pressed="${OPTS[key] === b[0]}">${b[1]}</button></div>`;
-  return `<div class="opt"><div><strong>Leader</strong><div class="muted">Who leads each new run. If the leader falls, the run ends.</div></div>${seg('leader', ['lord', 'A Lord class'], ['any', 'Any class'])}</div>
+  const seg3 = (key, list) => `<div class="seg" style="grid-template-columns:repeat(${list.length},1fr)">${list.map(([v, l]) => `<button data-o="${key}" data-v="${v}" aria-pressed="${OPTS[key] === v}">${l}</button>`).join('')}</div>`;
+  const extra = Music.count;
+  return `<div class="opt"><div><strong>Music</strong><div class="muted">Played from your own ROM. ${extra ? `Your SRR build adds ${extra} more tracks to the mix.` : 'Add an SRR or SRR+ build in the Library to mix in its extra tracks.'}</div></div>${seg3('music', [['off', 'Off'], ['fe8', 'Sacred Stones'], ['mix', 'With SRR']])}
+    <label class="muted" style="display:flex;gap:10px;align-items:center">Volume <input id="vol" type="range" min="0" max="100" value="${OPTS.volume}" style="flex:1"></label></div>
+  <div class="opt"><div><strong>Look</strong><div class="muted">Light or dark windows. System follows your phone.</div></div>${seg3('theme', [['system', 'System'], ['light', 'Light'], ['dark', 'Dark']])}</div>
+  <div class="opt"><div><strong>Battle scenes</strong><div class="muted">A close-up for each fight, or keep everything on the map.</div></div>${seg3('battles', [['on', 'Every fight'], ['boss', 'Bosses only'], ['off', 'Map only']])}</div>
+  <div class="opt"><div><strong>Leader</strong><div class="muted">Who leads each new run. If the leader falls, the run ends.</div></div>${seg('leader', ['lord', 'A Lord class'], ['any', 'Any class'])}</div>
   <div class="opt"><div><strong>Recruits</strong><div class="muted">Standard draws from regular classes, with the odd dancer or bard. Anything goes adds monsters to your army too.</div></div>${seg('recruits', ['standard', 'Standard'], ['anything', 'Anything goes'])}</div>
-  <div class="muted" style="padding-top:8px">Changes apply from your next new run.</div>`;
+  <div class="muted" style="padding-top:8px">Leader and recruit changes apply from your next new run.</div>`;
 }
-function wireOptions() { document.querySelectorAll('[data-o]').forEach(b => b.onclick = () => { OPTS[b.dataset.o] = b.dataset.v; store.set('ec-opts', JSON.stringify(OPTS)); E.setOptions(OPTS); renderPanel(); }); }
+function wireOptions() { const vol = $('vol'); if (vol) vol.oninput = () => { OPTS.volume = +vol.value; store.set('ec-opts', JSON.stringify(OPTS)); Music.volume(OPTS.volume); }; document.querySelectorAll('[data-o]').forEach(b => b.onclick = () => { OPTS[b.dataset.o] = b.dataset.v; store.set('ec-opts', JSON.stringify(OPTS)); E.setOptions(OPTS); applyTheme(); if (b.dataset.o === 'music') { if (OPTS.music === 'off') Music.stop(); else Music.phase(st ? st.phase || 'player' : 'player'); } renderPanel(); }); }
 let libMsg = '';
 function libraryHtml() {
   const games = useRom ? FE8.library() : [], counts = {}, maps = useRom ? E.mapCount() : 0;
@@ -1741,25 +2116,83 @@ function libraryHtml() {
   ${libMsg ? `<p style="margin:8px 0 0" aria-live="polite">${libMsg}</p>` : ''}
   <div class="line credit" style="margin-top:8px"><span>Community maps are free-to-use layouts from the <a href="https://github.com/Klokinator/FE-Repo" target="_blank" rel="noopener">FE Repository</a>, drawn with tiles from your own ROMs.</span><span></span></div>${repoRows}`;
 }
+// what each chosen file is, read lazily: DS games are read in slices, everything else whole
 async function filesToRoms(files) {
   const out = [];
   for (const f of files) {
-    if (/\.zip$/i.test(f.name) && window.JSZip) { const z = await JSZip.loadAsync(await f.arrayBuffer());
-      let found = 0; for (const e of Object.values(z.files)) if (!e.dir && /\.(gba|nds|sfc|smc|fig|iso)$/i.test(e.name)) { found++; out.push({ name: e.name, buf: await e.async('arraybuffer') }); }
-      if (!found) out.push({ name: f.name, none: Object.keys(z.files).some(n => /\.(ips|ups|bps|xdelta|delta)$/i.test(n)) ? 'holds a patch, not a game. Apply it to your own ROM first, then add the patched ROM.' : 'has no game file inside.' }); }
-    else out.push({ name: f.name, buf: await f.arrayBuffer() });
+    if (/\.zip$/i.test(f.name)) {
+      if (!window.JSZip) { out.push({ name: f.name, none: 'is a zip, and the unzip helper didn\u2019t load. Unzip it and add the game file itself.' }); continue; }
+      const z = await JSZip.loadAsync(f); let found = 0;
+      for (const e of Object.values(z.files)) if (!e.dir && /\.(gba|nds|sfc|smc|fig)$/i.test(e.name)) { found++; out.push({ name: e.name, load: () => e.async('arraybuffer') }); }
+      if (!found) out.push({ name: f.name, none: Object.keys(z.files).some(n => /\.(ips|ups|bps|xdelta|delta)$/i.test(n)) ? 'holds a patch, not a game. Apply it to your own ROM first, then add the patched ROM.' : 'has no game file inside.' });
+    } else out.push({ name: f.name, file: f });
   }
   return out;
 }
+const sliceReader = f => (o, n) => f.slice(o, o + n).arrayBuffer().then(b => new Uint8Array(b));
+async function addOne(r, say) {
+  let head;
+  if (r.file) head = await sliceReader(r.file)(0, 0x200); else { r.buf = await r.load(); head = new Uint8Array(r.buf, 0, 0x200); }
+  const isGBA = head[0xB2] === 0x96, code = String.fromCharCode(head[0xC], head[0xD], head[0xE], head[0xF]);
+  if (!isGBA && FE8.dsLayoutsFrom && /^[A-Z0-9]{4}$/.test(code) && head[0x12] <= 3) {
+    say(`Reading the DS maps in ${r.name}.`);
+    const set = await FE8.dsLayoutsFrom(r.file ? sliceReader(r.file) : (o, n) => Promise.resolve(new Uint8Array(r.buf, o, Math.min(n, r.buf.byteLength - o))));
+    if (set) { if (!set.layouts.length) return `${set.title}: no battle maps were found in this file. If it\u2019s a translated or modified copy, tell me which.`;
+      FE8.addDsSet(set); idbPutSafe('ds:' + set.code, JSON.stringify(set)); return `Added ${set.title} (${set.layouts.length} maps).`; }
+  }
+  say(`Reading ${r.name}.`);
+  if (!r.buf) r.buf = await r.file.arrayBuffer();
+  await sleep(20);
+  const res = FE8.addGame(r.buf);
+  if (!res.ok) return `${r.name}: ${res.why}`;
+  idbPutSafe((res.music ? 'music:' : 'game:') + res.game.code, r.buf); return `Added ${res.game.title}.`;
+}
+// ---------------------------------------------------------------- music: FE8's soundtrack, plus any SRR build's tracks
+const FE8_SONGS = { player: [0x09, 0x0A, 0x0B, 0x0C, 0x0E], enemy: [0x10, 0x11, 0x13, 0x14, 0x15], attack: 0x19, defense: 0x1A, boss: 0x1C, victory: 0x31, defeat: 0x3E, prep: 0x34 };
+const Music = (() => {
+  const players = new Map(); let phaseSong = null, chapterSongs = null, cur = null, unlocked = false;
+  function src(R) { if (!players.has(R)) { const t = MP2K.findMusic(R); players.set(R, t ? { p: MP2K.Player(R, { volume: OPTS.volume / 100 }), t } : null); } return players.get(R); }
+  function extras() { const out = []; for (const m of FE8.musicRoms()) { const s = src(m.R); if (!s) continue; if (!m.pool) { const u32 = a => (m.R[a] | m.R[a + 1] << 8 | m.R[a + 2] << 16 | m.R[a + 3] << 24) >>> 0; m.pool = [];
+        for (let k = 0x47; k < s.t.n; k++) { const h = u32(s.t.off + k * 8) - 0x08000000; if (h > 0 && h < m.R.length && m.R[h] >= 4 && m.R[h] <= 16) m.pool.push(k); } }
+      for (const k of m.pool) out.push({ R: m.R, id: k }); } return out; }
+  function play(R, id) { if (OPTS.music === 'off' || !useRom) return; const s = src(R); if (!s) return; if (cur && cur.R === R && cur.id === id) return; stopAll(); s.p.setVolume(OPTS.volume / 100); if (s.p.start(id, s.t.off)) cur = { R, id }; }
+  function stopAll() { for (const s of players.values()) if (s) s.p.stop(true); cur = null; }
+  const base = () => FE8._base().R;
+  function pickFor(kind) {
+    const mix = OPTS.music === 'mix' ? extras() : [];
+    if (mix.length && Math.random() < 0.6) { const e = mix[Math.floor(Math.random() * mix.length)]; return e; }
+    const list = FE8_SONGS[kind]; return { R: base(), id: list[Math.floor(Math.random() * list.length)] };
+  }
+  return {
+    unlock() { if (unlocked) return; unlocked = true; for (const s of players.values()) if (s) s.p.resume(); try { src(base()).p.resume(); } catch (e) {} },
+    chapter() { chapterSongs = { player: pickFor('player'), enemy: pickFor('enemy') }; },
+    phase(team) { if (!chapterSongs) this.chapter(); phaseSong = chapterSongs[team === 'player' ? 'player' : 'enemy']; play(phaseSong.R, phaseSong.id); },
+    battle(A, D) { const bossFight = A.boss || D.boss || A.captain || D.captain; play(base(), bossFight ? FE8_SONGS.boss : A.team === 'player' ? FE8_SONGS.attack : FE8_SONGS.defense); },
+    afterBattle() { if (phaseSong) play(phaseSong.R, phaseSong.id); },
+    result(r) { play(base(), r === 'victory' ? FE8_SONGS.victory : FE8_SONGS.defeat); },
+    stop: stopAll, volume(v) { for (const s of players.values()) if (s) s.p.setVolume(v / 100); },
+    get count() { return extras().length; }
+  };
+})();
+['pointerdown', 'keydown', 'touchstart'].forEach(ev => document.addEventListener(ev, () => Music.unlock(), { passive: true }));
+function idbPutSafe(key, val) { try { const p = idb('readwrite', os => os.put(val, key)); if (p && p.catch) p.catch(() => {}); } catch (e) { /* storage is best-effort */ } }
 function rebuildLibrary() { E.setRomData({ maps: FE8.maps(window.REPO_MAPS), classes: FE8.classes() }); try { E.setClassPool(FE8.classPool()); } catch (err) { console.error(err); } }
 function wireLibrary() { const inp = $('addGame'); if (!inp) return;
-  inp.onchange = async e => { const files = [...e.target.files]; if (!files.length) return;
+  inp.onchange = async e => { const files = [...e.target.files]; inp.value = ''; if (!files.length) return;
     if (!useRom) { libMsg = 'Load Sacred Stones first; it supplies the units and terrain rules.'; renderPanel(); return; }
-    libMsg = 'Reading ' + files.map(f => f.name).join(', ') + '.'; renderPanel(); await sleep(30);
-    const notes = [];
-    for (const r of await filesToRoms(files)) { if (r.none) { notes.push(`${r.name} ${r.none}`); continue; } const res = FE8.addGame(r.buf);
-      if (res.ok) { idb('readwrite', os => os.put(r.buf, 'game:' + res.game.code)); notes.push(`Added ${res.game.title}.`); } else notes.push(`${r.name}: ${res.why}`); }
-    const before = E.mapCount(); rebuildLibrary(); libMsg = notes.join(' ') + ` The library went from ${before} to ${E.mapCount()} maps.`; renderPanel(); }; }
+    const say = m => { libMsg = m; if (tab === 'library') renderPanel(); };
+    const before = E.mapCount(), notes = [];
+    try {
+      say('Opening ' + files.map(f => f.name).join(', ') + '.'); await sleep(30);
+      for (const r of await filesToRoms(files)) {
+        if (r.none) { notes.push(`${r.name} ${r.none}`); continue; }
+        try { notes.push(await addOne(r, say)); } catch (err) { console.error(err); notes.push(`${r.name}: reading stopped with an error (${(err && err.message) || err}).`); }
+        await sleep(20);
+      }
+      say('Rebuilding the map library.'); await sleep(30); rebuildLibrary();
+      libMsg = notes.join(' ') + ` The library went from ${before} to ${E.mapCount()} maps.`;
+    } catch (err) { console.error(err); libMsg = notes.join(' ') + ` Something went wrong: ${(err && err.message) || err}.`; }
+    renderPanel(); }; }
 document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; document.querySelectorAll('[data-tab]').forEach(o => o.setAttribute('aria-pressed', o === b)); renderPanel(); });
 
 // ---------------------------------------------------------------- controls
@@ -1768,9 +2201,13 @@ function setMode(m) { mode = m; store.set('ec-mode', m); $('mWatch').setAttribut
 $('mWatch').onclick = () => setMode('watch'); $('mCommand').onclick = () => setMode('command');
 $('endTurn').onclick = () => { if (human && human.stage !== 'busy') { cancelSelection(); finishHuman(false); } };
 $('autoRest').onclick = () => { if (human && human.stage !== 'busy') { cancelSelection(); finishHuman(true); } };
-$('pauseBtn').onclick = () => { paused = !paused; $('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; $('pauseBtn').setAttribute('aria-pressed', paused); };
+function setTheater(on) { document.body.classList.toggle('theater', on); $('tTheater').setAttribute('aria-pressed', on); $('tTheater').textContent = on ? 'Exit' : 'Full map'; store.set('ec-theater', on ? '1' : ''); }
+$('tTheater').onclick = () => setTheater(!document.body.classList.contains('theater'));
+$('tPause').onclick = () => $('pauseBtn').click(); $('tSpeed').onclick = () => $('speedBtn').click();
+setTheater(store.get('ec-theater') === '1');
+$('pauseBtn').onclick = () => { paused = !paused; $('pauseBtn').textContent = paused ? 'Resume' : 'Pause'; $('tPause').textContent = paused ? 'Resume' : 'Pause'; $('pauseBtn').setAttribute('aria-pressed', paused); };
 const SPEEDS = [1, 2, 4];
-function showSpeed() { $('speedBtn').textContent = `Speed ${speed}\u00d7`; }
+function showSpeed() { $('speedBtn').textContent = `Speed ${speed}\u00d7`; const t = $('tSpeed'); if (t) t.textContent = speed + '\u00d7'; }
 $('speedBtn').onclick = () => { speed = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length]; store.set('ec-speed', speed); showSpeed(); };
 let newArmed = 0;
 $('newBtn').onclick = () => { if (Date.now() - newArmed < 3000) { store.del('ec-save'); abortFlag = true; newArmed = 0; $('newBtn').textContent = 'New run'; return; }
@@ -1807,10 +2244,16 @@ function begin() {
 $('romFile').onchange = async e => { const f = e.target.files[0]; if (!f) return; $('gateMsg').textContent = 'Reading the ROM.';
   const buf = await f.arrayBuffer(); if (startWithRom(buf)) { idb('readwrite', os => os.put(buf, 'fe8')); begin(); } };
 $('noRom').onclick = () => { useRom = false; begin(); };
-window.__ec = { get st() { return st; }, get cam() { return cam; }, get stage() { return human && human.stage; }, get combat() { return !!view.combat; }, get moves() { return human && human.ranges && human.stage === 'move' ? human.ranges.move : null; }, VW, VH };
+window.__ec = { get st() { return st; }, get cam() { return cam; }, get stage() { return human && human.stage; }, get combat() { return !!view.combat; }, get battle() { return !!view.battle; }, get pos() { return view.pos; }, get moves() { return human && human.ranges && human.stage === 'move' ? human.ranges.move : null; }, VW, VH };
 requestAnimationFrame(render);
-idb('readonly', os => os.get('fe8')).then(async buf => { if (buf && startWithRom(buf)) { for (const [k, v] of await idbAll()) if (String(k).startsWith('game:')) FE8.addGame(v); rebuildLibrary(); begin(); } else { $('gate').hidden = false; show('', 'Load your ROM to begin, or play with simple art.'); } });
+idb('readonly', os => os.get('fe8')).then(async buf => { if (buf && startWithRom(buf)) { for (const [k, v] of await idbAll()) { try { if (String(k).startsWith('game:')) { const res = FE8.addGame(v);
+          if (res && res.ds) { const B = new Uint8Array(v), set = await FE8.dsLayoutsFrom((o, n) => Promise.resolve(B.subarray(o, o + n)));
+            if (set && FE8.addDsSet(set)) { idbPutSafe('ds:' + set.code, JSON.stringify(set)); try { idb('readwrite', os => os.delete(k)); } catch (e) {} } } }
+        else if (String(k).startsWith('ds:')) FE8.addDsSet(JSON.parse(v)); else if (String(k).startsWith('music:')) FE8.addGame(v); } catch (e) { console.error(e); } } rebuildLibrary(); begin(); } else { $('gate').hidden = false; show('', 'Load your ROM to begin, or play with simple art.'); } });
 })();
+</script>
+<script>
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 </script>
 </body>
 </html>
