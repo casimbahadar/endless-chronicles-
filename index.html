@@ -190,17 +190,114 @@ const TERRAIN = {
   throne:  { name: 'Throne',   cost: { foot: 1, armor: 1, horse: 1, fly: 1 }, def: 3, avo: 30, heal: 10 },
 };
 const WEAPONS = {
-  sword: { name: 'Iron Sword', mt: 5, hit: 90, crit: 0, min: 1, max: 1 },
-  lance: { name: 'Iron Lance', mt: 7, hit: 80, crit: 0, min: 1, max: 1 },
-  axe:   { name: 'Iron Axe',   mt: 8, hit: 75, crit: 0, min: 1, max: 1 },
-  bow:   { name: 'Iron Bow',   mt: 6, hit: 85, crit: 0, min: 2, max: 2, effFly: true },
-  fire:  { name: 'Fire',       mt: 5, hit: 90, crit: 0, min: 1, max: 2, magic: true },
-  staff: { name: 'Heal',       mt: 0, hit: 0, crit: 0, min: 1, max: 1, heal: true },
-  dance: { name: 'Dance',      mt: 0, hit: 0, crit: 0, min: 1, max: 1, refresh: true },
-  claw:  { name: 'Claws',      mt: 7, hit: 80, crit: 5, min: 1, max: 1 },
-  eye:   { name: 'Evil Eye',   mt: 6, hit: 85, crit: 0, min: 1, max: 2, magic: true },
-  breath:{ name: 'Breath',     mt: 9, hit: 80, crit: 0, min: 1, max: 1, magic: true },
+  sword: { type: 'sword', name: 'Iron Sword', mt: 5, hit: 90, crit: 0, min: 1, max: 1, uses: 46 },
+  steel_sword: { type: 'sword', name: 'Steel Sword', mt: 8, hit: 75, crit: 0, min: 1, max: 1, uses: 30, tier: 2 },
+  silver_sword: { type: 'sword', name: 'Silver Sword', mt: 13, hit: 80, crit: 0, min: 1, max: 1, uses: 20, tier: 3 },
+  killing_edge: { type: 'sword', name: 'Killing Edge', mt: 9, hit: 75, crit: 30, min: 1, max: 1, uses: 20, tier: 3 },
+  lance: { type: 'lance', name: 'Iron Lance', mt: 7, hit: 80, crit: 0, min: 1, max: 1, uses: 45 },
+  steel_lance: { type: 'lance', name: 'Steel Lance', mt: 10, hit: 70, crit: 0, min: 1, max: 1, uses: 30, tier: 2 },
+  silver_lance: { type: 'lance', name: 'Silver Lance', mt: 14, hit: 75, crit: 0, min: 1, max: 1, uses: 20, tier: 3 },
+  killer_lance: { type: 'lance', name: 'Killer Lance', mt: 10, hit: 70, crit: 30, min: 1, max: 1, uses: 20, tier: 3 },
+  javelin: { type: 'lance', name: 'Javelin', mt: 6, hit: 65, crit: 0, min: 1, max: 2, uses: 20, tier: 2, ranged: true },
+  axe: { type: 'axe', name: 'Iron Axe', mt: 8, hit: 75, crit: 0, min: 1, max: 1, uses: 45 },
+  steel_axe: { type: 'axe', name: 'Steel Axe', mt: 11, hit: 65, crit: 0, min: 1, max: 1, uses: 30, tier: 2 },
+  silver_axe: { type: 'axe', name: 'Silver Axe', mt: 15, hit: 70, crit: 0, min: 1, max: 1, uses: 20, tier: 3 },
+  killer_axe: { type: 'axe', name: 'Killer Axe', mt: 11, hit: 65, crit: 30, min: 1, max: 1, uses: 20, tier: 3 },
+  hand_axe: { type: 'axe', name: 'Hand Axe', mt: 7, hit: 60, crit: 0, min: 1, max: 2, uses: 20, tier: 2, ranged: true },
+  bow: { type: 'bow', name: 'Iron Bow', mt: 6, hit: 85, crit: 0, min: 2, max: 2, effFly: true, uses: 45 },
+  steel_bow: { type: 'bow', name: 'Steel Bow', mt: 9, hit: 70, crit: 0, min: 2, max: 2, effFly: true, uses: 30, tier: 2 },
+  silver_bow: { type: 'bow', name: 'Silver Bow', mt: 13, hit: 75, crit: 0, min: 2, max: 2, effFly: true, uses: 20, tier: 3 },
+  killer_bow: { type: 'bow', name: 'Killer Bow', mt: 9, hit: 75, crit: 30, min: 2, max: 2, effFly: true, uses: 20, tier: 3 },
+  longbow: { type: 'bow', name: 'Longbow', mt: 5, hit: 65, crit: 0, min: 2, max: 3, effFly: true, uses: 20, tier: 3 },
+  fire: { type: 'fire', name: 'Fire', mt: 5, hit: 90, crit: 0, min: 1, max: 2, magic: true, uses: 40, spell: 'fire' },
+  thunder: { type: 'fire', name: 'Thunder', mt: 8, hit: 80, crit: 5, min: 1, max: 2, magic: true, uses: 35, spell: 'thunder', tier: 2 },
+  elfire: { type: 'fire', name: 'Elfire', mt: 10, hit: 85, crit: 0, min: 1, max: 2, magic: true, uses: 30, spell: 'elfire', tier: 3 },
+  lightning: { type: 'fire', name: 'Lightning', mt: 4, hit: 95, crit: 5, min: 1, max: 2, magic: true, uses: 35, spell: 'lightning' },
+  bolting: { type: 'fire', name: 'Bolting', mt: 12, hit: 65, crit: 0, min: 1, max: 2, magic: true, uses: 5, spell: 'bolting', tier: 3 },
+  fimbulvetr: { type: 'fire', name: 'Fimbulvetr', mt: 13, hit: 80, crit: 0, min: 1, max: 2, magic: true, uses: 20, spell: 'fimbulvetr', tier: 3 },
+  shine: { type: 'fire', name: 'Shine', mt: 6, hit: 90, crit: 8, min: 1, max: 2, magic: true, uses: 30, spell: 'shine', tier: 2 },
+  divine: { type: 'fire', name: 'Divine', mt: 8, hit: 85, crit: 10, min: 1, max: 2, magic: true, uses: 25, spell: 'divine', tier: 3 },
+  purge: { type: 'fire', name: 'Purge', mt: 10, hit: 75, crit: 5, min: 1, max: 2, magic: true, uses: 5, spell: 'purge', tier: 3 },
+  eclipse: { type: 'fire', name: 'Eclipse', mt: 12, hit: 30 + 40, crit: 0, min: 1, max: 2, magic: true, uses: 5, spell: 'eclipse', tier: 3 },
+  flux: { type: 'fire', name: 'Flux', mt: 7, hit: 80, crit: 0, min: 1, max: 2, magic: true, uses: 45, spell: 'flux' },
+  staff: { type: 'staff', name: 'Heal', mt: 0, hit: 0, crit: 0, min: 1, max: 1, heal: true, power: 10, uses: 30 },
+  mend: { type: 'staff', name: 'Mend', mt: 0, hit: 0, crit: 0, min: 1, max: 1, heal: true, power: 20, uses: 20, tier: 2 },
+  dance: { type: 'dance', name: 'Dance', mt: 0, hit: 0, crit: 0, min: 1, max: 1, refresh: true, uses: 0 },
+  claw:  { type: 'claw', name: 'Claws', mt: 7, hit: 80, crit: 5, min: 1, max: 1, uses: 0 },
+  eye:   { type: 'eye', name: 'Evil Eye', mt: 6, hit: 85, crit: 0, min: 1, max: 2, magic: true, uses: 0 },
+  breath:{ type: 'breath', name: 'Breath', mt: 9, hit: 80, crit: 0, min: 1, max: 1, magic: true, uses: 0 },
+  vulnerary: { type: 'item', name: 'Vulnerary', consumable: true, power: 10, uses: 3, mt: 0, hit: 0, crit: 0, min: 9, max: 0 },
+  elixir: { type: 'item', name: 'Elixir', consumable: true, power: 99, uses: 3, mt: 0, hit: 0, crit: 0, min: 9, max: 0, tier: 3 },
+  none: { type: 'none', name: 'Unarmed', mt: 0, hit: 0, crit: 0, min: 9, max: 0, uses: 0 },
 };
+const wtype = id => (WEAPONS[id] && WEAPONS[id].type) || id;
+// weapon ranks are weapon EXP, as in FE: E 1, D 31, C 71, B 121, A 181, S 251
+const RANKS = [[251, 'S'], [181, 'A'], [121, 'B'], [71, 'C'], [31, 'D'], [1, 'E']];
+const rankLetter = v => (RANKS.find(([t]) => v >= t) || [0, '-'])[1];
+const ELEM = { fire: 'anima', thunder: 'anima', elfire: 'anima', bolting: 'anima', fimbulvetr: 'anima', lightning: 'light', shine: 'light', divine: 'light', purge: 'light', flux: 'dark', eclipse: 'dark' };
+const rankKey = id => ELEM[id] || (WEAPONS[id] && WEAPONS[id].type === 'fire' ? 'anima' : wtype(id));
+function rankReq(id) { const w = WEAPONS[id]; if (!w || w.consumable || ['dance', 'claw', 'eye', 'breath', 'none'].includes(w.type)) return 0;
+  if (/killer|killing|longbow/.test(id) || w.crit >= 30) return 71; if ((w.tier || 1) >= 3) return 121; if ((w.tier || 1) === 2) return 31; return 1; }
+function startRanks(c) { if (c.ranks && Object.keys(c.ranks).length) return Object.assign({}, c.ranks); const t = wtype(c.wpn); return { [t === 'fire' ? 'anima' : t]: 31 }; }
+// ---- inventories: up to five items; weapons wear out, consumables heal
+const MAXITEMS = 5;
+const item = id => ({ id, uses: WEAPONS[id].uses || 0, max: WEAPONS[id].uses || 0 });
+function canWield(u, id) { const w = WEAPONS[id], c = CLASSES[u.cls]; if (!w || w.consumable || id === 'none') return false;
+  if (['dance', 'claw', 'eye', 'breath'].includes(w.type)) return w.type === wtype(c.wpn);
+  if (!u.wexp) u.wexp = startRanks(c); const k = rankKey(id); return (u.wexp[k] || 0) >= Math.max(1, rankReq(id)); }
+function weaponsOf(u) { return (u.items || []).filter(it => canWield(u, it.id) && (it.max === 0 || it.uses > 0)); }
+function equipBest(u) { const ws = weaponsOf(u); u.weapon = ws.length ? ws[0].id : 'none'; }
+function tomeFor(c, rng, n) {
+  const nm = (c.name || '').toLowerCase();
+  const late = n >= 10 && rng.chance(Math.min(50, (n - 8) * 6)), mid = n >= 5 && rng.chance(Math.min(60, (n - 3) * 8));
+  if (/monk|bishop|priest|cleric|curate|saint|valkyrie|sister/.test(nm) && !c.healer) return late ? rng.pick(['divine', 'purge']) : mid ? 'shine' : 'lightning';
+  if (/shaman|druid|summoner|dark|sorcer|necro/.test(nm)) return late && c.promoted ? 'eclipse' : 'flux';
+  if (late && c.promoted) return rng.pick(['bolting', 'fimbulvetr', 'elfire']);
+  return c.promoted ? 'elfire' : rng.chance(Math.min(60, 20 + n * 5)) ? 'thunder' : 'fire';
+}
+function loadout(rng, u, n, team) {
+  const c = CLASSES[u.cls], t = wtype(c.wpn), out = []; u.wexp = startRanks(c); const knows = Object.keys(u.wexp);
+  const tierRoll = () => { const r = rng.int(1, 100); return n >= 8 && r <= 10 + n ? 3 : n >= 3 && r <= 25 + n * 4 ? 2 : 1; };
+  const pick = (tier, tt) => { const pool = Object.keys(WEAPONS).filter(k => WEAPONS[k].type === (tt || t) && !WEAPONS[k].ranged && (WEAPONS[k].tier || 1) === tier && !WEAPONS[k].consumable && WEAPONS[k].type !== 'fire'); const ok = pool.filter(k => (u.wexp[rankKey(k)] || 0) >= rankReq(k)); return ok.length ? rng.pick(ok) : pool.find(k => (WEAPONS[k].tier || 1) === 1) || null; };
+  const fits = id => (u.wexp[rankKey(id)] || 0) >= Math.max(1, rankReq(id));
+  if (t === 'fire') { const tm = tomeFor(c, rng, n); out.push(item(fits(tm) ? tm : ELEM[tm] === 'light' ? 'lightning' : ELEM[tm] === 'dark' ? 'flux' : 'fire')); }
+  else if (t === 'staff') out.push(item(c.promoted && fits('mend') ? 'mend' : 'staff'));
+  else if (['dance', 'claw', 'eye', 'breath'].includes(t)) out.push(item(t));
+  else { out.push(item(pick(tierRoll()) || c.wpn));
+    if (n >= 2 && rng.chance(team === 'player' ? 35 : 25)) { const extra = t === 'lance' ? 'javelin' : t === 'axe' ? 'hand_axe' : t === 'bow' && n >= 6 ? 'longbow' : pick(Math.min(3, tierRoll() + 1)); if (extra && extra !== out[0].id) out.push(item(extra)); } }
+  // a second weapon type the class also knows (Paladin: swords and lances), and a staff for fighters who can heal
+  const others = knows.filter(k => ['sword', 'lance', 'axe', 'bow'].includes(k) && k !== t);
+  if (others.length && out.length < 3 && rng.chance(70)) { const o = pick(1, rng.pick(others)); if (o) out.push(item(o)); }
+  if (t !== 'staff' && knows.includes('staff') && out.length < 3) out.push(item('staff'));
+  if (team === 'player') out.push(item('vulnerary'));
+  else if (rng.chance(20)) out.push(item(n >= 9 && rng.chance(20) ? 'elixir' : 'vulnerary'));
+  u.items = out.slice(0, MAXITEMS); equipBest(u);
+}
+// between chapters: every unit keeps a usable weapon (or staff) and at least one healing item
+const PRICE = { sword: 460, lance: 360, axe: 270, bow: 540, steel_sword: 600, steel_lance: 480, steel_axe: 360, steel_bow: 720, silver_sword: 1500, silver_lance: 1200, silver_axe: 1000, silver_bow: 1600,
+  javelin: 400, hand_axe: 375, fire: 560, thunder: 700, elfire: 1200, lightning: 630, shine: 900, flux: 900, staff: 600, mend: 1000, vulnerary: 300 };
+function armory(rng, camp, u, n, notes) {
+  if (!camp) return; camp.gold = camp.gold || 0;
+  for (const it of [...(u.items || [])]) { const w = WEAPONS[it.id]; if (!w || w.consumable || !it.max || it.uses >= 15) continue;
+    const base = (w.tier || 1) === 1 && !w.ranged, cost = base ? 0 : Math.round((PRICE[it.id] || 800) * 0.6);
+    if (cost <= camp.gold) { camp.gold -= cost; it.uses = it.max; if (notes.length < 4) notes.push(`${u.name}'s worn ${w.name} was replaced${cost ? ` (${cost} gold)` : ''}.`); } }
+  const t = wtype(CLASSES[u.cls].wpn); if (['fire', 'staff', 'dance', 'claw', 'eye', 'breath'].includes(t)) return;
+  const has = tier => (u.items || []).some(it => WEAPONS[it.id] && WEAPONS[it.id].type === t && (WEAPONS[it.id].tier || 1) >= tier);
+  for (const [tier, minCh] of [[3, 8], [2, 3]]) { if (n < minCh || has(tier)) continue;
+    const id = Object.keys(WEAPONS).find(k => WEAPONS[k].type === t && (WEAPONS[k].tier || 1) === tier && !WEAPONS[k].ranged && !/killer|killing|long/.test(k) && canWield(u, k));
+    if (id && PRICE[id] && camp.gold >= PRICE[id] + 400 && (u.items || []).length < MAXITEMS) { camp.gold -= PRICE[id]; u.items.push(item(id)); if (notes.length < 4) notes.push(`Armory: ${u.name} bought a ${WEAPONS[id].name} (${PRICE[id]} gold).`); break; } }
+}
+function restock(rng, u, n) {
+  if (!u.items) loadout(rng, u, n, 'player');
+  { const nr = startRanks(CLASSES[u.cls]); u.wexp = u.wexp || {}; for (const k in nr) u.wexp[k] = Math.max(u.wexp[k] || 0, nr[k]); }
+  if (!weaponsOf(u).length) { const t = wtype(CLASSES[u.cls].wpn); const base = t === 'fire' ? tomeFor(CLASSES[u.cls], rng, n) : t === 'staff' ? 'staff' : CLASSES[u.cls].wpn; if (!addItem(u, base)) { u.items[0] = item(base); } }
+  if (!u.items.some(it => WEAPONS[it.id] && WEAPONS[it.id].consumable)) addItem(u, 'vulnerary');
+  equipBest(u);
+}
+function addItem(u, id) { if (!u.items) u.items = []; if (u.items.length >= MAXITEMS) return false; u.items.push(item(id)); return true; }
+function useUp(u, id, n) { const it = (u.items || []).find(x => x.id === id && (x.max === 0 || x.uses > 0)); if (!it || it.max === 0) return null; it.uses -= n;
+  if (it.uses <= 0) { u.items.splice(u.items.indexOf(it), 1); equipBest(u); return WEAPONS[id].name; } return null; }
+
 const S = ['hp', 'str', 'mag', 'skl', 'spd', 'lck', 'def', 'res'];
 const C = (wpn, mov, mt, base, gr, extra) => Object.assign({ wpn, mov, mt, base, gr }, extra || {});
 const b = (hp, str, mag, skl, spd, lck, def, res) => ({ hp, str, mag, skl, spd, lck, def, res });
@@ -242,13 +339,13 @@ function makePlace(rng) { return rng.pick(PLACES1) + rng.pick(PLACES2); }
 let UID = 1;
 function saveCampaign(camp) { return JSON.stringify({ v: 1, uid: UID, rng: camp.rng.getState(), seed: camp.seed, chapter: camp.chapter, lord: camp.lord, army: camp.army, fallen: camp.fallen, log: camp.log, realm: camp.realm }); }
 function loadCampaign(json) { const d = JSON.parse(json); if (d.v !== 1) return null;
-  for (const u of d.army) { if (!CLASSES[u.cls]) { u.cls = 'Mercenary'; u.fe8 = 0x0F; u.weapon = 'sword'; } if (!u.aff) u.aff = AFF_NAMES[u.id % AFF_NAMES.length]; } const rng = RNG(d.seed); rng.setState(d.rng); UID = Math.max(UID, d.uid);
+  for (const u of d.army) { if (!CLASSES[u.cls]) { u.cls = 'Mercenary'; u.fe8 = 0x0F; u.weapon = 'sword'; } if (!u.items) { u.items = [item(WEAPONS[u.weapon] ? u.weapon : CLASSES[u.cls].wpn), item('vulnerary')]; equipBest(u); } if (!u.aff) u.aff = AFF_NAMES[u.id % AFF_NAMES.length]; } const rng = RNG(d.seed); rng.setState(d.rng); UID = Math.max(UID, d.uid);
   for (const u of d.army) if (u.id === d.lord) u.leader = true;
   return { seed: d.seed, rng, chapter: d.chapter, lord: d.lord, army: d.army, fallen: d.fallen, log: d.log, realm: d.realm }; }
 function makeUnit(rng, cls, team, level, name) {
   const c = CLASSES[cls];
   const u = { id: UID++, name: name || makeName(rng), cls, team, level: 1, exp: 0, x: -1, y: -1,
-    weapon: c.wpn, vuln: team === 'player' ? 3 : (rng.chance(30) ? 1 : 0), ai: 'pursue', boss: false, kills: 0,
+    weapon: c.wpn, ai: 'pursue', boss: false, kills: 0,
     fe8: FE8_CLASS[cls] ? FE8_CLASS[cls][rng.int(0, 1)] : cls, aff: AFF_NAMES[rng.int(0, AFF_NAMES.length - 1)] };
   for (const k of S) u[k] = c.base[k] + (team === 'enemy' ? 0 : rng.int(0, k === 'hp' ? 3 : 2));
   u.maxhp = u.hp; delete u.hp;
@@ -258,6 +355,8 @@ function makeUnit(rng, cls, team, level, name) {
     u.growth[k] = team === 'enemy' ? Math.max(5, Math.min(90, g - 15)) : Math.max(lo, Math.min(hi, Math.round(g + rng.int(-25, 25)))); }
   for (let l = 1; l < level; l++) levelUp(rng, u);
   u.hp = u.maxhp;
+  if (team === 'player') { u.maxhp += 3; u.hp = u.maxhp; u.str += 1; u.mag += 1; u.skl += 1; u.spd += 1; u.def += 1; }
+  loadout(rng, u, Math.max(1, Math.ceil(level * 0.8)), team);
   return u;
 }
 function levelUp(rng, u) {
@@ -360,21 +459,21 @@ const manhattan = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 
 // ---------------------------------------------------------------- combat
 function tri(a, d) {
-  const w = { sword: 0, lance: 1, axe: 2 }; const A = w[a.weapon], D = w[d.weapon];
+  const w = { sword: 0, lance: 1, axe: 2 }; const A = w[wtype(a.weapon)], D = w[wtype(d.weapon)];
   if (A === undefined || D === undefined || A === D) return 0;
   return ((A + 1) % 3 === D) ? 1 : (((D + 1) % 3 === A) ? -1 : 0);
 }
 
 function stats(st, a, d, ax, ay) {
   const wa = WEAPONS[a.weapon], tr = tri(a, d), sa = supportBonus(st, a), sd = supportBonus(st, d);
-  let mt = wa.mt; if (wa.effFly && CLASSES[d.cls].flier) mt *= 3;
+  let mt = wa.mt; if (wa.effFly && CLASSES[d.cls].flier) mt *= 3; if (skillsOf(a).slayer && CLASSES[d.cls] && CLASSES[d.cls].monster) mt *= 3;
   const atk = (wa.magic ? a.mag : a.str) + mt + tr + sa.atk;
   const prot = (wa.magic ? d.res + tRes(st, d, d.x, d.y) : d.def + tDef(st, d, d.x, d.y)) + sd.def;
   const tdef = { avo: tAvo(st, d, d.x, d.y) };
   const dmg = Math.max(0, atk - prot);
   const hit = Math.max(0, Math.min(100, wa.hit + a.skl * 2 + Math.floor(a.lck / 2) + tr * 15 + sa.hit - (d.spd * 2 + d.lck + tdef.avo + sd.avo)));
   const crit = Math.max(0, Math.min(100, wa.crit + Math.floor(a.skl / 2) + (CLASSES[a.cls].critBonus || 0) + sa.crit - d.lck - sd.dodge));
-  return { dmg, hit, crit, dbl: a.spd >= d.spd + 4 };
+  return { dmg, hit, crit, atk, dbl: a.spd >= d.spd + 4 };
 }
 function inRange(a, d, ax, ay) { const w = WEAPONS[a.weapon]; if (w.heal || w.refresh) return false; const r = Math.abs(ax - d.x) + Math.abs(ay - d.y); return r >= w.min && r <= w.max; }
 const AFF = {
@@ -412,16 +511,26 @@ function forecast(st, a, d, ax, ay) {
 }
 function rollHit(rng, p) { return (rng.int(0, 99) + rng.int(0, 99)) / 2 < p; }
 // resolve a fight; returns strike list for the renderer
+function skillsOf(u) { const n = (CLASSES[u.cls] && CLASSES[u.cls].name || '').toLowerCase(), c = CLASSES[u.cls] || {}, s = {};
+  if (c.flier || c.mt === 'horse' || /knight|paladin|cavalier|ranger|nomad|troubadour|valkyrie|horse|rider|wyvern|pegasus|falco|lord knight/.test(n) && !/armou?r|general|great knight/.test(n)) s.canto = true;
+  if (/sniper/.test(n)) s.sure = true; if (/wyvern knight|wyvern lord|dracoknight/.test(n)) s.pierce = true; if (/general|great knight/.test(n)) s.shield = true;
+  if (/assassin|rogue/.test(n)) s.silencer = true; if (/bishop|saint/.test(n)) s.slayer = true; return s; }
 function fight(st, a, d) {
   const rng = st.rng, f = forecast(st, a, d, a.x, a.y), strikes = [];
   const order = [[a, d, f.A]]; if (f.D) order.push([d, a, f.D]);
   if (f.A.dbl) order.push([a, d, f.A]); else if (f.D && f.D.dbl) order.push([d, a, f.D]);
   for (const [s, t, sv] of order) {
     if (s.hp <= 0 || t.hp <= 0) break;
-    const hit = rollHit(rng, sv.hit), crit = hit && rng.int(0, 99) < sv.crit;
-    const dmg = hit ? sv.dmg * (crit ? 3 : 1) : 0;
+    const sk = skillsOf(s), tk = skillsOf(t), proc = pct => rng.int(0, 99) < Math.max(5, Math.min(60, pct)); let skill = null;
+    let hit = rollHit(rng, sv.hit); if (!hit && sk.sure && proc(s.level + (CLASSES[s.cls].promoted ? 10 : 0))) { hit = true; skill = 'Sure Strike'; }
+    const crit = hit && rng.int(0, 99) < sv.crit; let base = sv.dmg;
+    if (hit && sk.pierce && proc(s.level)) { base = Math.max(base, sv.atk || base); skill = 'Pierce'; }
+    if (hit && sk.slayer && CLASSES[t.cls] && CLASSES[t.cls].monster) { base = Math.max(base, (sv.atk || base) * 1); skill = skill || 'Slayer'; }
+    let dmg = hit ? base * (crit ? 3 : 1) : 0;
+    if (hit && crit && sk.silencer && rng.int(0, 99) < (t.boss ? 25 : 50)) { dmg = t.hp; skill = 'Silencer'; }
+    if (hit && dmg > 0 && tk.shield && proc(t.level)) { dmg = 0; skill = 'Great Shield'; }
     t.hp = Math.max(0, t.hp - dmg);
-    strikes.push({ by: s.id, on: t.id, hit, crit, dmg, hpAfter: t.hp });
+    strikes.push({ by: s.id, on: t.id, hit, crit, dmg, hpAfter: t.hp, skill });
   }
   const out = { type: 'fight', a: a.id, d: d.id, strikes, deaths: [], exp: [] };
   for (const u of [a, d]) if (u.hp <= 0) { if (u.rival && !u.finalRival) u.escaped = true; out.deaths.push(u.id); const k = u === a ? d : a; k.kills++; }
@@ -429,7 +538,7 @@ function fight(st, a, d) {
   for (const [u, o] of [[a, d], [d, a]]) {
     if (u.team !== 'player' || u.hp <= 0) continue;
     const dealt = strikes.some(s => s.by === u.id && s.hit);
-    let e = o.hp <= 0 ? 20 + (o.level - u.level) * 3 + (o.boss ? 40 : 0) : (dealt ? 10 + Math.floor((o.level - u.level) / 2) : 1);
+    let e = o.hp <= 0 ? 30 + (o.level - u.level) * 3 + (o.boss ? 40 : 0) : (dealt ? 15 + Math.floor((o.level - u.level) / 2) : 3);
     out.exp.push(gainExp(st, u, Math.max(1, Math.min(100, e))));
   }
   return out;
@@ -481,6 +590,18 @@ function danger(st, u, x, y, ignoreId) {
 }
 function allyNear(st, u, x, y) { let n = 0; for (const o of st.units) if (o !== u && o.hp > 0 && !foes(o, u) && Math.abs(o.x - x) + Math.abs(o.y - y) === 1) n++; return n; }
 function plan(st, u) {
+  if (!u.items) { u.items = [item(WEAPONS[u.weapon] ? u.weapon : CLASSES[u.cls].wpn)]; equipBest(u); }
+  if (!WEAPONS[u.weapon] || (u.weapon !== 'none' && !weaponsOf(u).some(it => it.id === u.weapon))) equipBest(u);
+  const opts = [...new Set(weaponsOf(u).map(it => it.id))];
+  if (opts.length <= 1) return planCore(st, u);
+  let best = null, bestW = null;
+  for (const id of opts) { u.weapon = id; const a = planCore(st, u); if (a.type === 'attack' && (!best || (a.s || 0) > (best.s || 0))) { best = a; bestW = id; } }
+  const staff = opts.find(id => WEAPONS[id].heal);
+  if (staff) { u.weapon = staff; const h = planCore(st, u); if (h.type === 'heal' && (!best || (h.s || 0) >= (best.s || 0) * 0.8)) { h.weapon = staff; return h; } }
+  if (best) { u.weapon = bestW; best.weapon = bestW; return best; }
+  u.weapon = opts.find(id => !WEAPONS[id].heal) || opts[0]; return planCore(st, u);
+}
+function planCore(st, u) {
   const c = CLASSES[u.cls], w = WEAPONS[u.weapon];
   const lim = u.ai === 'hold' ? 0 : c.mov;
   if (u.ai === 'wake') { if (st.units.some(o => o.hp > 0 && foes(o, u) && manhattan(o, u) <= 7)) u.ai = 'pursue'; }
@@ -501,11 +622,11 @@ function plan(st, u) {
       for (const [x, y] of ends) if (manhattan({ x, y }, a) === 1) {
         const s = (a.maxhp - a.hp) * (a.leader ? 2 : 1) - threatAt(st, u, x, y) * 3;
         if (!best || s > best.s) best = { s, x, y, t: a }; } }
-    if (best && best.t.maxhp - best.t.hp >= 5) return { type: 'heal', path: pathOf(best.x, best.y), target: best.t.id };
+    if (best && best.t.maxhp - best.t.hp >= 5) return { type: 'heal', path: pathOf(best.x, best.y), target: best.t.id, s: best.s };
   }
   let best = null;
   if (!w.heal) for (const e of st.units) {
-    if (e.hp <= 0 || !foes(e, u)) continue;
+    if (e.hp <= 0 || !foes(e, u) || (u.team === 'player' && !visible(st, e.x, e.y))) continue;
     for (const [x, y] of ends) {
       if (!inRange(u, e, x, y)) continue;
       const f = forecast(st, u, e, x, y);
@@ -513,8 +634,11 @@ function plan(st, u) {
       const expDealt = f.A.dmg * hits * f.A.hit / 100, expTaken = f.D ? f.D.dmg * cHits * f.D.hit / 100 : 0;
       const canKill = f.A.dmg * hits >= e.hp, maxTaken = f.D ? f.D.dmg * cHits : 0;
       const isLord = !!u.leader, firstKills = f.A.dmg >= e.hp && f.A.hit >= 90;
-      if (u.team === 'player' && maxTaken >= u.hp && !firstKills) continue;      // a counter that could kill: not worth it
-      if (isLord && maxTaken >= u.hp) continue;                              // never a lethal counter
+      if (u.team === 'player' && maxTaken >= u.hp) {
+        const pFirst = f.A.dmg >= e.hp ? f.A.hit / 100 : 0, need = Math.ceil(u.hp / Math.max(1, f.D.dmg)), strikes = f.D.dbl ? 2 : 1;
+        const pDie = need > strikes ? 0 : (1 - pFirst) * Math.pow(f.D.hit / 100, need);
+        const stall = st.stall || 0, limit = isLord ? Math.min(.35, .05 + stall * .08) : Math.min(.85, .2 + stall * .15);
+        if (pDie > limit) { st.riskSkip = st.turn; continue; } }
       if (isLord && maxTaken + danger(st, u, x, y, canKill ? e.id : -1) >= u.hp) continue;   // nor a lethal enemy phase
       let s = expDealt + (canKill ? 25 * f.A.hit / 100 : 0) - expTaken * 0.6 + tDef(st, u, x, y) * 2 + tAvo(st, u, x, y) / 10 + (e.boss ? 4 : 0) + (!f.D ? 3 : 0) + (isLord ? 3 : 0);
       if (u.team === 'player' && !isLord) {
@@ -526,14 +650,19 @@ function plan(st, u) {
       if (!best || s > best.s) best = { s, x, y, t: e };
     }
   }
-  if (best && (best.s > -4 || u.team === 'enemy' || st.turn > 30)) return { type: 'attack', path: pathOf(best.x, best.y), target: best.t.id };
-  if (lowHp && u.vuln > 0) return { type: 'vulnerary', path: [[u.x, u.y]] };
+  if (best && (best.s > -4 || u.team === 'enemy' || st.turn > 30)) return { type: 'attack', path: pathOf(best.x, best.y), target: best.t.id, s: best.s };
+  if (u.team === 'player' && st.villages && !lowHp) { let vb = null;
+    for (const v of st.villages) { if (st.visited.has(v)) continue; const x = v % W, y = Math.floor(v / W); if (!dist.has(v)) continue; const o = unitAt(st, x, y); if (o && o !== u) continue;
+      const dg = danger(st, u, x, y); if (dg < u.hp * (u.leader ? 0.3 : 0.6) && (!vb || dg < vb.dg)) vb = { x, y, dg }; }
+    if (vb) return { type: 'visit', path: pathOf(vb.x, vb.y) }; }
+  const potion = (u.items || []).find(it => WEAPONS[it.id] && WEAPONS[it.id].consumable && it.uses > 0);
+  if (lowHp && potion) return { type: 'vulnerary', item: potion.id, path: [[u.x, u.y]] };
   if (u.ai !== 'pursue' || lim === 0) return { type: 'wait', path: [[u.x, u.y]] };
 
   // move toward a goal: lord heads for the throne on seize maps once the boss is down; everyone else toward foes
   let target = null;
   if (u.leader && st.goal === 'seize' && !st.units.some(o => o.boss && o.hp > 0)) target = st.map.throne;
-  if (!target) { let nd = 1e9; for (const e of st.units) if (e.hp > 0 && foes(e, u)) { const d = manhattan(u, e); if (d < nd) { nd = d; target = e; } } }
+  if (!target) { let nd = 1e9; for (const e of st.units) if (e.hp > 0 && foes(e, u) && (u.team !== 'player' || visible(st, e.x, e.y) || !st.fog || st.turn > 6)) { const d = manhattan(u, e); if (d < nd) { nd = d; target = e; } } }
   if (!target) return { type: 'wait', path: [[u.x, u.y]] };
   const fd = field(st, u, target.x, target.y);
   let pick = null;
@@ -550,12 +679,31 @@ function apply(st, u, act) {
   const last = act.path[act.path.length - 1]; u.x = last[0]; u.y = last[1];
   u.moved = true;
   const res = { type: act.type, unit: u.id };
-  if (act.type === 'attack') { const t = st.units.find(o => o.id === act.target); Object.assign(res, fight(st, u, t)); res.type = 'attack'; }
-  else if (act.type === 'heal') { const t = st.units.find(o => o.id === act.target); const amt = Math.min(t.maxhp - t.hp, u.mag + 10); t.hp += amt;
-    res.target = t.id; res.amount = amt; if (u.team === 'player') res.exp = [gainExp(st, u, 12)]; }
-  else if (act.type === 'refresh') { const t = st.units.find(o => o.id === act.target); t.moved = false; res.target = t.id; if (u.team === 'player') res.exp = [gainExp(st, u, 10)]; }
-  else if (act.type === 'vulnerary') { const amt = Math.min(10, u.maxhp - u.hp); u.hp += amt; u.vuln--; res.amount = amt; }
+  if (act.type === 'attack') { if (act.weapon && WEAPONS[act.weapon]) u.weapon = act.weapon; const t = st.units.find(o => o.id === act.target); const wa = u.weapon, wd = t.weapon;
+    Object.assign(res, fight(st, u, t)); res.type = 'attack'; res.broke = [];
+    if (u.team === 'player' && (res.strikes || []).some(s => s.by === u.id && s.hit)) st.lastPlayerDmg = st.turn;
+    for (const [who, wid] of [[u, wa], [t, wd]]) { const n = (res.strikes || []).filter(s => s.by === who.id).length; if (n) { const b = useUp(who, wid, n); if (b) res.broke.push({ id: who.id, name: b });
+        if (who.team === 'player' && rankReq(wid) > 0) { if (!who.wexp) who.wexp = startRanks(CLASSES[who.cls]); const k = rankKey(wid), before = rankLetter(who.wexp[k] || 0); who.wexp[k] = Math.min(251, (who.wexp[k] || 0) + 2 * n);
+          const after = rankLetter(who.wexp[k]); if (after !== before) (res.rankUp = res.rankUp || []).push({ id: who.id, kind: k, rank: after }); } } }
+    for (const [dead, killer] of [[t, u], [u, t]]) if (dead.hp <= 0 && killer.hp > 0 && killer.team === 'player' && dead.drop && dead.items && dead.items.length) {
+      const loot = dead.items.find(it => it.drop) || dead.items[dead.items.length - 1];
+      if ((canWield(killer, loot.id) || WEAPONS[loot.id].consumable) && addItem(killer, loot.id)) { killer.items[killer.items.length - 1].uses = loot.uses; res.got = { id: killer.id, name: WEAPONS[loot.id].name }; }
+      else { (st.convoy = st.convoy || []).push({ id: loot.id, uses: loot.uses, max: loot.max }); res.got = { id: killer.id, name: WEAPONS[loot.id].name, convoy: true }; } } }
+  else if (act.type === 'heal') { if (act.weapon && WEAPONS[act.weapon]) u.weapon = act.weapon; const t = st.units.find(o => o.id === act.target); const amt = Math.min(t.maxhp - t.hp, u.mag + (WEAPONS[u.weapon].power || 10)); t.hp += amt; const br = useUp(u, u.weapon, 1); if (br) res.broke = [{ id: u.id, name: br }];
+    res.target = t.id; res.amount = amt; if (u.team === 'player') res.exp = [gainExp(st, u, 18)]; }
+  else if (act.type === 'refresh') { const t = st.units.find(o => o.id === act.target); t.moved = false; res.target = t.id; if (u.team === 'player') res.exp = [gainExp(st, u, 15)]; }
+  else if (act.type === 'visit') { const k = u.y * W + u.x; if (st.visited && !st.visited.has(k)) { st.visited.add(k); const rng = st.rng;
+      if (rng.chance(60)) { const g = 300 + rng.int(0, 7) * 100 + st.chapter * 50; st.gold = (st.gold || 0) + g; res.gold = g; }
+      else { const opts = ['vulnerary', 'vulnerary', 'elixir', ...Object.keys(WEAPONS).filter(id => canWield(u, id) && (WEAPONS[id].tier || 1) >= 2)]; const id = rng.pick(opts);
+        if (addItem(u, id)) res.gift = WEAPONS[id].name; else { (st.convoy = st.convoy || []).push(item(id)); res.gift = WEAPONS[id].name + ' (to the convoy)'; } } } }
+  else if (act.type === 'vulnerary') { const id = act.item || 'vulnerary', amt = Math.min(WEAPONS[id] ? WEAPONS[id].power : 10, u.maxhp - u.hp); u.hp += amt; res.amount = amt; res.item = WEAPONS[id] ? WEAPONS[id].name : 'Vulnerary';
+    const it = (u.items || []).find(x => x.id === id && x.uses > 0); if (it) { it.uses--; if (it.uses <= 0) u.items.splice(u.items.indexOf(it), 1); } }
   if (st.goal === 'seize' && u.leader && st.map.throne && u.x === st.map.throne.x && u.y === st.map.throne.y) { st.seized = true; res.seized = true; }
+  if (u.hp > 0 && skillsOf(u).canto && act.type !== 'vulnerary' && !res.seized) {
+    const left = CLASSES[u.cls].mov - Math.max(0, act.path.length - 1);
+    if (left >= 1) { const dist = reach(st, u, left); let best = [u.x, u.y], bs = danger(st, u, u.x, u.y);
+      for (const k of dist.keys()) { const x = k % W, y = Math.floor(k / W), o = unitAt(st, x, y); if (o && o !== u) continue; const dg = danger(st, u, x, y) - (allyNear(st, u, x, y) ? 1 : 0); if (dg < bs - 2) { bs = dg; best = [x, y]; } }
+      if (best[0] !== u.x || best[1] !== u.y) { res.canto = { from: [u.x, u.y], path: pathTo(dist, best[0], best[1]) }; u.x = best[0]; u.y = best[1]; } } }
   return res;
 }
 function outcome(st) {
@@ -581,8 +729,18 @@ function phaseOrder(st, team) {
   const rank = u => u.leader ? 9 : CLASSES[u.cls].dancer ? 7 : CLASSES[u.cls].healer ? 8 : (WEAPONS[u.weapon].max > 1 ? 1 : 2);
   return us.sort((a, b) => rank(a) - rank(b) || a.id - b.id);
 }
+function spawnWave(st) {
+  const R = st.reinforce, rng = st.rng, n = st.chapter, out = [], count = Math.min(3, 1 + Math.floor(n / 6) + rng.int(0, 1));
+  const slots = (st.eSlots || []).filter(([x, y]) => !unitAt(st, x, y) && !st.units.some(o => o.hp > 0 && o.team === 'player' && Math.abs(o.x - x) + Math.abs(o.y - y) < 5));
+  for (let i = 0; i < count && slots.length; i++) { const cls = POOL ? poolPick(rng, c => !c.healer && !c.dancer, n >= 12 && rng.chance(25)) : rng.pick(['Soldier', 'Fighter', 'Mercenary', 'Archer']);
+    const e = makeUnit(rng, cls, 'enemy', R.lv); const [x, y] = slots.splice(rng.int(0, slots.length - 1), 1)[0]; if (moveCost(st, e, x, y) >= 99) continue; e.x = x; e.y = y; e.ai = 'pursue'; e.name = null; st.units.push(e); out.push(e.id); }
+  return out;
+}
+function visible(st, x, y) { if (!st.fog) return true; return st.units.some(o => o.hp > 0 && o.team === 'player' && Math.abs(o.x - x) + Math.abs(o.y - y) <= (CLASSES[o.cls].flier ? 5 : 3)); }
 function startPhase(st, team) {
   st.phase = team; failsafe(st);
+  st.arrivals = null; if (team === 'enemy' && st.reinforce && st.reinforce.turns.includes(st.turn)) st.arrivals = spawnWave(st);
+  if (team === 'player') { if (st.lastPlayerDmg === st.turn - 1) st.stall = 0; else if (st.riskSkip === st.turn - 1) st.stall = (st.stall || 0) + 1; }
   const out = [];
   for (const u of st.units) if (u.team === team && u.hp > 0) { u.moved = false;
     const h = tHeal(st, u.x, u.y); if (h && u.hp < u.maxhp) { const a = Math.min(u.maxhp - u.hp, Math.ceil(u.maxhp * h / 100)); u.hp += a; out.push({ id: u.id, amount: a }); } }
@@ -596,7 +754,7 @@ const GOAL_TEXT = { rout: 'Defeat all enemies', seize: 'Seize the throne', boss:
 function newCampaign(seed) {
   const rng = RNG(seed);
   const anyLeader = OPTIONS.leader === 'any' && POOL;
-  const lord = makeUnit(rng, anyLeader ? poolPick(rng, c => !c.healer && !c.dancer) : POOL && POOL.lords.length ? rng.pick(POOL.lords) : 'Lord', 'player', 1); lord.leader = true;
+  const lord = makeUnit(rng, anyLeader ? poolPick(rng, c => !c.healer && !c.dancer) : POOL && POOL.lords.length ? rng.pick(POOL.lords) : 'Lord', 'player', 1); lord.leader = true; lord.maxhp += 4; lord.hp = lord.maxhp; lord.def += 2;
   const army = [lord];
   const starters = POOL ? [poolPick(rng, c => !c.healer && (c.mov >= 7)), poolPick(rng, c => !c.healer && c.wpn !== 'bow' && c.wpn !== 'fire' && c.mov < 7), poolPick(rng, c => c.wpn === 'bow' || c.wpn === 'fire'), poolPick(rng, c => c.healer)]
     : [rng.pick(['Cavalier','Knight','Soldier']), rng.pick(['Mercenary','Myrmidon','Fighter']), rng.pick(['Archer','Mage']), 'Cleric'];
@@ -670,12 +828,14 @@ function newChapter(camp) {
   const taken = new Set();
   const deploy = (u, list) => { const s = list.find(([x, y]) => !taken.has(y * W + x) && moveCost(st, u, x, y) < 99 && !(st.map.throne && x === st.map.throne.x && y === st.map.throne.y)); if (!s) return false;
     taken.add(s[1] * W + s[0]); u.x = s[0]; u.y = s[1]; return true; };
-  camp.army.forEach(u => { u.hp = u.maxhp; u.team = 'player'; u.vuln = 3; if (deploy(u, pSlots)) st.units.push(u); });
-  const lv = Math.max(1, Math.round(avgLevel(camp.army) - 1.5 + n * 0.15));
-  const area = W * H, scale = Math.max(1, Math.min(1.8, area / 200));
-  const count = Math.min(20, Math.round((3 + Math.floor(n * 0.6) + rng.int(0, 1)) * scale));
+  st.armoryNotes = []; camp.army.slice().sort((a, b) => b.level - a.level).forEach(u => armory(rng, camp, u, n, st.armoryNotes));
+  camp.army.forEach(u => { u.hp = u.maxhp; u.team = 'player'; restock(rng, u, n); if (deploy(u, pSlots)) st.units.push(u); });
+  const lv = Math.max(1, Math.min(20, Math.round(1 + n * 0.7)));
+  const area = W * H, scale = Math.max(1, Math.min(1.5, area / 220));
+  const count = Math.min(18, camp.army.length * 2 + 2, Math.round((3 + Math.floor(n * 0.4) + rng.int(0, 1)) * scale));
   // every chapter has a commander: on the throne when there is one, otherwise holding the far end of the map
   st.supports = camp.supports || (camp.supports = {});
+  st.villages = []; for (let i = 0; i < W * H; i++) if (st.map.terr && (st.map.terr[i] === 0x03 || st.map.terr[i] === 0x05)) st.villages.push(i); st.visited = new Set(); st.gold = 0;
   const rv = camp.rival, rivalHere = rv && !rv.defeated && n >= 3 && n % 3 === 0;
   const bc = rivalHere && rv.cls && CLASSES[rv.cls] ? rv.cls : POOL && POOL.advanced.length ? poolPick(rng, c => !c.healer && !c.dancer, true) : rng.pick(['Knight','Fighter','Mercenary','Soldier']);
   const boss = makeUnit(rng, bc, 'enemy', lv + 3); boss.boss = true; boss.ai = 'hold'; boss.name = rivalHere ? rv.name : uniqueName(camp, rng);
@@ -701,6 +861,12 @@ function newChapter(camp) {
     const c = makeUnit(rng, old.cls, 'enemy', old.level + 2); c.captain = true; c.name = uniqueName(camp, rng); c.x = old.x; c.y = old.y; c.ai = old.ai === 'pursue' ? 'wake' : old.ai;
     st.units[st.units.indexOf(old)] = c;
   }
+  for (const e of st.units) if (e.team === 'enemy') {
+    if (e.boss || (e.captain && rng.chance(60))) { const t = wtype(CLASSES[e.cls].wpn), up = Object.keys(WEAPONS).filter(k => WEAPONS[k].type === t && (WEAPONS[k].tier || 1) === (n >= 7 ? 3 : 2));
+      if (up.length && e.items.length < MAXITEMS) { e.items.unshift(Object.assign(item(rng.pick(up)), { drop: true })); equipBest(e); } else if (e.items[0]) e.items[0].drop = true; e.drop = true; }
+    else if (!e.captain && rng.chance(8) && e.items && e.items.length) { e.items[e.items.length - 1].drop = true; e.drop = true; } }
+  st.reinforce = goal === 'survive' ? { turns: [3, 5, 7, 9, 11, 13].filter(t => t <= st.surviveTurns), lv } : n >= 3 && rng.chance(40) ? { turns: [3 + rng.int(0, 2), 6 + rng.int(0, 2)], lv } : null;
+  st.fog = n >= 4 && rng.chance(17); st.eSlots = eSlots;
   const boss0 = st.units.find(u => u.boss);
   st.enemyArmy = boss0 ? `${boss0.name}\u2019s army` : `the ${place} garrison`;
   st.goalText = GOAL_TEXT[goal].replace('{n}', st.surviveTurns).replace('the throne', st.seizeKind === 'gate' ? 'the gate' : st.seizeKind === 'fort' ? 'the fort' : 'the throne');
@@ -732,7 +898,11 @@ function endChapter(camp, st, result) {
     lines.push([lord.name, rng.pick([`${d.name}... I will carry your name.`, `We lost ${d.name} at ${st.place}.`, `${d.name} fell holding the line.`])]); }
   const rivalUnit = st.units.find(u => u.rival);
   if (rivalUnit && camp.rival) { if (rivalUnit.hp <= 0 && !rivalUnit.escaped) { camp.rival.defeated = true; lines.push([lord.name, `${camp.rival.name} is finally gone.`]); } else { camp.rival.meetings++; if (rivalUnit.escaped) lines.push([camp.rival.name, rng.pick(['This is not over!', 'Next time, I will not hold back.', 'Remember my face.'])]); } }
+  camp.gold = (camp.gold || 0) + (st.gold || 0) + (result === 'victory' ? 300 + st.chapter * 40 : 0);
+  if (st.gold) lines.push(['', `The villages gave ${st.gold} gold. The army now has ${camp.gold}.`]);
   camp.army = camp.army.filter(u => u.hp > 0);
+  for (const it of st.convoy || []) { const who = camp.army.slice().sort((a, b) => (a.items || []).length - (b.items || []).length).find(u => (u.items || []).length < MAXITEMS && (canWield(u, it.id) || WEAPONS[it.id].consumable));
+    if (who) { who.items.push(it); lines.push(['', `${who.name} received the ${WEAPONS[it.id].name}.`]); } else lines.push(['', `The ${WEAPONS[it.id].name} was sold; no one could use it.`]); }
   // supports: pairs who fought side by side reach C, B and A
   const ranks = [[12, 'C'], [30, 'B'], [55, 'A']];
   for (const [k, pts] of Object.entries(camp.supports || {})) {
@@ -750,13 +920,13 @@ function endChapter(camp, st, result) {
     let to = c.promoTo && CLASSES[c.promoTo] ? c.promoTo : null;
     if (!to && POOL) { const same = POOL.advanced.filter(k => CLASSES[k].game === c.game && CLASSES[k].wpn === c.wpn); const any = POOL.advanced.filter(k => CLASSES[k].wpn === c.wpn); to = same.length ? rng.pick(same) : any.length ? rng.pick(any) : null; }
     if (!to) continue;
-    const from = c.name; u.cls = to; u.fe8 = to; u.level = 1; u.exp = 0; u.maxhp += 3; u.str += 2; u.mag += c.wpn === 'fire' || c.healer ? 2 : 0; u.skl += 1; u.spd += 1; u.def += 2; u.res += 1; u.hp = u.maxhp;
+    const from = c.name; u.cls = to; u.fe8 = to; u.level = 1; u.exp = 0; { const nr = startRanks(CLASSES[to]); u.wexp = u.wexp || {}; for (const k in nr) u.wexp[k] = Math.max(u.wexp[k] || 0, nr[k]); } u.maxhp += 3; u.str += 2; u.mag += c.wpn === 'fire' || c.healer ? 2 : 0; u.skl += 1; u.spd += 1; u.def += 2; u.res += 1; u.hp = u.maxhp;
     lines.push([u.name, `I have become a ${CLASSES[to].name}.`], ['', `${u.name} promoted from ${from} to ${CLASSES[to].name}.`]);
   }
   const summary = { chapter: st.chapter, title: st.title, result, turns: st.turn, lost: dead.map(d => d.name), recruits: [] };
   if (result === 'retreat') lines.push([lord.name, rng.pick([`Fall back! There is nothing left to hold at ${st.place}.`, `We cannot win this. Retreat!`])]);
   if (result === 'victory') {
-    if (camp.army.length < 12 && (rng.chance(65) || camp.army.length < 4)) {
+    for (let rc = 0; rc < (camp.army.length < 5 ? 2 : 1); rc++) if (camp.army.length < 12 && (rng.chance(80) || camp.army.length < 4)) {
       const wild = OPTIONS.recruits === 'anything' && POOL, roll = rng.int(0, 99);
       const cls = !POOL ? rng.pick(PLAYER_POOL) : POOL.dancers.length && roll < 8 && !camp.army.some(u => CLASSES[u.cls].dancer) ? rng.pick(POOL.dancers)
         : wild && POOL.monsters.length && roll < 30 ? rng.pick(POOL.monsters) : poolPick(rng, () => true, camp.chapter >= 10 && rng.chance(30)); const r = makeUnit(rng, cls, 'player', Math.max(1, Math.round(avgLevel(camp.army)) + rng.int(-1, 0))); r.name = uniqueName(camp, rng);
@@ -782,7 +952,7 @@ function setClassPool(list) {
   POOL = { lords: [], basic: [], advanced: [], dancers: [], monsters: [], monstersHi: [] };
   for (const c of list) {
     const b = c.base, g = c.gr;
-    CLASSES[c.key] = { promoTo: c.promoTo, name: c.name, wpn: c.wpn, mov: b.mov, mt: c.flier ? 'fly' : 'foot', flier: c.flier, healer: c.healer, dancer: c.dancer, monster: c.monster, lord: c.lord, promoted: c.promoted, game: c.game,
+    CLASSES[c.key] = { ranks: c.ranks, promoTo: c.promoTo, name: c.name, wpn: c.wpn, mov: b.mov, mt: c.flier ? 'fly' : 'foot', flier: c.flier, healer: c.healer, dancer: c.dancer, monster: c.monster, lord: c.lord, promoted: c.promoted, game: c.game,
       base: { hp: b.hp, str: c.magic ? Math.max(0, b.str - 3) : b.str, mag: c.magic || c.healer || c.dancer ? b.str : 0, skl: b.skl, spd: b.spd, lck: 0, def: b.def, res: b.res },
       gr: { hp: g.hp, str: c.magic ? 15 : g.str, mag: c.magic || c.healer ? g.str : 10, skl: g.skl, spd: g.spd, lck: g.lck, def: g.def, res: g.res } };
     ROMD.classes[c.key] = c.terrain;
@@ -800,7 +970,7 @@ function sceneKind(st, x, y) {
     if ([0x10, 0x13, 0x15, 0x16].includes(t)) return 'water'; if ([0x17, 0x1D, 0x1E, 0x1F, 0x20, 0x1A, 0x1B].includes(t)) return 'indoor'; return 'plains'; }
   const t = st.map.tiles[y][x]; return t === 'forest' ? 'forest' : t === 'hill' ? 'mountain' : t === 'water' || t === 'bridge' ? 'water' : t === 'floor' || t === 'throne' || t === 'wall' ? 'indoor' : 'plains';
 }
-const api = { terrainId, AFF, supportBonus, rankOf, supportLevel, sceneKind, unitLabel, setOptions, OPTIONS, setClassPool, className, romClass, mapCount, mapList, saveCampaign, loadCampaign, pathTo, inRange, foes, danger, get W() { return W; }, get H() { return H; }, setRomData, RNG, TERRAIN, WEAPONS, CLASSES, newCampaign, newChapter, moveCost, endChapter, plan, apply, outcome, phaseOrder, startPhase, forecast, reach };
+const api = { canWield, visible, armory, skillsOf, rankLetter, rankKey, rankReq, wtype, weaponsOf, MAXITEMS, terrainId, AFF, supportBonus, rankOf, supportLevel, sceneKind, unitLabel, setOptions, OPTIONS, setClassPool, className, romClass, mapCount, mapList, saveCampaign, loadCampaign, pathTo, inRange, foes, danger, get W() { return W; }, get H() { return H; }, setRomData, RNG, TERRAIN, WEAPONS, CLASSES, newCampaign, newChapter, moveCost, endChapter, plan, apply, outcome, phaseOrder, startPhase, forecast, reach };
 if (typeof module !== 'undefined') module.exports = api; else root.Chronicle = api;
 })(this);
 
@@ -1026,7 +1196,7 @@ function battleBg(code, id) {
     const pals = []; for (let k = 0; k < P.length / 32; k++) { const q = []; for (let c = 0; c < 16; c++) { const v = P[k * 32 + c * 2] | P[k * 32 + c * 2 + 1] << 8; q.push([(v & 31) << 3, (v >> 5 & 31) << 3, (v >> 10 & 31) << 3]); } pals.push(q); }
     const cnv = document.createElement('canvas'); cnv.width = 240; cnv.height = 160; const gx = cnv.getContext('2d'), im = gx.createImageData(240, 160), d = im.data;
     for (let ty = 0; ty < 20; ty++) for (let tx = 0; tx < 30; tx++) { const o = (ty * 30 + tx) * 2; if (o + 1 >= tsa.length) continue;
-      const e = tsa[o] | tsa[o + 1] << 8, t = e & 0x3FF, hf = e >> 10 & 1, vf = e >> 11 & 1, pi = (e >> 12 & 15) - 6, pal = pals[pi] || pals[0];
+      const e = tsa[o] | tsa[o + 1] << 8, t = e & 0x3FF, hf = e >> 10 & 1, vf = e >> 11 & 1, pi = e >> 12 & 15, pal = pals[pi] || pals[0];
       for (let py = 0; py < 8; py++) for (let px = 0; px < 8; px++) { const sx = hf ? 7 - px : px, sy = vf ? 7 - py : py, b = t * 32 + sy * 4 + (sx >> 1), byte = img[b] || 0, c = sx & 1 ? byte >> 4 : byte & 15, col = pal[c], q = ((ty * 8 + py) * 240 + tx * 8 + px) * 4;
         d[q] = col[0]; d[q + 1] = col[1]; d[q + 2] = col[2]; d[q + 3] = 255; } }
     gx.putImageData(im, 0, 0);
@@ -1040,21 +1210,115 @@ function battleBg(code, id) {
 }
 // ---------------------------------------------------------------- battle platforms: FE8's battle terrain tiles in its 15x4 platform layout
 const platCache = {};
-function battlePlatform(terrainId) {
-  const key = terrainId; if (platCache[key] !== undefined) return platCache[key];
+const PLAT_TABLES = { BE8E: 0xEE0008, AE7E: 0xFC0008, AFEJ: 0x7EA008 };
+function platName(g, a) { let s = ''; for (let k = 0; k < 12 && g.R[a + k]; k++) s += String.fromCharCode(g.R[a + k]); return s; }
+// FE8's lookup names the platform for a terrain; FE6 and FE7 use their own record of the same name
+function battlePlatform(terrainId, code) {
+  const key = (code || 'BE8E') + ':' + terrainId; if (platCache[key] !== undefined) return platCache[key];
   try {
-    const ground = base.R[0x80C7C6 + (terrainId & 0x3F)], a = 0xEE0008 + Math.max(0, ground - 1) * 24;
-    if (base.R[a] < 0x30) return platCache[key] = null;
-    const G = base.lz77(base.u32(a + 12) - 0x08000000), pp = base.u32(a + 16) - 0x08000000, P = base.R[pp] === 0x10 ? base.lz77(pp) : base.R.subarray(pp, pp + 32);
+    const ground = base.R[0x80C7C6 + (terrainId & 0x3F)], a8 = 0xEE0008 + Math.max(0, ground - 1) * 24;
+    if (base.R[a8] < 0x30) return platCache[key] = null;
+    let g = base, a = a8;
+    const og = code && code !== 'BE8E' ? games[code] : null, T = og && PLAT_TABLES[code];
+    if (og && T) { const want = platName(base, a8); for (let k = 0; k < 140; k++) { const b = T + k * 24; if (og.R[b] < 0x30) break; if (platName(og, b) === want) { g = og; a = b; break; } } }
+    const G = g.lz77(g.u32(a + 12) - 0x08000000), pp = g.u32(a + 16) - 0x08000000, P = g.R[pp] === 0x10 ? g.lz77(pp) : g.R.subarray(pp, pp + 32);
     const pal = []; for (let c = 0; c < 16; c++) { const v = P[c * 2] | P[c * 2 + 1] << 8; pal.push([(v & 31) << 3, (v >> 5 & 31) << 3, (v >> 10 & 31) << 3]); }
     const L = base.u32(0x5B9D6C + 4) - 0x08000000, cnv = document.createElement('canvas'); cnv.width = 120; cnv.height = 32;
-    const g = cnv.getContext('2d'), im = g.createImageData(120, 32), d = im.data;
+    const pg2 = cnv.getContext('2d'), im = pg2.createImageData(120, 32), d = im.data;
     for (let i = 0; i < 60; i++) { const e = base.R[L + i * 2] | base.R[L + i * 2 + 1] << 8, t = e & 0x3FF, hf = e >> 10 & 1, vf = e >> 11 & 1; if (t === 31 || t >= 128) continue;
       const tx = i % 15, ty = Math.floor(i / 15);
       for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) { const sx = hf ? 7 - x : x, sy = vf ? 7 - y : y, b = G[t * 32 + sy * 4 + (sx >> 1)] || 0, c = sx & 1 ? b >> 4 : b & 15; if (!c) continue;
         const q = ((ty * 8 + y) * 120 + tx * 8 + x) * 4; d[q] = pal[c][0]; d[q + 1] = pal[c][1]; d[q + 2] = pal[c][2]; d[q + 3] = 255; } }
-    g.putImageData(im, 0, 0); return platCache[key] = cnv;
+    pg2.putImageData(im, 0, 0); return platCache[key] = cnv;
   } catch (e) { console.error('platform', terrainId, e); return platCache[key] = null; }
+}
+// ---------------------------------------------------------------- FE8 spell effects (addresses traced from each spell's routines)
+const SPELLS = {
+  fire:      { bg: { timing: 0xDCD26, tsa: ['arr', 0x5D54D0], img: 0x5F5638, pal: 0x5F6230 }, obj: { scr: 0x5F843C, img: 0x5F7768, pal: 0x5F7D64 }, sfx: 241, hit: .55 },
+  thunder:   { bg: { timing: 0xDCCA6, tsa: ['arr', 0x5D5458], img: 0x5F2DC0, pal: 0x5F367C, alpha: .8 }, obj: { scr: 0x5F4A24, img: 0x5F3AA8, pal: 0x5F3F40 }, sfx: 245, hit: .5 },
+  elfire:    { bg: { colTiming: 0xDCDE4, tsa: 0x603D50, img: 0x602B94, pal: 0x603B50, alpha: .8 }, obj: { scr: 0x604FD4, img: 0x603F98, pal: 0x604210 }, sfx: 241, hit: .6 },
+  flux:      { bg: { timing: 0xDD094, tsa: ['arr', 0x5D5920], img: ['arr', 0x5D59C4], pal: 0x62A2D0 }, drops: { pieces: [0x62D444, 0x62D468, 0x62D48C, 0x62D4B0, 0x62D4D4, 0x62D510, 0x62D54C], img: 0x62C82C, pal: 0x62D424 }, sfx: 266, hit: .7 },
+  lightning: { bg: { timing: 0xDD288, tsa: ['arr', 0x5D5E28], img: ['arr', 0x5D5D20], pal: ['arr', 0x5D5DA4] }, sfx: 288, hit: .6 },
+  heal:      { bg: { colTiming: 0xDD8EE, tsa: 0x66F774, img: 0x66F5E4, pal: 0x6700D4 }, obj: { scr: 0x675114, img: 0x6702D4, pal: 0x670528 }, sfx: 270, hit: .7 },
+  firebreath:{ bg: { colTiming: 0xDCA5C, tsa: 0x725AF0, img: 0x7246D8, pal: 0x725AD0, alpha: .85 }, obj: { scr: 0x5E35DC, img: 0x5DDC64, pal: 0x5DE964 }, sfx: 285, hit: .6 },
+  icebreath: { obj: { scr: 0x5E420C, img: 0x5DDC64, pal: 0x5DFA28 }, sfx: 287, hit: .6 },
+  darkbreath:{ bg: { timing: 0xDCB78, tsa: ['arr', 0x5D53C0], img: 0x5E5AE4, pal: 0x608838, alpha: .75 }, sfx: 287, hit: .6 },
+  evileye:   { bg: { timing: 0xDE9EA, tsa: ['arr', 0x5D7F80], img: ['arr', 0x5D7F30], pal: ['arr', 0x5D7FD0], alpha: .75 }, sfx: 266, hit: .6 },
+  bolting:   { bg: { timing: 0xDCF7E, tsa: ['arr', 0x5D57CC], img: ['arr', 0x5D57A0], pal: 0x608838, alpha: .85 }, sfx: 281, hit: .6 },
+  fimbulvetr:{ bg: { timing: 0xDCEEC, tsa: ['arr', 0x5D56D0], img: ['arr', 0x5D56FC], pal: 0x6101DC }, obj: { scr: 0x61ACB8, img: 0x618BBC, pal: 0x670528 }, sfx: 290, hit: .65 },
+  purge:     { bg: { timing: 0xDD328, tsa: ['arr', 0x5D614C], img: ['arr', 0x5D5EDC], pal: ['arr', 0x5D6014] }, obj: { scr: 0x66F58C, img: 0x66EFF0, pal: 0x66F2B4 }, sfx: 256, hit: .65 },
+  divine:    { bg: { timing: 0xDD4D4, tsa: ['arr', 0x5D637C], img: ['arr', 0x5D632C], pal: 0x641D84 }, obj: { scr: 0x646510, img: 0x645DD8, pal: 0x645F44 }, sfx: 288, hit: .65 },
+  eclipse:   { bg: { timing: 0xDD5D8, tsa: ['arr', 0x5D64D4], img: ['arr', 0x5D6540], pal: 0x64E790, alpha: .85 }, sfx: 312, hit: .65 },
+  shine:     { bg: { timing: 0xDE050, tsa: ['arr', 0x5D6F48], img: 0x72796C, pal: 0x727C48 }, sfx: 288, hit: .6 },
+};
+const spellCache = {};
+function pal16(o) { const q = []; for (let c = 0; c < 16; c++) { const v = base.R[o + c * 2] | base.R[o + c * 2 + 1] << 8; q.push([(v & 31) << 3, (v >> 5 & 31) << 3, (v >> 10 & 31) << 3]); } return q; }
+function romData(p, n) { const o = p >= 0x08000000 ? p - 0x08000000 : p; return base.R[o] === 0x10 ? base.lz77(o) : base.R.subarray(o, o + (n || 1200)); }
+function s16(o) { const v = base.u16(o); return v > 32767 ? v - 65536 : v; }
+function spellTiming(a) { const out = []; for (let i = 0; i < 80; i++) { const idx = s16(a + i * 4); if (idx < 0) break; out.push([idx, Math.max(1, s16(a + i * 4 + 2))]); } return out; }
+const at = (spec, i) => Array.isArray(spec) ? base.u32(spec[1] + 4 * i) : spec;
+function bgCanvas(img, tsa, pal) {
+  const I = romData(img, 0x2000), T = romData(tsa), cnv = document.createElement('canvas'); cnv.width = 240; cnv.height = 160;
+  const g = cnv.getContext('2d'), im = g.createImageData(240, 160), d = im.data;
+  for (let ty = 0; ty < 20; ty++) for (let tx = 0; tx < 30; tx++) { const i = (ty * 30 + tx) * 2; if (i + 1 >= T.length) continue; const e = T[i] | T[i + 1] << 8, t = e & 0x3FF, hf = e >> 10 & 1, vf = e >> 11 & 1;
+    for (let py = 0; py < 8; py++) for (let px = 0; px < 8; px++) { const sx = hf ? 7 - px : px, sy = vf ? 7 - py : py, b = I[t * 32 + sy * 4 + (sx >> 1)] || 0, c = sx & 1 ? b >> 4 : b & 15; if (!c) continue;
+      const q = ((ty * 8 + py) * 240 + tx * 8 + px) * 4; d[q] = pal[c][0]; d[q + 1] = pal[c][1]; d[q + 2] = pal[c][2]; d[q + 3] = 255; } }
+  let n = 0, sx = 0; const cnt = new Map(); for (let q = 3; q < d.length; q += 4) if (d[q]) { n++; sx += (q >> 2) % 240; const k = d[q - 3] << 16 | d[q - 2] << 8 | d[q - 1]; cnt.set(k, (cnt.get(k) || 0) + 1); }
+  cnv.cover = n / (240 * 160);
+  // a wash: one colour fills most of the screen; the GBA blends it with the battle instead of covering it
+  let top = 0, topN = 0; for (const [k, v] of cnt) if (v > topN) { top = k; topN = v; }
+  if (topN > 240 * 160 * 0.45) { const wc = document.createElement('canvas'); wc.width = 240; wc.height = 160; const wg = wc.getContext('2d'), wi = wg.createImageData(240, 160), wd = wi.data;
+    for (let q = 0; q < d.length; q += 4) if (d[q + 3] && (d[q] << 16 | d[q + 1] << 8 | d[q + 2]) === top) { wd[q] = d[q]; wd[q + 1] = d[q + 1]; wd[q + 2] = d[q + 2]; wd[q + 3] = 255; d[q + 3] = 0; }
+    wg.putImageData(wi, 0, 0); cnv.wash = wc; cnv.washDark = ((top >> 16) * .3 + (top >> 8 & 255) * .59 + (top & 255) * .11) < 100; n -= topN; sx = 0; for (let q = 3; q < d.length; q += 4) if (d[q]) sx += (q >> 2) % 240; }
+  g.putImageData(im, 0, 0); cnv.cx = n > 0 ? sx / n : 120;
+  return cnv;
+}
+// a sprite-layer frame: 12-byte entries; 0xFFFF blocks hold affine matrices (pa pb pc pd, 8.8 fixed) for pieces flagged affine
+function objCanvas(G, pal, p) {
+  const cnv = document.createElement('canvas'); cnv.width = 240; cnv.height = 160; const g = cnv.getContext('2d'); g.imageSmoothingEnabled = false;
+  const mats = [], ents = [];
+  for (let o = p, guard = 0; o + 12 <= base.R.length && guard < 64; o += 12, guard++) { const a0 = base.u16(o); if (a0 === 1) break; if (a0 === 0xFFFF) { mats.push([s16(o + 2), s16(o + 4), s16(o + 6), s16(o + 8)].map(v => v / 256)); continue; } ents.push(o); }
+  for (const o of ents.reverse()) {
+    const a0 = base.u16(o), a1 = base.u16(o + 2), a2 = base.u16(o + 4), x = s16(o + 6), y = s16(o + 8);
+    const [w, h] = BSHAPES[(a0 >> 14) + ',' + (a1 >> 14)] || [1, 1], aff = a0 >> 8 & 1, dbl = aff && (a0 >> 9 & 1), t0 = a2 & 0x3FF;
+    const pc = document.createElement('canvas'); pc.width = w * 8; pc.height = h * 8; const pg = pc.getContext('2d'), im = pg.createImageData(w * 8, h * 8), d = im.data;
+    for (let ty = 0; ty < h; ty++) for (let tx = 0; tx < w; tx++) { const tb = (t0 + ty * 32 + tx) * 32;
+      for (let py = 0; py < 8; py++) for (let px = 0; px < 8; px++) { const b = G[tb + py * 4 + (px >> 1)]; if (b === undefined) continue; const c = px & 1 ? b >> 4 : b & 15; if (!c) continue;
+        const q = ((ty * 8 + py) * w * 8 + tx * 8 + px) * 4; d[q] = pal[c][0]; d[q + 1] = pal[c][1]; d[q + 2] = pal[c][2]; d[q + 3] = 255; } }
+    pg.putImageData(im, 0, 0);
+    if (aff && mats.length) { const m = mats[(a1 >> 9 & 31) % mats.length], det = m[0] * m[3] - m[1] * m[2] || 1, bw = w * 8 * (dbl ? 2 : 1), bh = h * 8 * (dbl ? 2 : 1);
+      g.save(); g.translate(120 + x + bw / 2, 80 + y + bh / 2); g.transform(m[3] / det, -m[2] / det, -m[1] / det, m[0] / det, 0, 0); g.drawImage(pc, -w * 4, -h * 4); g.restore(); }
+    else { const hf = a1 >> 12 & 1, vf = a1 >> 13 & 1; g.save(); g.translate(120 + x + (hf ? w * 8 : 0), 80 + y + (vf ? h * 8 : 0)); g.scale(hf ? -1 : 1, vf ? -1 : 1); g.drawImage(pc, 0, 0); g.restore(); }
+  }
+  return cnv;
+}
+function spell(name) {
+  if (spellCache[name] !== undefined) return spellCache[name]; const S = SPELLS[name]; if (!S) return spellCache[name] = null;
+  try {
+    const B = S.bg || {}, bg = [];
+    if (!S.bg) {}
+    else if (B.colTiming) { for (const [k, dur] of spellTiming(B.colTiming)) bg.push({ cnv: bgCanvas(B.img, B.tsa, pal16(B.pal + k * 32)), dur }); }
+    else for (const [k, dur] of spellTiming(B.timing)) bg.push({ cnv: bgCanvas(at(B.img, k), at(B.tsa, k), pal16((at(B.pal, k) >= 0x08000000 ? at(B.pal, k) - 0x08000000 : at(B.pal, k)))), dur });
+    const obj = [];
+    if (S.obj) { const G = romData(S.obj.img, 0x2000), op = pal16(S.obj.pal);
+      for (let k = 0; k < 60; k++) { const w = base.u32(S.obj.scr + k * 4); if (w === 0x80000000 || (w >>> 31)) break;
+        obj.push({ cnv: objCanvas(G, op, ((w & 0x03FFFFFC) | 0x08000000) - 0x08000000), dur: Math.max(1, (w & 3) | ((w >>> 26) & 0x3C)) }); } }
+    if (S.drops) { const G = romData(S.drops.img, 0x2000), dp = pal16(S.drops.pal), spots = [[-26, -36, 0], [14, -46, 2], [-6, -24, 4], [28, -30, 6], [-34, -18, 8], [4, -40, 10]];
+      for (let f = 0; f < 18; f++) { const cnv = document.createElement('canvas'); cnv.width = 240; cnv.height = 160; const g = cnv.getContext('2d'); g.imageSmoothingEnabled = false;
+        for (const [dx, dy, t0] of spots) { const k = f - t0; if (k < 0 || k >= S.drops.pieces.length) continue; g.drawImage(objCanvas(G, dp, S.drops.pieces[k]), dx, dy + k * 2); }
+        obj.push({ cnv, dur: 2 }); } }
+    const ref = bg.filter(f => f.cnv.cover > 0.002 && f.cnv.cover < 0.5).sort((a, b) => b.cnv.cover - a.cnv.cover)[0];
+    return spellCache[name] = { name, bg, obj, sfx: S.sfx, hit: S.hit, alpha: B.alpha || 1, nativeRight: ref ? ref.cnv.cx >= 120 : true };
+  } catch (e) { console.error('spell', name, e); return spellCache[name] = null; }
+}
+
+// ---------------------------------------------------------------- track names from a sound room: {song id, length, flags, text id}, 16 bytes
+function soundRoomNames(R, decode) {
+  const u32 = a => (R[a] | R[a + 1] << 8 | R[a + 2] << 16 | R[a + 3] << 24) >>> 0, out = {};
+  let start = -1; for (let i = 0; i + 32 < R.length; i += 4) if (u32(i) === 1 && u32(i + 8) === 0 && u32(i + 12) === 0x78B) { start = i; break; }
+  if (start < 0) return out;
+  for (let k = 0; k < 400; k++) { const a = start + k * 16, id = u32(a); if (id > 0xFFFF || id === 0xFFFFFFFF) break; if (id < 1000) { const nm = decode(u32(a + 12)).replace(/[\x00-\x1f]/g, '').trim(); if (nm) out[id] = nm; } }
+  return out;
 }
 const dsSprCache = {};
 function dsSprite(code, jid, team) {
@@ -1072,7 +1336,7 @@ function dsSprite(code, jid, team) {
   return dsSprCache[key] = { frames: [frames[0], frames[1], frames[2], frames[3]], w: 32, h: 32, ds: true };
 }
 function library() { return Object.values(games).map(g => ({ code: g.code, title: g.title })).concat(Object.values(dsSets).map(d => ({ code: d.code, title: d.title, ds: true, n: d.layouts.length }))).concat(root.FE8.snesLibrary ? root.FE8.snesLibrary() : []); }
-root.FE8 = { battlePlatform, battleBg, battleBgId, banim, banimFrame, banimIdFor, BANIM_SND, fe8ClassByName, dsSprite, _base: () => base, dsSets: () => dsSets, musicRoms: () => musicRoms, gbaGames, spriteOf, addDsSet: set => { if (set && set.layouts && set.layouts.length) { dsSets[set.code] = set; return true; } return false; }, load, addGame, maps, classes, mapCanvas, sprite, library, loaded: () => !!base, CRC_FE8U };
+root.FE8 = { soundRoomNames, spell, battlePlatform, battleBg, battleBgId, banim, banimFrame, banimIdFor, BANIM_SND, fe8ClassByName, dsSprite, _base: () => base, dsSets: () => dsSets, musicRoms: () => musicRoms, gbaGames, spriteOf, addDsSet: set => { if (set && set.layouts && set.layouts.length) { dsSets[set.code] = set; return true; } return false; }, load, addGame, maps, classes, mapCanvas, sprite, library, loaded: () => !!base, CRC_FE8U };
 })(this);
 // ---------------------------------------------------------------- FE8 interface art: window frames and fonts
 (function (root) {
@@ -1427,9 +1691,11 @@ function addFE4(R) {
   const layouts = [];
   for (const rec of best) {
     try {
-      const m = decompress(l24(rec)); if (m.length < 64 * 20 * 2 || m.length > 8192) continue;
+      let m = decompress(l24(rec)); if (m.length < 64 * 20 * 2) continue; const runsOn = m.length > 8192; if (runsOn) m = m.subarray(0, 8192);   // the Final chapter's data runs on past its map
       const grid = new Uint16Array(4096); for (let i = 0; i < 4096 && i * 2 + 1 < m.length; i++) grid[i] = (m[i * 2] | m[i * 2 + 1] << 8) & 0x3FF;
-      let h = 0; for (let y = 0; y < 64; y++) { const row = new Set(grid.subarray(y * 64, y * 64 + 64)); if (row.size > 2) h = y + 1; }
+      // height: the map ends where a run of three or more uniform rows begins (data after it is not map)
+      let h = 0, flat = 0; for (let y = 0; y < 64; y++) { const row = new Set(grid.subarray(y * 64, y * 64 + 64)); if (row.size > 2) { if (flat >= 3 && h >= 10) break; h = y + 1; flat = 0; } else flat++; }
+      if (runsOn) h = Math.max(10, h - 2);   // its last two rows already belong to the data after it
       if (h < 10) continue;
       const t = decompress(l24(rec + 24)), w = 64, cells = grid.slice(0, w * h);
       layouts.push({ kind: 'fe4', w, h, cells, terr: Array.from(cells, c => T4[t[c]] !== undefined ? T4[t[c]] : 0x01), defs: l24(rec + 3), gfx: l24(rec + 6), pal: l24(rec + 9), name: 'FE4 ' + layouts.length });
@@ -1556,6 +1822,24 @@ F.snesLibrary = () => Object.values(sets).map(s => ({ code: s.code, title: s.tit
 (function (root) {
 'use strict';
 const F = root.FE8;
+// FE text decoder for any GBA FE ROM: the Huffman root pointer points at the word right before itself; the text table follows it
+function textDecoderFor(R) {
+  const n = R.length, u32 = a => (R[a] | R[a + 1] << 8 | R[a + 2] << 16 | R[a + 3] << 24) >>> 0, u16 = a => R[a] | R[a + 1] << 8, isPtr = v => v >= 0x08000000 && v < 0x08000000 + n;
+  let text = null;
+  let bestM = 0; for (let X = 4; X + 64 < n; X += 4) { if (u32(X) !== 0x08000000 + X - 4) continue; let m = 0; while (m < 12000 && X + 8 + m * 4 < n && isPtr(u32(X + 4 + m * 4) & 0x7FFFFFFF)) m++; if (m >= 500 && m > bestM) { bestM = m; text = X; } }
+  let decode = () => '';
+  if (text !== null) { const rootN = text - 4, base = rootN - (Math.max(u16(rootN), u16(rootN + 2)) + 1) * 4;
+    // the game's own text routine holds the table address (FE8 US: 0x0800A2A0); hacks that move the table update it there
+    let table = text + 4; const cp = n > 0xA2A4 ? u32(0xA2A0) : 0; if (isPtr(cp) && isPtr(u32(cp - 0x08000000) & 0x7FFFFFFF) && isPtr(u32(cp - 0x08000000 + 4) & 0x7FFFFFFF)) table = cp - 0x08000000;
+    decode = tid => { const p = u32(table + tid * 4); if (!isPtr(p & 0x7FFFFFFF)) return ''; let out = '';
+      if (p & 0x80000000) { let a = (p & 0x7FFFFFFF) - 0x08000000; while (R[a] && out.length < 40) out += String.fromCharCode(R[a++]); return out; }
+      let a = p - 0x08000000, bit = 0, node = rootN, guard = 0;
+      while (out.length < 40 && guard++ < 4000) { const w = u32(node);
+        if (w & 0x80000000) { const v = w & 0xFFFF; if (!v) break; if (v & 0xFF00) out += String.fromCharCode(v & 0xFF, v >> 8); else out += String.fromCharCode(v); node = rootN; continue; }
+        const b = (R[a + (bit >> 3)] >> (bit & 7)) & 1; bit++; node = base + u16(node + (b ? 2 : 0)) * 4; if (node < 0 || node + 4 > n) break; }
+      return out; }; }
+  return decode;
+}
 function gbaClassData(g) {
   const R = g.R, n = R.length, u16 = a => R[a] | R[a + 1] << 8, u32 = a => (R[a] | R[a + 1] << 8 | R[a + 2] << 16 | R[a + 3] << 24) >>> 0;
   const isPtr = v => v >= 0x08000000 && v < 0x08000000 + n;
@@ -1567,18 +1851,7 @@ function gbaClassData(g) {
     if (k >= 40 && (!best || k > best.count)) best = { start: s, stride, count: k };
   }
   if (!best) return null;
-  // text: the Huffman root pointer points at the word right before itself; the text table follows it
-  let text = null;
-  for (let X = 4; X + 64 < n; X += 4) { if (u32(X) !== 0x08000000 + X - 4) continue; let m = 0; while (m < 600 && isPtr(u32(X + 4 + m * 4) & 0x7FFFFFFF)) m++; if (m >= 500) { text = X; break; } }
-  let decode = () => '';
-  if (text !== null) { const rootN = text - 4, base = rootN - (Math.max(u16(rootN), u16(rootN + 2)) + 1) * 4;
-    decode = tid => { const p = u32(text + 4 + tid * 4); let out = '';
-      if (p & 0x80000000) { let a = (p & 0x7FFFFFFF) - 0x08000000; while (R[a] && out.length < 40) out += String.fromCharCode(R[a++]); return out; }
-      let a = p - 0x08000000, bit = 0, node = rootN, guard = 0;
-      while (out.length < 40 && guard++ < 4000) { const w = u32(node);
-        if (w & 0x80000000) { const v = w & 0xFFFF; if (!v) break; if (v & 0xFF00) out += String.fromCharCode(v & 0xFF, v >> 8); else out += String.fromCharCode(v); node = rootN; continue; }
-        const b = (R[a + (bit >> 3)] >> (bit & 7)) & 1; bit++; node = base + u16(node + (b ? 2 : 0)) * 4; if (node < 0 || node + 4 > n) break; }
-      return out; }; }
+  let decode = textDecoderFor(R);
   // map sprite table: 8-byte entries {u16, u16 size 0..2, LZ77 pointer}
   let sms = null;
   for (let s = 0; s + 8 * 60 < n && !sms; s += 4) {
@@ -1597,7 +1870,7 @@ function gbaClassData(g) {
     if (!mov || !avo || !def) continue;
     list.push({ game: g.code, id: i, name: decode(u16(a)).replace(/[^ -~]/g, '').trim(), base, gr, ranks, attrs, sms: R[a + 6], mov, avo, def, res: res || def.map(() => 0) });
   }
-  return { table: best, text, sms, classes: list };
+  return { table: best, text: null, sms, classes: list };
 }
 root.gbaClassData = gbaClassData;
 // one class pool across every loaded GBA game
@@ -1605,6 +1878,7 @@ const WPN = ['sword', 'lance', 'axe', 'bow', 'staff', 'fire', 'fire', 'fire'];
 const SKIP = /Civilian|Transporter|Ballista|Citizen|Prince|Princess|King|Fire Dragon|Demon|Magic Seal|Egg|^--$|^\?$/i;
 const MONSTER = /Mogall|Gorgon|Bonewalker|Revenant|Entombed|Wight|Bael|Cyclops|Mauthe|Gwyllgi|Tarvos|Maelduin|goyle|Draco|Fleet|Phantom|Manakete|Dragon/i;
 const DANCE = /Dancer|Bard/i;
+F.textDecoderFor = textDecoderFor;
 F.classPool = function () {
   const all = [], byGame = {}, sheets = new Map();
   const order = F.gbaGames().sort((a, b) => (a.code === 'BE8E' ? -1 : 1));
@@ -1633,7 +1907,8 @@ F.classPool = function () {
     if (best <= 0 && !dancer && !monster) continue;
     const wpn = dancer ? 'dance' : best > 0 ? WPN[bi] : /Mogall|Gorgon/i.test(cl.name) ? 'eye' : /Manakete|Dragon/i.test(cl.name) ? 'breath' : 'claw';
     const magic = ['fire', 'eye', 'breath'].includes(wpn), flier = (cl.mov[0x11] || 99) <= 2 && (cl.mov[0x15] || 99) <= 2;
-    all.push({ key: code + ':' + cl.id, promoTo: cl.promoTo, game: code, name: cl.name, wpn, magic, flier, healer: wpn === 'staff', dancer, monster, lord: /Lord/.test(cl.name), promoted: cl.promoted,
+    const RK = ['sword', 'lance', 'axe', 'bow', 'staff', 'anima', 'light', 'dark'], ranks = {}; cl.ranks.forEach((v, i) => { if (v > 0) ranks[RK[i]] = v; });
+    all.push({ key: code + ':' + cl.id, ranks, promoTo: cl.promoTo, game: code, name: cl.name, wpn, magic, flier, healer: wpn === 'staff', dancer, monster, lord: /Lord/.test(cl.name), promoted: cl.promoted,
       base: cl.base, gr: cl.gr, terrain: { mov: cl.mov, def: cl.def, avo: cl.avo, res: cl.res, sms: cl.sms, smsTable: cl.smsTable, game: code, banimGame: F.banimIdFor(code, cl.id, 0) ? code : 'BE8E', banimClass: animClass(code, cl) } });
   }
   // FE5 classes: real names, bases, ranks and tiers; movement rules and sprite borrowed from the closest GBA class
@@ -1720,7 +1995,9 @@ function Player(R, opts) {
     if (!v || v[0] === 0x40 || v[0] === 0x80) return null;
     return { v, vg, idx: voiceIdx, key: drum ? v[1] : k, drum, ptr: (v[4] | v[5] << 8 | v[6] << 16 | v[7] << 24) >>> 0 };
   }
-  function playNote(tr, key, vel, t, dur) {
+  let lastError = null;
+  function playNote(tr, key, vel, t, dur) { try { return playNoteInner(tr, key, vel, t, dur); } catch (e) { lastError = String(e && e.message || e); return null; } }
+  function playNoteInner(tr, key, vel, t, dur) {
     const r = resolve(song.vg, tr.voice, key); if (!r) return null;
     const type = r.v[0] & 7, fixed = (r.v[0] & 8) && type === 0, A = r.v[8], D = r.v[9], S = r.v[10], Rr = r.v[11];
     const semis = (r.key + tr.keySh - 60) + tr.bend * tr.bendR / 64 + tr.tune / 64;
@@ -1794,7 +2071,8 @@ function Player(R, opts) {
     }
     if (tr.wait > 0) tr.wait--;
   }
-  function pump(until) {
+  function pump(until) { try { pumpInner(until); } catch (e) { lastError = String(e && e.message || e); } }
+  function pumpInner(until) {
     if (!song || !ctx) return;
     const ahead = until !== undefined ? until : ctx.currentTime + 0.3;
     while (song && song.t < ahead) {
@@ -1815,7 +2093,7 @@ function Player(R, opts) {
   function setVolume(v) { volume = v; if (master) master.gain.setTargetAtTime(v, ctx.currentTime, 0.05); }
   function resume() { audio(); if (ctx.state === 'suspended') ctx.resume(); }
   function renderTo(secs) { if (timer) clearInterval(timer); timer = null; pump(secs); }
-  return { start, stop, setVolume, resume, renderTo, get playing() { return song ? song.id : null; }, get ctx() { return ctx; } };
+  return { error: () => lastError, start, stop, setVolume, resume, renderTo, get playing() { return song ? song.id : null; }, get ctx() { return ctx; } };
 }
 // find a song table and a Sound Room (track names) in any FE8-family ROM
 function findMusic(R) {
@@ -1912,8 +2190,25 @@ function buildTiles() { tileLayer = [[], [], []].map((_, f) => st.map.tiles.map(
 
 // ---------------------------------------------------------------- drawing
 const shade = (hex, k) => { const n = parseInt(hex.slice(1), 16), r = n >> 16, g = n >> 8 & 255, b = n & 255; return `rgb(${Math.round(r * k)},${Math.round(g * k)},${Math.round(b * k)})`; };
+// FE8's own text colours (Pal_Text): each group is [edge, body, shadow] for glyph values 1, 2, 3
+let FE_TEXT = null;
+function feTextGroups() {
+  if (FE_TEXT) return FE_TEXT; const g = { red: ['#c86060', '#f8c8c0', '#501818'] };
+  try { const R = FE8._base().R, o = 0x59EF00, col = i => { const v = R[o + i * 2] | R[o + i * 2 + 1] << 8; return '#' + [(v & 31) << 3, (v >> 5 & 31) << 3, (v >> 10 & 31) << 3].map(n => n.toString(16).padStart(2, '0')).join(''); };
+    Object.assign(g, { white: [col(1), col(2), col(3)], grey: [col(4), col(5), col(6)], blue: [col(7), col(8), col(9)], gold: [col(10), col(11), col(12)], green: [col(13), col(14), col(15)] }); }
+  catch (e) { Object.assign(g, { white: ['#a088d8', '#f8f8f8', '#383028'], grey: ['#888078', '#b8b0b0', '#383028'], blue: ['#5070f8', '#c0f8f8', '#181858'], gold: ['#a8a848', '#f8f088', '#484008'], green: ['#70a048', '#e8f8d8', '#185818'] }); }
+  return FE_TEXT = g;
+}
+// which FE text colour a requested colour stands for
+function feGroup(c) {
+  if (!c || c.length !== 7) return 'white'; const r = parseInt(c.slice(1, 3), 16), g = parseInt(c.slice(3, 5), 16), b = parseInt(c.slice(5, 7), 16), mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+  if (mx - mn < 40) return mx < 190 ? 'grey' : 'white';
+  if (r >= g && r >= b) return g > b + 30 && g > 150 ? 'gold' : 'red';
+  if (g >= r && g >= b) return r > b + 40 ? 'gold' : 'green';
+  return r > 200 && g > 200 ? 'white' : 'blue';
+}
 function feText(s, x, y, sc, color, align, font) {
-  if (useRom) { const c = color || '#ffffff'; return FE8.ui.drawText(ctx, String(s), x, y, sc, font || 'system', ['#141a46', shade(c.length === 7 ? c : '#ffffff', .55), c], align); }
+  if (useRom) { ctx.imageSmoothingEnabled = false; return FE8.ui.drawText(ctx, String(s), Math.round(x), Math.round(y), sc, font || 'system', feTextGroups()[feGroup(color)], align); }
   ctx.font = `${sc * 11}px ${getComputedStyle(document.body).fontFamily}`; ctx.textAlign = align || 'left'; ctx.textBaseline = 'top'; ctx.fillStyle = '#10163d'; ctx.fillText(s, x + 2, y + 2); ctx.fillStyle = color || '#fff'; ctx.fillText(s, x, y); return ctx.measureText(s).width;
 }
 function feWidth(s, sc, font) { return useRom ? FE8.ui.textWidth(String(s), font || 'system') * sc : String(s).length * sc * 6; }
@@ -1938,7 +2233,8 @@ function render(now) {
     for (const [x, y] of view.tiles.move || []) tileFill(x, y, view.tiles.enemy ? 'rgba(200,70,255,.38)' : 'rgba(48,110,255,.45)', view.tiles.enemy ? 'rgba(235,190,255,.7)' : 'rgba(170,200,255,.8)'); }
   if (view.targets) for (const [x, y] of view.targets) tileFill(x, y, 'rgba(255,60,48,' + (.35 + .2 * Math.sin(now / 120)) + ')', '#ffd0c8');
   const idle = (() => { const t = now % 1200; return t < 533 ? 0 : t < 600 ? 1 : t < 1133 ? 2 : 1; })(), bob = Math.floor(now / 300) % 2;
-  const list = st.units.filter(u => u.hp > 0 || view.fade[u.id] !== undefined).sort((a, b) => (view.pos[a.id] ? 1 : 0) - (view.pos[b.id] ? 1 : 0) || a.y - b.y);
+  if (st.fog) { ctx.fillStyle = 'rgba(8,10,28,.58)'; for (let ty = Math.floor(cam.y); ty < cam.y + VH + 1; ty++) for (let tx = Math.floor(cam.x); tx < cam.x + VW + 1; tx++) if (!E.visible(st, tx, ty)) ctx.fillRect((tx - cam.x) * T * SC, (ty - cam.y) * T * SC, T * SC + 1, T * SC + 1); }
+  const list = st.units.filter(u => (u.hp > 0 || view.fade[u.id] !== undefined) && (u.team !== 'enemy' || !st.fog || E.visible(st, u.x, u.y))).sort((a, b) => (view.pos[a.id] ? 1 : 0) - (view.pos[b.id] ? 1 : 0) || a.y - b.y);
   for (const u of list) {
     const p = view.pos[u.id] || { x: u.x, y: u.y };
     ctx.globalAlpha = view.fade[u.id] !== undefined ? view.fade[u.id] : 1;
@@ -1980,12 +2276,21 @@ function spriteFor(u, team) { const rc = E.romClass(u.fe8) || E.romClass(0x0F); 
 const whiteCache = new WeakMap();
 function whiteOf(c) { let w = whiteCache.get(c); if (w) return w; w = document.createElement('canvas'); w.width = c.width; w.height = c.height; const g = w.getContext('2d'); g.drawImage(c, 0, 0); g.globalCompositeOperation = 'source-atop'; g.fillStyle = '#fff'; g.fillRect(0, 0, w.width, w.height); whiteCache.set(c, w); return w; }
 // real FE8 battle animations: each side is an "actor" playing its class's script from the ROM
-const WT = { sword: 0, lance: 1, axe: 2, bow: 3, staff: 4, fire: 5, eye: 11, claw: 11, breath: 11, dance: 9 };
+function spellName(un) { const w = E.WEAPONS[un.weapon]; if (w && w.spell) return w.spell;
+  const tp = E.wtype(un.weapon), cn = E.className(un).toLowerCase();
+  if (tp === 'eye') return 'evileye';
+  if (tp === 'breath') return /ice|frost|snow/.test(cn) ? 'icebreath' : /dark|zombie|wight|draco|shadow/.test(cn) ? 'darkbreath' : 'firebreath'; if (!w || !w.magic || E.wtype(un.weapon) !== 'fire') return null; const n = E.className(un).toLowerCase();
+  if (/monk|bishop|priest|cleric|curate|saint|valkyrie|sister|light/.test(n)) return 'lightning';
+  if (/shaman|druid|summoner|dark|sorcer|necro/.test(n)) return 'flux';
+  return E.CLASSES[un.cls] && E.CLASSES[un.cls].promoted ? 'elfire' : (un.id % 2 ? 'thunder' : 'fire'); }
+const SPELL_LABEL = { fire: 'Fire', thunder: 'Thunder', elfire: 'Elfire', flux: 'Flux', lightning: 'Lightning', heal: 'Heal' };
+function weaponLabel(un) { return (E.WEAPONS[un.weapon] || E.WEAPONS.none).name; }
+const WT = { sword: 0, lance: 1, axe: 2, bow: 3, staff: 4, fire: 5, light: 6, dark: 7, eye: 11, claw: 11, breath: 11, dance: 9 };
 const HIT_CMDS = new Set([0x1A, 0x08, 0x09, 0x0A, 0x05]);
 function actorFor(u, right) {
   if (!useRom || !FE8.banim) return null;
   const rc = E.romClass(u.fe8), cid = rc && rc.banimClass > 0 ? rc.banimClass : typeof u.fe8 === 'number' ? u.fe8 : -1; if (cid <= 0) return null;
-  const gcode = rc && rc.banimGame ? rc.banimGame : 'BE8E', aid = FE8.banimIdFor(gcode, cid, WT[u.weapon] ?? 0); if (!aid) return null; const A = FE8.banim(gcode, aid); if (!A || !A.modes[8] || !A.modes[8].length) return null;
+  const gcode = rc && rc.banimGame ? rc.banimGame : 'BE8E', aid = FE8.banimIdFor(gcode, cid, WT[E.wtype(u.weapon)] ?? 0); if (!aid) return null; const A = FE8.banim(gcode, aid); if (!A || !A.modes[8] || !A.modes[8].length) return null;
   const act = { A, right, team: u.team === 'player' ? 0 : u.team === 'ally' ? 2 : 1, cur: null };
   act.pose = idx => { const ops = (A.modes[idx] && A.modes[idx].length ? A.modes[idx] : A.modes[8]); const f = ops.find(o => o.f); if (f) act.cur = FE8.banimFrame(A, f, right, act.team); };
   return act;
@@ -2001,6 +2306,36 @@ async function playMode(act, idx, onHit) {
   }
   if (!hitDone && onHit) await onHit();
 }
+// one spell effect over the target; resolves at the spell's hit frame, the rest finishes around the hit
+async function playSpell(b, sp, targetRight) {
+  const mirror = targetRight !== sp.nativeRight, n = Math.max(sp.bg.length, sp.obj.length), hitAt = Math.max(1, Math.floor(n * sp.hit)); let reached = false;
+  Sfx.play(sp.sfx); (window.__spells = window.__spells || []).push(sp.name);
+  const run = (async () => { const tb = sp.bg.reduce((s, f) => s + f.dur, 0), to = sp.obj.reduce((s, f) => s + f.dur, 0), total = Math.max(tb, to); let t = 0, ib = 0, io = 0, nb = 0, no = 0;
+    for (let i = 0; t < total; i++) {
+      while (ib < sp.bg.length && nb + sp.bg[ib].dur <= t) nb += sp.bg[ib++].dur;
+      while (io < sp.obj.length && no + sp.obj[io].dur <= t) no += sp.obj[io++].dur;
+      b.spell = { bg: sp.bg[ib] && sp.bg[ib].cnv, obj: sp.obj[io] && sp.obj[io].cnv, mirror, alpha: sp.alpha, objRight: sp.nativeRight };
+      if (!reached && (sp.bg.length ? ib : io) >= hitAt) reached = true;
+      await animFrames(2); t += 1; }
+    b.spell = null; reached = true; })();
+  run.catch(() => { reached = true; });
+  while (!reached) await nextFrame();
+  return run.catch(() => {});
+}
+async function healScene(H, T, amount) {
+  const right = H, left = T, kind = E.sceneKind(st, T.x, T.y), actors = { [right.id]: actorFor(right, true), [left.id]: actorFor(left, false) };
+  for (const id in actors) if (actors[id]) actors[id].pose(8);
+  let bgImg = null; const ent = st.map.entry, code = ent && ent.game && ['BE8E', 'AE7E', 'AFEJ'].includes(ent.game.code) ? ent.game.code : 'BE8E', tt = E.terrainId(st, T.x, T.y);
+  if (tt >= 0) bgImg = FE8.battleBg(code, FE8.battleBgId(code, tt, kind)) || FE8.battleBg('BE8E', FE8.battleBgId('BE8E', tt, kind));
+  const b = view.battle = { heal: true, platL: FE8.battlePlatform(tt), platR: FE8.battlePlatform(E.terrainId(st, H.x, H.y)), bgImg, kind, L: left, R: right, actors,
+    s: { [left.id]: { dx: 0, flash: 0, shake: 0, alpha: 1 }, [right.id]: { dx: 0, flash: 0, shake: 0, alpha: 1 } }, fade: 0, crit: 0, proj: null, pops: [], fA: null, fD: null, a: H.id };
+  view.hp[T.id] = T.hp - amount; await tween(220, k => b.fade = k); await wait(250);
+  const sp = FE8.spell('heal'), act = actors[H.id];
+  const cast = async () => { const tail = await playSpell(b, sp, false); const from = T.hp - amount; await tween(500, k => view.hp[T.id] = Math.round(from + amount * k));
+    b.pops.push({ s: '+' + amount, who: T.id, t: performance.now(), c: '#7fe08a' }); await tail; };
+  if (act) { await playMode(act, 0, cast); act.pose(8); } else await cast();
+  await wait(420); await tween(200, k => b.fade = 1 - k); view.battle = null; view.hp[T.id] = T.hp;
+}
 async function battleScene(A, D, r, fc) {
   const right = A.team === 'player' ? A : D, left = right === A ? D : A;
   const kind = E.sceneKind(st, D.x, D.y), ranged = Math.abs(A.x - D.x) + Math.abs(A.y - D.y) > 1;
@@ -2009,7 +2344,8 @@ async function battleScene(A, D, r, fc) {
   let bgImg = null;
   if (useRom && FE8.battleBg) { const ent = st.map.entry, code = ent && ent.game && ['BE8E', 'AE7E', 'AFEJ'].includes(ent.game.code) ? ent.game.code : (ent && ent.tileGame === 'AE7E' ? 'AE7E' : 'BE8E');
     const t = E.terrainId(st, D.x, D.y); if (t >= 0) bgImg = FE8.battleBg(code, FE8.battleBgId(code, t, kind)) || FE8.battleBg('BE8E', FE8.battleBgId('BE8E', t, kind)); }
-  const platL = useRom && FE8.battlePlatform ? FE8.battlePlatform(E.terrainId(st, left.x, left.y)) : null, platR = useRom && FE8.battlePlatform ? FE8.battlePlatform(E.terrainId(st, right.x, right.y)) : null;
+  const pent = st.map.entry, pcode = pent && pent.game && ['BE8E', 'AE7E', 'AFEJ'].includes(pent.game.code) ? pent.game.code : 'BE8E';
+  const platL = useRom && FE8.battlePlatform ? FE8.battlePlatform(E.terrainId(st, left.x, left.y), pcode) : null, platR = useRom && FE8.battlePlatform ? FE8.battlePlatform(E.terrainId(st, right.x, right.y), pcode) : null;
   const b = view.battle = { platL, platR, bgImg, kind, L: left, R: right, actors, s: { [left.id]: { dx: 0, flash: 0, shake: 0, alpha: 1 }, [right.id]: { dx: 0, flash: 0, shake: 0, alpha: 1 } }, fade: 0, crit: 0, proj: null, pops: [], fA: fc.A, fD: fc.D, a: A.id };
   await tween(220, k => b.fade = k);
   await wait(300);
@@ -2017,11 +2353,14 @@ async function battleScene(A, D, r, fc) {
     const by = st.units.find(o => o.id === s.by), on = st.units.find(o => o.id === s.on), dir = by === right ? -1 : 1, w = E.WEAPONS[by.weapon];
     const isMagic = w.magic, actB = actors[by.id], actO = actors[on.id];
     const impact = async () => {
-      if (isMagic) { const col = by.weapon === 'eye' ? '#c070ff' : by.weapon === 'breath' ? '#ff6a3a' : '#ffb23a'; await tween(300, k => b.proj = { from: by, to: on, k, col }); b.proj = null; }
+      const sp = (isMagic || ['eye', 'breath'].includes(E.wtype(by.weapon))) && useRom && FE8.spell && spellName(by) ? FE8.spell(spellName(by)) : null;
+      if (sp) await playSpell(b, sp, on === right);
+      else if (isMagic) { const bt = E.wtype(by.weapon), col = bt === 'eye' ? '#c070ff' : bt === 'breath' ? '#ff6a3a' : '#ffb23a'; await tween(300, k => b.proj = { from: by, to: on, k, col }); b.proj = null; }
       if (s.hit) { if (s.crit) b.crit = 1; const from = view.hp[on.id], to = s.hpAfter;
-        if (!actB) Sfx.play(s.hpAfter <= 0 ? SE.lastHit : s.crit ? SE.critical : by.weapon === 'lance' || by.weapon === 'bow' ? SE.hitPierce : SE.hit);
+        if (!actB) Sfx.play(s.hpAfter <= 0 ? SE.lastHit : s.crit ? SE.critical : E.wtype(by.weapon) === 'lance' || E.wtype(by.weapon) === 'bow' ? SE.hitPierce : SE.hit);
         else Sfx.play(s.hpAfter <= 0 ? SE.lastHit : s.crit ? SE.critical : SE.hit);
         b.pops.push({ s: s.crit ? 'Critical! ' + s.dmg : String(s.dmg), who: on.id, t: performance.now(), c: s.crit ? '#ffd75a' : '#ffffff' });
+        if (s.skill) { b.pops.push({ s: s.skill + '!', who: s.skill === 'Great Shield' ? on.id : by.id, t: performance.now() + 1, c: '#ffd75a' }); show(E.unitLabel(s.skill === 'Great Shield' ? on : by), `${s.skill}!`); }
         await tween(260, k => { b.s[on.id].flash = k < .5 ? 1 : 0; b.s[on.id].shake = Math.round(Math.sin(k * 30) * 10 * (1 - k)); b.crit = s.crit ? 1 - k : 0; view.hp[on.id] = Math.round(from + (to - from) * k); });
         b.s[on.id].flash = 0; b.s[on.id].shake = 0; }
       else { Sfx.play(SE.miss); b.pops.push({ s: 'Miss', who: on.id, t: performance.now(), c: '#cfe0ff' });
@@ -2029,8 +2368,8 @@ async function battleScene(A, D, r, fc) {
     };
     if (actB) { await playMode(actB, ranged ? (s.crit ? 5 : 4) : (s.crit ? 2 : 0), impact); actB.pose(ranged ? 10 : 8); }
     else {      // no FE8 animation for this class: the map-sprite stand-in
-      const rng2 = isMagic || by.weapon === 'bow';
-      if (rng2) { Sfx.play(by.weapon === 'bow' ? SE.bowDraw : SE.magicCharge); await tween(140, k => b.s[by.id].dx = dir * 18 * k); Sfx.play(swingSound(by)); }
+      const rng2 = isMagic || E.wtype(by.weapon) === 'bow';
+      if (rng2) { Sfx.play(E.wtype(by.weapon) === 'bow' ? SE.bowDraw : SE.magicCharge); await tween(140, k => b.s[by.id].dx = dir * 18 * k); Sfx.play(swingSound(by)); }
       else { Sfx.play(swingSound(by)); await tween(170, k => b.s[by.id].dx = dir * 230 * k * k); }
       await impact();
       await tween(rng2 ? 140 : 190, k => b.s[by.id].dx = rng2 ? dir * 18 * (1 - k) : dir * 230 * (1 - k));
@@ -2060,17 +2399,23 @@ function drawBattle(b, now) {
   for (const [cx, u, flip] of [[320, b.L, true], [640, b.R, false]]) { if (b.actors && b.actors[u.id]) continue; const st0 = b.s[u.id], sp = spriteFor(u, u.team === 'player' ? 0 : 1); if (!sp) continue;
     const S = 7, img = sp.frames[[0, 1, 2, 1][frame]], dw = sp.w * S, dh = sp.h * S, x = cx - dw / 2 + st0.dx + st0.shake, y = 410 - dh + 10;
     ctx.save(); ctx.globalAlpha = b.fade * st0.alpha; if (flip) { ctx.translate(x + dw, y); ctx.scale(-1, 1); ctx.drawImage(st0.flash ? whiteOf(img) : img, 0, 0, dw, dh); } else ctx.drawImage(st0.flash ? whiteOf(img) : img, x, y, dw, dh); ctx.restore(); }
+  if (b.spell) { ctx.save(); ctx.imageSmoothingEnabled = false; ctx.globalAlpha = b.fade;
+    if (b.spell.mirror) { ctx.translate(W, 0); ctx.scale(-1, 1); }
+    if (b.spell.bg) { if (b.spell.bg.wash) { if (b.spell.bg.washDark) { ctx.globalAlpha = b.fade * .6; ctx.drawImage(b.spell.bg.wash, 0, 0, W, H); ctx.globalAlpha = b.fade; } else { ctx.globalCompositeOperation = 'screen'; ctx.drawImage(b.spell.bg.wash, 0, 0, W, H); ctx.globalCompositeOperation = 'source-over'; } }
+      ctx.drawImage(b.spell.bg, 0, 0, W, H); }
+    if (b.spell.obj) ctx.drawImage(b.spell.obj, ((b.spell.objRight ? 168 : 72) - 120) * 4, (96 - 80) * 4, 960, 640);
+    ctx.restore(); }
   if (b.proj) { const p = b.proj, fx = p.from === b.R ? 640 : 320, tx = p.to === b.R ? 660 : 300, x = fx + (tx - fx) * p.k, y = 300 - Math.sin(p.k * Math.PI) * 40;
     if (p.arrow) { ctx.strokeStyle = p.col; ctx.lineWidth = 6; ctx.beginPath(); ctx.moveTo(x - 30 * Math.sign(tx - fx), y); ctx.lineTo(x, y); ctx.stroke(); }
     else { const rg = ctx.createRadialGradient(x, y, 2, x, y, 34); rg.addColorStop(0, '#fff'); rg.addColorStop(.35, p.col); rg.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(x, y, 34, 0, Math.PI * 2); ctx.fill(); } }
   for (const p of b.pops) { const age = (now - p.t) / 900; if (age > 1) continue; const x = p.who === b.R.id ? 640 : 320; feText(p.s, x, 150 - age * 50, 4, p.c, 'center'); }
   b.pops = b.pops.filter(p => now - p.t < 900);
   // windows: names and weapons on top, HP and forecast below
-  const side = (u, x, f) => { const col = u.team === 'player' ? '#a9c2ff' : '#ffb2a2';
-    winBox(x, 8, 452, 76); feText(fitName(E.unitLabel(u), 3, 250), x + 18, 18, 3, col); feText(fitName(E.WEAPONS[u.weapon].name, 2, 170), x + 434, 32, 2, '#e9eeff', 'right');
+  const side = (u, x, f) => { const col = u.team === 'player' ? '#c4d2f4' : '#ffb2a2';
+    winBox(x, 8, 452, 76); feText(fitName(E.unitLabel(u), 3, 250), x + 18, 18, 3, col); feText(fitName(weaponLabel(u), 2, 170), x + 434, 32, 2, '#e6e8f2', 'right');
     winBox(x, H - 158, 452, 150); const hp = view.hp[u.id] !== undefined ? view.hp[u.id] : u.hp;
-    feText('HP', x + 18, H - 140, 2, '#f4cb63'); feText(String(hp), x + 120, H - 146, 3, '#fff', 'right'); hpBar(x + 136, H - 134, 298, hp, u.maxhp);
-    if (f) [['HIT', f.hit], ['DMG', f.dmg + (f.dbl ? ' x2' : '')], ['CRT', f.crit]].forEach(([k, v], i) => { const cx = x + 18 + i * 142; feText(k, cx, H - 82, 2, '#f4cb63'); feText(String(v), cx + 56, H - 88, 3, '#fff'); });
+    feText('HP', x + 18, H - 140, 2, '#f4cb63'); feText(String(hp), x + 120, H - 146, 3, '#eceef6', 'right'); hpBar(x + 136, H - 134, 298, hp, u.maxhp);
+    if (f) [['HIT', f.hit], ['DMG', f.dmg + (f.dbl ? ' x2' : '')], ['CRT', f.crit]].forEach(([k, v], i) => { const cx = x + 18 + i * 142; feText(k, cx, H - 82, 2, '#f4cb63'); feText(String(v), cx + 56, H - 88, 3, '#eceef6'); });
     else feText('No counterattack', x + 18, H - 82, 2, '#c9d4ff'); };
   const fL = b.L.id === b.a ? b.fA : b.fD, fR = b.R.id === b.a ? b.fA : b.fD;
   side(b.L, 14, fL); side(b.R, 494, fR);
@@ -2080,34 +2425,57 @@ function drawBattle(b, now) {
 // ---------------------------------------------------------------- unit info: the acting unit's box and the full stat card
 function drawHud(u) {
   const right = (u.x - cam.x) < VW / 2, x = right ? cv.width - 392 : 12, y = (u.y - cam.y) < VH / 2 ? cv.height - 132 : 12;
-  winBox(x, y, 380, 120); const col = u.team === 'player' ? '#a9c2ff' : '#ffb2a2';
+  winBox(x, y, 380, 120); const col = u.team === 'player' ? '#c4d2f4' : '#ffb2a2';
   feText(fitName(E.unitLabel(u), 3, 230), x + 18, y + 8, 3, col);
-  feText(`${E.className(u)}  Lv ${u.level}`, x + 362, y + 22, 2, '#e9eeff', 'right');
+  feText(`${E.className(u)}  Lv ${u.level}`, x + 362, y + 22, 2, '#e6e8f2', 'right');
+  feText((E.WEAPONS[u.weapon] || E.WEAPONS.none).name, x + 362, y + 46, 2, '#c9d4ff', 'right');
   const hp = view.hp[u.id] !== undefined ? view.hp[u.id] : u.hp;
-  feText('HP', x + 18, y + 72, 2, '#f4cb63'); feText(`${hp}/${u.maxhp}`, x + 150, y + 66, 3, '#fff', 'right'); hpBar(x + 164, y + 76, 196, hp, u.maxhp);
+  feText('HP', x + 18, y + 72, 2, '#f4cb63'); feText(`${hp}/${u.maxhp}`, x + 150, y + 66, 3, '#eceef6', 'right'); hpBar(x + 164, y + 76, 196, hp, u.maxhp);
+}
+function drawItemsCard(card) {
+  const u = card.u, W = 660, H = 430, x = Math.round((cv.width - W) / 2), y = Math.round((cv.height - H) / 2);
+  winBox(x, y, W, H); const col = u.team === 'player' ? '#c4d2f4' : '#f0b4a8';
+  feText(fitName(E.unitLabel(u), 3, 380), x + 34, y + 26, 3, col); feText('Items', x + W - 34, y + 34, 3, '#f4cb63', 'right');
+  feText(`${E.className(u)}  Lv ${u.level}`, x + 34, y + 70, 2, '#e6e8f2');
+  const items = u.items || [];
+  for (let i = 0; i < E.MAXITEMS; i++) { const it = items[i], cy = y + 118 + i * 52;
+    ctx.fillStyle = 'rgba(4,6,26,.35)'; ctx.fillRect(x + 28, cy - 6, W - 56, 44);
+    if (!it) { feText('-', x + 60, cy + 4, 3, '#8f9bd0'); continue; }
+    const w = E.WEAPONS[it.id] || E.WEAPONS.none, equipped = it.id === u.weapon && items.findIndex(o => o.id === u.weapon) === i;
+    if (equipped) feText('E', x + 42, cy + 4, 3, '#7ef08a');
+    feText(w.name, x + 80, cy + 4, 3, it.drop ? '#9fe6b0' : '#ffffff');
+    feText(it.max ? `${it.uses}/${it.max}` : '--', x + W - 44, cy + 4, 3, it.max && it.uses <= 5 ? '#ffcf4a' : '#ffffff', 'right');
+    if (!w.consumable && !w.heal && !w.refresh && w.mt !== undefined && w.type !== 'none') feText(`Mt ${w.mt}  Hit ${w.hit}${w.crit ? '  Crt ' + w.crit : ''}  Rng ${w.min === w.max ? w.min : w.min + '-' + w.max}`, x + 340, cy + 10, 2, '#c9d4ff');
+    else if (w.consumable || w.heal) feText(w.consumable ? `Heals ${w.power > 50 ? 'fully' : w.power + ' HP'}` : `Heals ${w.power} + Mag`, x + 340, cy + 10, 2, '#c9d4ff'); }
+  const rk = Object.entries(u.wexp || {}).filter(([, v]) => v > 0).map(([k, v]) => k.charAt(0).toUpperCase() + k.slice(1) + ' ' + E.rankLetter(v)).join('  ');
+  if (rk) { feText('Ranks', x + 34, y + 384, 2, '#f4cb63'); feText(rk, x + 120, y + 384, 2, '#eceef6'); }
+  feText(items.some(it => it.drop) ? 'Green items drop when defeated' : '', x + 34, y + H - 44, 2, '#9fe6b0');
+  feText('Tap to close', x + W - 24, y + H - 44, 2, '#b0b0b0', 'right');
 }
 function drawStatCard(card) {
+  if (card.page === 1) return drawItemsCard(card);
   const u = card.u, W = 660, H = 430, x = Math.round((cv.width - W) / 2), y = Math.round((cv.height - H) / 2);
-  winBox(x, y, W, H); const col = u.team === 'player' ? '#a9c2ff' : '#ffb2a2';
+  winBox(x, y, W, H); const col = u.team === 'player' ? '#c4d2f4' : '#ffb2a2';
   const sp = useRom ? spriteFor(u, u.team === 'player' ? 0 : 1) : null;
   if (sp) { const S = 5, f = sp.frames[[0, 1, 2, 1][Math.floor(performance.now() / 260) % 4]]; ctx.drawImage(f, x + 34, y + 30 + (24 - sp.h) * S / 2, sp.w * S, sp.h * S); }
   feText(fitName(E.unitLabel(u), 3, 400), x + 150, y + 18, 3, col);
   if (u.boss || u.captain) drawRankIcon(x + 150 + Math.min(400, feWidth(E.unitLabel(u), 3)) + 12, y + 26, u.boss);
   const tag = gameTag(u); if (u.team === 'player' && u.aff) feText(u.aff, x + W - 24, y + 66, 2, { Fire: '#ff9a6a', Thunder: '#ffe36a', Wind: '#9df0a8', Ice: '#9fdcff', Dark: '#c9a0ff', Light: '#fff6c8', Anima: '#ffb8e0' }[u.aff], 'right');
-  feText(`${E.className(u)}${tag ? '  (' + tag + ')' : ''}${u.leader ? '  Leader' : u.boss ? '  Commander' : u.captain ? '  Captain' : ''}`, x + 150, y + 66, 2, '#e9eeff');
+  feText(`${E.className(u)}${tag ? '  (' + tag + ')' : ''}${u.leader ? '  Leader' : u.boss ? '  Commander' : u.captain ? '  Captain' : ''}`, x + 150, y + 66, 2, '#e6e8f2');
   feText(`Lv ${u.level}`, x + 150, y + 100, 2, '#f4cb63'); if (u.team === 'player') feText(`EXP ${u.exp}`, x + 260, y + 100, 2, '#f4cb63');
-  feText('HP', x + 34, y + 160, 2, '#f4cb63'); feText(`${u.hp}/${u.maxhp}`, x + 190, y + 154, 3, '#fff', 'right'); hpBar(x + 204, y + 164, u.team === 'player' && u.growth ? 330 : 400, u.hp, u.maxhp);
-  if (u.team === 'player' && u.growth) { feText(u.growth.hp + '%', x + 604, y + 160, 2, '#9fe6b0', 'right'); feText('Growths in green', x + W - 24, y + 100, 2, '#9fe6b0', 'right'); }
+  feText('HP', x + 34, y + 160, 2, '#f4cb63'); feText(`${u.hp}/${u.maxhp}`, x + 190, y + 154, 3, '#eceef6', 'right'); hpBar(x + 204, y + 164, u.team === 'player' && u.growth ? 330 : 400, u.hp, u.maxhp);
+  if (u.team === 'player' && u.growth) { feText(u.growth.hp + '%', x + 600, y + 160, 2, '#8fd6a0', 'right'); feText('Growths in green', x + W - 24, y + 100, 2, '#9fe6b0', 'right'); }
   const rows = [['Str', u.str], ['Mag', u.mag], ['Skl', u.skl], ['Spd', u.spd], ['Lck', u.lck], ['Def', u.def], ['Res', u.res], ['Mov', E.CLASSES[u.cls] ? E.CLASSES[u.cls].mov : 0]];
   rows.forEach(([k, v], i) => { const cx = x + 34 + (i % 2) * 300, cy = y + 200 + Math.floor(i / 2) * 44;
-    feText(k, cx, cy + 4, 2, '#f4cb63'); feText(String(v), cx + 120, cy, 3, '#fff', 'right');
-    const gk = { Str: 'str', Mag: 'mag', Skl: 'skl', Spd: 'spd', Lck: 'lck', Def: 'def', Res: 'res' }[k]; if (u.team === 'player' && gk && u.growth) feText(u.growth[gk] + '%', cx + 268, cy + 6, 2, '#9fe6b0', 'right');
-    ctx.fillStyle = '#1a1a2a'; ctx.fillRect(cx + 134, cy + 12, 130, 10); ctx.fillStyle = '#8fd0ff'; ctx.fillRect(cx + 136, cy + 14, Math.min(126, 126 * v / 30), 6); });
-  const w = E.WEAPONS[u.weapon]; feText(`${w.name}${w.heal ? '' : `  Mt ${w.mt}  Hit ${w.hit}`}`, x + 34, y + H - 44, 2, '#e9eeff');
+    feText(k, cx, cy + 4, 2, '#f4cb63'); feText(String(v), cx + 110, cy, 3, '#eceef6', 'right');
+    const gk = { Str: 'str', Mag: 'mag', Skl: 'skl', Spd: 'spd', Lck: 'lck', Def: 'def', Res: 'res' }[k], showG = u.team === 'player' && gk && u.growth;
+    if (showG) feText(u.growth[gk] + '%', cx + 180, cy + 6, 2, '#8fd6a0', 'right');
+    const bx = showG ? cx + 192 : cx + 128, bw = showG ? 84 : 140; ctx.fillStyle = '#1a1a2a'; ctx.fillRect(bx, cy + 12, bw, 10); ctx.fillStyle = '#7ab8e6'; ctx.fillRect(bx + 2, cy + 14, Math.min(bw - 4, (bw - 4) * v / 30), 6); });
+  const w = E.WEAPONS[u.weapon]; feText(`${w.name}${w.heal ? '' : `  Mt ${w.mt}  Hit ${w.hit}`}`, x + 34, y + H - 44, 2, '#e6e8f2');
   if (u.team === 'player' && camp && camp.supports) { const best = Object.entries(camp.supports).filter(([k]) => k.split('-').map(Number).includes(u.id)).sort((a, b) => b[1] - a[1]).slice(0, 2)
       .map(([k, p]) => { const oid = k.split('-').map(Number).find(n => n !== u.id), o = camp.army.find(v => v.id === oid); const r = p >= 55 ? 'A' : p >= 30 ? 'B' : p >= 12 ? 'C' : ''; return o && r ? `${o.name} ${r}` : null; }).filter(Boolean);
     if (best.length) feText('Supports: ' + best.join(', '), x + 34, y + H - 80, 2, '#ffd7a0'); }
-  feText('Tap to close', x + W - 24, y + H - 44, 2, '#c9d4ff', 'right');
+  feText('Tap for items', x + W - 24, y + H - 44, 2, '#b0b0b0', 'right');
 }
 // GBA-style boss mark: a small shield that flashes between red and white (commanders and captains alike)
 function drawRankIcon(x, y, boss) {
@@ -2127,13 +2495,13 @@ function drawCombat(c) {
   const H = 168, y = top ? 12 : cv.height - H - 12;
   const side = (u, x, s) => {
     winBox(x, y, 452, H);
-    const col = u.team === 'player' ? '#a9c2ff' : '#ffb2a2';
+    const col = u.team === 'player' ? '#c4d2f4' : '#ffb2a2';
     feText(fitName(E.unitLabel(u), 3, 240), x + 18, y + 10, 3, col);
-    feText(fitName(E.WEAPONS[u.weapon].name, 2, 170), x + 434, y + 22, 2, '#e9eeff', 'right');
+    feText(fitName(weaponLabel(u), 2, 170), x + 434, y + 22, 2, '#e6e8f2', 'right');
     const hp = view.hp[u.id] !== undefined ? view.hp[u.id] : u.hp;
-    feText('HP', x + 18, y + 64, 2, '#f4cb63'); feText(String(hp), x + 120, y + 58, 3, '#ffffff', 'right'); hpBar(x + 136, y + 70, 298, hp, u.maxhp);
+    feText('HP', x + 18, y + 64, 2, '#f4cb63'); feText(String(hp), x + 120, y + 58, 3, '#eceef6', 'right'); hpBar(x + 136, y + 70, 298, hp, u.maxhp);
     if (s) { const cols = [['HIT', s.hit], ['DMG', s.dmg + (s.dbl ? ' x2' : '')], ['CRT', s.crit]];
-      cols.forEach(([k, v], i) => { const cx = x + 18 + i * 142; feText(k, cx, y + 112, 2, '#f4cb63'); feText(String(v), cx + 56, y + 108, 3, '#ffffff'); }); }
+      cols.forEach(([k, v], i) => { const cx = x + 18 + i * 142; feText(k, cx, y + 112, 2, '#f4cb63'); feText(String(v), cx + 56, y + 108, 3, '#eceef6'); }); }
     else feText('No counterattack', x + 18, y + 112, 2, '#c9d4ff');
   };
   side(a, 14, c.fa); side(d, 494, c.fd);
@@ -2141,7 +2509,7 @@ function drawCombat(c) {
 const LV_KEYS = [['hp', 'HP', 'maxhp'], ['str', 'Str'], ['mag', 'Mag'], ['skl', 'Skl'], ['spd', 'Spd'], ['lck', 'Lck'], ['def', 'Def'], ['res', 'Res']];
 function drawExpBar(x) {
   const W = 480, H = 104, bx = Math.round((cv.width - W) / 2), by = cv.height - H - 28;
-  winBox(bx, by, W, H); feText('EXP', bx + 24, by + 36, 2, '#f4cb63'); feText(String(Math.floor(x.val)), bx + 128, by + 30, 3, '#fff', 'right');
+  winBox(bx, by, W, H); feText('EXP', bx + 24, by + 36, 2, '#f4cb63'); feText(String(Math.floor(x.val)), bx + 128, by + 30, 3, '#eceef6', 'right');
   const gx = bx + 148, gw = W - 180; ctx.fillStyle = '#10142e'; ctx.fillRect(gx, by + 40, gw, 20);
   ctx.fillStyle = x.flash ? '#ffffff' : '#f4cb63'; ctx.fillRect(gx + 3, by + 43, Math.max(0, (gw - 6) * Math.min(100, x.val) / 100), 14);
   ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(gx + 3, by + 43, Math.max(0, (gw - 6) * Math.min(100, x.val) / 100), 4);
@@ -2149,10 +2517,10 @@ function drawExpBar(x) {
 function drawLevelUp(l) {
   const W = 560, H = 460, x = Math.round((cv.width - W) / 2), y = Math.round((cv.height - H) / 2);
   winBox(x, y, W, H);
-  feText(fitName(E.unitLabel(l.u), 3, 300), x + 28, y + 18, 3, '#a9c2ff'); feText(`${E.className(l.u)}`, x + W - 28, y + 32, 2, '#e9eeff', 'right');
+  feText(fitName(E.unitLabel(l.u), 3, 300), x + 28, y + 18, 3, '#c4d2f4'); feText(`${E.className(l.u)}`, x + W - 28, y + 32, 2, '#e6e8f2', 'right');
   feText('LEVEL UP!', x + W / 2, y + 70, 3, '#f4cb63', 'center'); feText(`Lv ${l.level}`, x + W / 2, y + 116, 2, '#fff', 'center');
   LV_KEYS.forEach(([k, label], i) => { const cx = x + 44 + (i % 2) * 260, cy = y + 160 + Math.floor(i / 2) * 64;
-    feText(label, cx, cy + 6, 2, '#f4cb63'); feText(String(l.vals[k]), cx + 140, cy, 3, '#fff', 'right');
+    feText(label, cx, cy + 6, 2, '#f4cb63'); feText(String(l.vals[k]), cx + 140, cy, 3, '#eceef6', 'right');
     if (l.shown[k]) { const age = (performance.now() - l.shown[k]) / 300, rise = Math.min(1, age) * 8;
       feText('+1', cx + 160, cy - rise, 3, '#7ef08a'); ctx.fillStyle = '#7ef08a'; ctx.beginPath(); ctx.moveTo(cx + 226, cy + 6 - rise); ctx.lineTo(cx + 238, cy + 22 - rise); ctx.lineTo(cx + 214, cy + 22 - rise); ctx.fill(); } });
 }
@@ -2162,8 +2530,8 @@ async function showExpAndLevels(e) {
   const final = {}; for (const [k, , f] of LV_KEYS) final[k] = lu[f || k];
   for (let li = 0; li <= total; li++) {
     const target = li < total ? 100 : e.to;
-    if (target > from || li < total) { view.expbar = { val: from, flash: false }; Sfx.play(SE.exp);
-      await tween(Math.max(260, (target - from) * 14), k => view.expbar.val = from + (target - from) * k);
+    if (target > from || li < total) { view.expbar = { val: from, flash: false }; const tick = Sfx.play(SE.exp);
+      try { await tween(Math.max(260, (target - from) * 14), k => view.expbar.val = from + (target - from) * k); } finally { if (tick) tick.stop(); }
       if (li < total) { view.expbar.flash = true; await wait(220); } else await wait(420); view.expbar = null; }
     if (li === total) break;
     level++; from = 0;
@@ -2186,7 +2554,7 @@ function drawTalkBox(t) {
   if (useRom) { ctx.drawImage(FE8.ui.frame(3, 30, 6, 0), x, y, W, H); } else winBox(x + 8, y + 8, W - 16, H - 16);
   if (t.speaker) { const w = Math.max(5, Math.ceil((feWidth(t.speaker, 3) + 72) / 24));
     if (useRom) ctx.drawImage(FE8.ui.frame(0, w, 4, 0), x + 18, y - 70, w * 24, 96); else winBox(x + 26, y - 62, w * 24 - 16, 80);
-    feText(t.speaker, x + 50, y - 52, 3, '#ffffff'); }
+    feText(t.speaker, x + 50, y - 52, 3, '#eceef6'); }
   const words = t.text.split(' '), lines = []; let cur = '';
   for (const wd of words) { const tt = cur ? cur + ' ' + wd : wd; if (feWidth(tt, 3, 'talk') > W - 90 && cur) { lines.push(cur); cur = wd; } else cur = tt; } if (cur) lines.push(cur);
   lines.slice(0, 2).forEach((l, i) => { if (useRom) FE8.ui.drawText(ctx, l, x + 44, y + 44 + i * 56, 3, 'talk', ['#e2e2da', '#8a8a92', '#2c2c36']); else feText(l, x + 44, y + 44 + i * 56, 3, '#1c2244'); });
@@ -2253,19 +2621,26 @@ async function playActionInner(u, act, opts) {
       const by = st.units.find(o => o.id === s.by), on = st.units.find(o => o.id === s.on);
       view.pos[by.id] = { x: by.x + Math.sign(on.x - by.x) * .25, y: by.y + Math.sign(on.y - by.y) * .25 }; await wait(140); delete view.pos[by.id];
       view.hp[on.id] = s.hpAfter; Sfx.play(!s.hit ? SE.miss : s.hpAfter <= 0 ? SE.lastHit : s.crit ? SE.critical : SE.hit);
+      if (s.skill) view.pops.push({ s: s.skill + '!', x: by.x, y: by.y, c: '#ffd75a', t: performance.now() });
       view.pops.push({ s: s.hit ? (s.crit ? 'Critical ' + s.dmg : String(s.dmg)) : 'Miss', x: on.x, y: on.y, c: s.crit ? '#ffcf4a' : (s.hit ? '#fff' : '#cbd6ff'), t: performance.now() });
       await wait(520);
     }
+    for (const bk of r.broke || []) { const who = st.units.find(o => o.id === bk.id); if (who) { show(E.unitLabel(who), `${bk.name} broke!`); view.pops.push({ s: 'Broke', x: who.x, y: who.y, c: '#ffcf4a', t: performance.now() }); await wait(500); } }
     for (const id of r.deaths) { const d = st.units.find(o => o.id === id); if (d.escaped) { show(d.name, 'retreats!'); view.pops.push({ s: 'Retreat', x: d.x, y: d.y, c: '#ffcf4a', t: performance.now() }); }
       for (let a = 10; a >= 0; a--) { view.fade[id] = a / 10; await wait(45); } delete view.fade[id];
       if (d.team === 'player') { await say(d.name, ['I\u2019m sorry. Go on without me.', 'Tell them I held.', 'Not here. Not yet.', 'Keep marching.'][(d.id * 7) % 4]); view.talk = null; } }
+    if (r.got) { const who = st.units.find(o => o.id === r.got.id); if (who) { show(E.unitLabel(who), r.got.convoy ? `found ${r.got.name}; it went to the convoy.` : `got ${r.got.name}!`); view.pops.push({ s: r.got.name, x: who.x, y: who.y, c: '#9fe6b0', t: performance.now() }); await wait(900); } }
     await wait(300); view.combat = null; view.hp = {};
-  } else if (r.type === 'heal') { Sfx.play(SE.heal); const t = st.units.find(o => o.id === r.target); show(E.unitLabel(u), `heals ${E.unitLabel(t)}.`); view.pops.push({ s: '+' + r.amount, x: t.x, y: t.y, c: '#7fe08a', t: performance.now() }); await wait(600); }
+  } else if (r.type === 'heal') { const t = st.units.find(o => o.id === r.target); show(E.unitLabel(u), `heals ${E.unitLabel(t)}.`);
+    if (OPTS.battles === 'on' && useRom && FE8.spell && FE8.spell('heal')) await healScene(u, t, r.amount); else Sfx.play(SE.heal); view.pops.push({ s: '+' + r.amount, x: t.x, y: t.y, c: '#7fe08a', t: performance.now() }); await wait(600); }
   else if (r.type === 'refresh') { Sfx.play(SE.dance); const t = st.units.find(o => o.id === r.target); show(E.unitLabel(u), `${E.WEAPONS[u.weapon].name === 'Dance' && /Bard/.test(E.className(u)) ? 'plays for' : 'dances for'} ${E.unitLabel(t)}.`); view.pops.push({ s: 'Again!', x: t.x, y: t.y, c: '#f4cb63', t: performance.now() }); await wait(600); }
-  else if (r.type === 'vulnerary') { show(E.unitLabel(u), 'uses a Vulnerary.'); view.pops.push({ s: '+' + r.amount, x: u.x, y: u.y, c: '#7fe08a', t: performance.now() }); await wait(600); }
+  else if (r.type === 'vulnerary') { show(E.unitLabel(u), `uses ${/^[AEIOU]/.test(r.item || 'V') ? 'an' : 'a'} ${r.item || 'Vulnerary'}.`); view.pops.push({ s: '+' + r.amount, x: u.x, y: u.y, c: '#7fe08a', t: performance.now() }); await wait(600); }
   else await wait(120);
   for (const e of (r.exp || [])) { const who = st.units.find(o => o.id === e.id); if (who && who.team === 'player' && (e.exp > 0 || e.levels.length)) await showExpAndLevels(e); }
   if (r.seized) await banner('Seized!', '#f2c65c');
+  if (r.gold || r.gift) { show(E.unitLabel(u), r.gold ? `visited the village and received ${r.gold} gold.` : `visited the village and received ${r.gift}.`); view.pops.push({ s: r.gold ? r.gold + 'G' : 'Gift', x: u.x, y: u.y, c: '#ffd75a', t: performance.now() }); await wait(900); }
+  for (const ru of r.rankUp || []) { const who = st.units.find(o => o.id === ru.id); if (who) { show(E.unitLabel(who), `reached ${ru.kind} rank ${ru.rank}.`); await wait(700); } }
+  if (r.canto && u.hp > 0) { const to = r.canto.path[r.canto.path.length - 1]; u.x = r.canto.from[0]; u.y = r.canto.from[1]; await animatePath(u, r.canto.path); u.x = to[0]; u.y = to[1]; }
   renderPanel();
 }
 async function banner(s, color) { view.banner = s; view.bannerColor = color; await wait(900); view.banner = null; }
@@ -2292,10 +2667,28 @@ function optionsAt(u, x, y) {
   if (hurt.length) opts.push(['Heal', () => pickTarget(u, hurt, 'heal')]);
   const tired = w.refresh ? st.units.filter(o => o.hp > 0 && o !== u && !E.foes(o, u) && o.moved && Math.abs(o.x - x) + Math.abs(o.y - y) === 1) : [];
   if (tired.length) opts.push([/Bard/.test(E.className(u)) ? 'Play' : 'Dance', () => pickTarget(u, tired, 'refresh')]);
-  if (u.vuln > 0 && u.hp < u.maxhp) opts.push([`Vulnerary (${u.vuln})`, () => commit(u, { type: 'vulnerary' })]);
+  if ((u.items || []).length) opts.push(['Items', () => setMenu(itemsMenu(u, x, y))]);
+  const mates = st.units.filter(o => o.hp > 0 && o !== u && o.team === 'player' && Math.abs(o.x - x) + Math.abs(o.y - y) === 1);
+  if (mates.length && (u.items || []).length) opts.push(['Trade', () => setMenu(tradeMenu(u, x, y, mates))]);
   opts.push(['Wait', () => commit(u, { type: 'wait' })]);
   opts.push(['Back', () => { delete view.pos[u.id]; selectUnit(u); }, 'quiet']);
   return opts;
+}
+function itemsMenu(u, x, y) {
+  const back = ['Back', () => setMenu(optionsAt(u, x, y)), 'quiet'], out = [];
+  (u.items || []).forEach((it, i) => { const w = E.WEAPONS[it.id]; if (!w) return; const label = `${it.id === u.weapon ? 'E ' : ''}${w.name}${it.max ? ' ' + it.uses + '/' + it.max : ''}`;
+    if (w.consumable) out.push([label, () => { if (u.hp >= u.maxhp) { show(u.name, 'is already at full health.'); return; } commit(u, { type: 'vulnerary', item: it.id }); }]);
+    else if (E.weaponsOf(u).some(o => o === it)) out.push([label, () => { u.weapon = it.id; u.items.splice(i, 1); u.items.unshift(it); show(u.name, `equipped the ${w.name}.`); setMenu(optionsAt(u, x, y)); }]);
+    else out.push([label + ' (can\u2019t use)', () => show(u.name, `can\u2019t use the ${w.name} yet.`), 'quiet']); });
+  return [...out, back];
+}
+function tradeMenu(u, x, y, mates) {
+  const back = ['Back', () => setMenu(optionsAt(u, x, y)), 'quiet'];
+  return [...mates.map(o => [`With ${o.name}`, () => setMenu([...(u.items || []).map((it, i) => [`Give ${E.WEAPONS[it.id].name}`, () => {
+      if ((o.items || []).length >= E.MAXITEMS) { show(o.name, 'has no room for more items.'); return; }
+      u.items.splice(i, 1); o.items.push(it); if (u.weapon === it.id && !u.items.some(z => z.id === it.id)) { const ws = E.weaponsOf(u); u.weapon = ws.length ? ws[0].id : 'none'; }
+      if (o.weapon === 'none') { const ws = E.weaponsOf(o); if (ws.length) o.weapon = ws[0].id; }
+      show(u.name, `gave the ${E.WEAPONS[it.id].name} to ${o.name}.`); setMenu(tradeMenu(u, x, y, mates)); }]), back])]), back];
 }
 async function moveTo(u, x, y) {
   human.stage = 'busy'; view.tiles = null; view.cursor = null;
@@ -2326,7 +2719,7 @@ async function commit(u, act) {
 }
 function onTap(x, y) {
   if (!st) return;
-  if (view.statCard) { view.statCard = null; return; }
+  if (view.statCard) { if (!view.statCard.page) { view.statCard.page = 1; return; } view.statCard = null; return; }
   const at = st.units.find(o => o.hp > 0 && o.x === x && o.y === y);
   if (!human || human.stage === 'busy') { if (at) view.statCard = { u: at, t: performance.now() }; return; }
   if (at && (at.team !== 'player' || at.moved) && human.stage === 'idle') view.statCard = { u: at, t: performance.now() };
@@ -2361,6 +2754,7 @@ async function playChapter() {
       Music.phase(team); Sfx.play(SE.turn);
       await banner(team === 'player' ? 'Player Phase' : 'Enemy Phase', team === 'player' ? '#9cb6ff' : '#ff9c8a');
       const heals = E.startPhase(st, team);
+      if (st.arrivals && st.arrivals.length) { show(st.enemyArmy || 'The enemy', 'reinforcements have arrived!'); await banner('Reinforcements!', '#ff9c8a'); for (const id of st.arrivals) { const a = st.units.find(o => o.id === id); if (a) view.pops.push({ s: 'New!', x: a.x, y: a.y, c: '#ffcf4a', t: performance.now() }); } }
       for (const h of heals) { const u = st.units.find(o => o.id === h.id); view.pops.push({ s: '+' + h.amount, x: u.x, y: u.y, c: '#7fe08a', t: performance.now() }); }
       if (team === 'player' && mode === 'command') {
         const lord = st.units.find(u => u.id === camp.lord); focus(lord.x, lord.y);
@@ -2387,6 +2781,8 @@ async function runCampaign(resume) {
     const credit = useRom && (st.map.entry.src !== 'rom' || st.map.entry.game.code !== 'BE8E') ? `Map: ${st.map.entry.credit}` : st.goalText;
     view.card = ['Chapter ' + st.chapter, st.title, credit]; Sfx.play(SE.chapter); await wait(2600); view.card = null;
     for (const [s, l] of st.intro) await say(s, l);
+    for (const note of (st.armoryNotes || []).slice(0, 3)) { show('Armory', note); await wait(900); }
+    if (st.fog) { show('', 'Fog covers the field. The army can only see a few tiles ahead.'); await wait(1200); }
     view.talk = null;
     const res = await playChapter();
     const end = E.endChapter(camp, st, res);
@@ -2395,7 +2791,7 @@ async function runCampaign(resume) {
     await wait(2600); view.card = null;
     for (const [s, l] of end.lines) await say(s, l);
     view.talk = null; renderPanel();
-    if (res !== 'victory') { store.del('ec-save');
+    if (res === 'defeat') { store.del('ec-save');
       if (end.record) { const recs = JSON.parse(store.get('ec-records') || '[]'); recs.push(end.record); recs.sort((a, b) => b.chapters - a.chapters); store.set('ec-records', JSON.stringify(recs.slice(0, 10))); }
       if (end.record) { view.card = ['Run complete', `${end.record.chapters} chapters cleared, ${end.record.fallen} fallen`, end.record.mvp ? 'MVP: ' + end.record.mvp : '']; await wait(4200); }
       view.card = ['The chronicle ends', `${camp.log.length} chapters`, 'A new march begins']; await say('', `This army's tale ends after ${camp.log.length} chapters. Another will take up the banner.`);
@@ -2417,8 +2813,8 @@ function renderPanel() {
   if (!camp) { p.innerHTML = '<div class="muted">The army appears here once the march begins.</div>'; return; }
   if (tab === 'army') {
     const live = st ? st.units.filter(u => u.team === 'player') : camp.army;
-    p.innerHTML = camp.army.map(u => { const cur = live.find(o => o.id === u.id) || u;
-      return `<div class="unit" role="button" tabindex="0" data-uid="${u.id}" style="cursor:pointer"><span>${u.leader || u.id === camp.lord ? '<span class="lord">\u2605</span> ' : ''}${u.name}</span><span class="muted">${E.className(u)} <span class="tag">${gameTag(u)}</span></span><span>Lv ${u.level}</span><span>${cur.hp > 0 ? cur.hp + '/' + u.maxhp : '<span class="bad">fallen</span>'}</span></div>`; }).join('');
+    p.innerHTML = `<div class="line"><span>Gold</span><span><strong>${(camp.gold || 0) + (st && st.gold ? st.gold : 0)}</strong></span></div>` + camp.army.map(u => { const cur = live.find(o => o.id === u.id) || u;
+      return `<div class="unit" role="button" tabindex="0" data-uid="${u.id}" style="cursor:pointer"><span>${u.leader || u.id === camp.lord ? '<span class="lord">\u2605</span> ' : ''}${u.name}</span><span class="muted">${E.className(u)} <span class="tag">${gameTag(u)}</span><br><span style="font-size:.86em">${(E.WEAPONS[cur.weapon] || E.WEAPONS.none).name}${(cur.items || []).length > 1 ? ` +${cur.items.length - 1}` : ''}</span></span><span>Lv ${u.level}</span><span>${cur.hp > 0 ? cur.hp + '/' + u.maxhp : '<span class="bad">fallen</span>'}</span></div>`; }).join('');
     p.querySelectorAll('[data-uid]').forEach(el => el.onclick = () => { const id = +el.dataset.uid, unit = (st ? st.units : camp.army).find(o => o.id === id) || camp.army.find(o => o.id === id); if (!unit) return; view.statCard = { u: unit, t: performance.now() }; if (st && unit.hp > 0 && unit.x >= 0) focus(unit.x, unit.y); });
   } else if (tab === 'log') {
     const recs = JSON.parse(store.get('ec-records') || '[]');
@@ -2437,7 +2833,7 @@ function optionsHtml() {
   const seg = (key, a, b) => `<div class="seg"><button data-o="${key}" data-v="${a[0]}" aria-pressed="${OPTS[key] === a[0]}">${a[1]}</button><button data-o="${key}" data-v="${b[0]}" aria-pressed="${OPTS[key] === b[0]}">${b[1]}</button></div>`;
   const seg3 = (key, list) => `<div class="seg" style="grid-template-columns:repeat(${list.length},1fr)">${list.map(([v, l]) => `<button data-o="${key}" data-v="${v}" aria-pressed="${OPTS[key] === v}">${l}</button>`).join('')}</div>`;
   const extra = Music.count;
-  return `<div class="opt"><div><strong>Music</strong><div class="muted">Played from your own ROM. ${extra ? `Your SRR build adds ${extra} more tracks to the mix.` : 'Add an SRR or SRR+ build in the Library to mix in its extra tracks.'}</div></div>${seg3('music', [['off', 'Off'], ['fe8', 'Sacred Stones'], ['mix', 'With SRR']])}
+  return `<div class="opt"><div><strong>Music</strong><div class="muted">Played from your own ROM. ${extra ? `Your SRR build adds ${extra} more tracks to the mix.` : 'Add an SRR or SRR+ build in the Library to mix in its extra tracks.'}${Music.nowPlaying && Music.nowPlaying() ? `<br>Now playing: <strong>${Music.nowPlaying()}</strong>` : ''}${Music.error && Music.error() ? `<br><span class="bad">Music error: ${Music.error()}</span>` : ''}${extra ? `<br><button id="testSrr" style="margin-top:6px">Play an SRR track now</button><span id="testSrrMsg" class="muted"></span>` : ''}</div></div>${seg3('music', [['off', 'Off'], ['fe8', 'Sacred Stones'], ['mix', 'With SRR']])}
     <div class="muted" style="margin-top:4px">Sound effects (hits, misses, level-ups) from your Sacred Stones ROM</div>${seg3('sfx', [['on', 'On'], ['off', 'Off']])}
     <label class="muted" style="display:flex;gap:10px;align-items:center">Volume <input id="vol" type="range" min="0" max="100" value="${OPTS.volume}" style="flex:1"></label></div>
   <div class="opt"><div><strong>Look</strong><div class="muted">Light or dark windows. System follows your phone.</div></div>${seg3('theme', [['system', 'System'], ['light', 'Light'], ['dark', 'Dark']])}</div>
@@ -2446,7 +2842,9 @@ function optionsHtml() {
   <div class="opt"><div><strong>Recruits</strong><div class="muted">Standard draws from regular classes, with the odd dancer or bard. Anything goes adds monsters to your army too.</div></div>${seg('recruits', ['standard', 'Standard'], ['anything', 'Anything goes'])}</div>
   <div class="muted" style="padding-top:8px">Leader and recruit changes apply from your next new run.</div>`;
 }
-function wireOptions() { const vol = $('vol'); if (vol) vol.oninput = () => { OPTS.volume = +vol.value; store.set('ec-opts', JSON.stringify(OPTS)); Music.volume(OPTS.volume); }; document.querySelectorAll('[data-o]').forEach(b => b.onclick = () => { OPTS[b.dataset.o] = b.dataset.v; store.set('ec-opts', JSON.stringify(OPTS)); E.setOptions(OPTS); applyTheme(); if (b.dataset.o === 'music') { if (OPTS.music === 'off') Music.stop(); else Music.phase(st ? st.phase || 'player' : 'player'); } renderPanel(); }); }
+function wireOptions() { const ts = $('testSrr'); if (ts) ts.onclick = () => { Music.unlock(); const why = Music.testExtra(); const msg = $('testSrrMsg');
+    setTimeout(() => { if (msg) msg.textContent = why ? ' ' + why : ` Playing ${Music.nowPlaying() || 'an SRR track'}${Music.error() ? ' (error: ' + Music.error() + ')' : ''}.`; }, 600); };
+  const vol = $('vol'); if (vol) vol.oninput = () => { OPTS.volume = +vol.value; store.set('ec-opts', JSON.stringify(OPTS)); Music.volume(OPTS.volume); }; document.querySelectorAll('[data-o]').forEach(b => b.onclick = () => { OPTS[b.dataset.o] = b.dataset.v; store.set('ec-opts', JSON.stringify(OPTS)); E.setOptions(OPTS); applyTheme(); if (b.dataset.o === 'music') { if (OPTS.music === 'off') Music.stop(); else Music.phase(st ? st.phase || 'player' : 'player'); } renderPanel(); }); }
 let libMsg = '';
 function libraryHtml() {
   const games = useRom ? FE8.library() : [], counts = {}, maps = useRom ? E.mapCount() : 0;
@@ -2499,7 +2897,7 @@ async function addOne(r, say) {
 // ---------------------------------------------------------------- music: FE8's soundtrack, plus any SRR build's tracks
 const FE8_SONGS = { player: [0x09, 0x0A, 0x0B, 0x0C, 0x0E], enemy: [0x10, 0x11, 0x13, 0x14, 0x15], attack: 0x19, defense: 0x1A, boss: 0x1C, victory: 0x31, defeat: 0x3E, prep: 0x34 };
 const Music = (() => {
-  const players = new Map(); let phaseSong = null, chapterSongs = null, cur = null, shared = null;
+  const players = new Map(), names = new Map(); let phaseSong = null, chapterSongs = null, cur = null, shared = null;
   function context() { if (!shared) { const AC = window.AudioContext || window.webkitAudioContext; if (AC) shared = new AC(); try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {} } return shared; }
   function src(R) { if (!players.has(R)) { const t = MP2K.findMusic(R); players.set(R, t ? { p: MP2K.Player(R, { volume: OPTS.volume / 100, ctx: context }), t } : null); } return players.get(R); }
   function extras() { const out = []; for (const m of FE8.musicRoms()) { const s = src(m.R); if (!s) continue; if (!m.pool) { const u32 = a => (m.R[a] | m.R[a + 1] << 8 | m.R[a + 2] << 16 | m.R[a + 3] << 24) >>> 0; m.pool = [];
@@ -2521,6 +2919,11 @@ const Music = (() => {
     afterBattle() { if (phaseSong) play(phaseSong.R, phaseSong.id); },
     result(r) { play(base(), r === 'victory' ? FE8_SONGS.victory : FE8_SONGS.defeat); },
     ctx: () => context(),
+    nowPlaying() { if (!cur) return null; const R = cur.R, isBase = R === base();
+      if (!names.has(R)) { try { names.set(R, FE8.soundRoomNames(R, FE8.textDecoderFor(R))); } catch (e) { names.set(R, {}); } }
+      const nm = names.get(R)[cur.id]; return nm || (isBase ? `Track ${cur.id}` : `SRR track ${cur.id}`); },
+    error() { for (const s of players.values()) if (s && s.p.error && s.p.error()) return s.p.error(); return null; },
+    testExtra() { const mix = extras(); if (!mix.length) return 'No SRR tracks are loaded. Add your SRR build in the Library.'; const e = mix[Math.floor(Math.random() * mix.length)]; play(e.R, e.id); return null; },
     debug() { return { ctx: shared ? shared.state : 'none', playing: cur ? (cur.R === base() ? 'FE8 song ' : 'extra song ') + cur.id : null }; },
     stop: stopAll, volume(v) { for (const s of players.values()) if (s) s.p.setVolume(v / 100); },
     get count() { return extras().length; }
@@ -2533,9 +2936,9 @@ const Sfx = (() => { const pool = []; let k = 0;
   const log = {};
   return { log, play(id) { if (!useRom || OPTS.sfx === 'off' || id == null) return; log[id] = (log[id] || 0) + 1; try {
       if (!pool.length) { const R = FE8._base().R, t = MP2K.findMusic(R); if (!t) return; for (let i = 0; i < 3; i++) pool.push({ p: MP2K.Player(R, { volume: OPTS.volume / 100, ctx: () => Music.ctx() }), t }); }
-      const s = pool[k++ % pool.length]; s.p.setVolume(OPTS.volume / 100 * 0.9); s.p.start(id, s.t.off); } catch (e) { console.error(e); } } };
+      const s = pool[k++ % pool.length]; s.p.setVolume(OPTS.volume / 100 * 0.9); s.p.start(id, s.t.off); return s.p; } catch (e) { console.error(e); } return null; } };
 })();
-function swingSound(u) { const w = u.weapon; return w === 'sword' ? SE.swordSwing : w === 'lance' ? SE.lanceSwing : w === 'axe' ? SE.axeSwing : w === 'bow' ? SE.bowShot : w === 'claw' ? SE.swordSwing2 : (w === 'fire' || w === 'eye' || w === 'breath') ? SE.magicFire : SE.swordSwing2; }
+function swingSound(u) { const w = E.wtype(u.weapon); return w === 'sword' ? SE.swordSwing : w === 'lance' ? SE.lanceSwing : w === 'axe' ? SE.axeSwing : w === 'bow' ? SE.bowShot : w === 'claw' ? SE.swordSwing2 : (w === 'fire' || w === 'eye' || w === 'breath') ? SE.magicFire : SE.swordSwing2; }
 ['pointerdown', 'keydown', 'touchstart', 'touchend'].forEach(ev => document.addEventListener(ev, () => Music.unlock(), { passive: true }));
 ['gesturestart', 'gesturechange'].forEach(ev => document.addEventListener(ev, e => e.preventDefault()));
 let lastTouchEnd = 0; document.addEventListener('touchend', e => { const now = Date.now(); if (now - lastTouchEnd < 320 && e.target.closest && e.target.closest('.stage')) e.preventDefault(); lastTouchEnd = now; }, { passive: false });
@@ -2608,7 +3011,7 @@ function begin() {
 $('romFile').onchange = async e => { const f = e.target.files[0]; if (!f) return; $('gateMsg').textContent = 'Reading the ROM.';
   const buf = await f.arrayBuffer(); if (startWithRom(buf)) { idb('readwrite', os => os.put(buf, 'fe8')); begin(); } };
 $('noRom').onclick = () => { useRom = false; begin(); };
-window.__ec = { get st() { return st; }, get cam() { return cam; }, get stage() { return human && human.stage; }, get combat() { return !!view.combat; }, get battle() { return !!view.battle; }, get music() { return Music.debug(); }, get sfx() { return Sfx.log; }, get lvl() { return !!view.levelup; }, get exp() { return !!view.expbar; }, get pos() { return view.pos; }, get moves() { return human && human.ranges && human.stage === 'move' ? human.ranges.move : null; }, VW, VH };
+window.__ec = { get st() { return st; }, get cam() { return cam; }, get stage() { return human && human.stage; }, get combat() { return !!view.combat; }, get battle() { return !!view.battle; }, get hud() { return !!view.hud; }, get camp() { return camp; }, menus: { optionsAt: (...a) => optionsAt(...a), itemsMenu: (...a) => itemsMenu(...a), tradeMenu: (...a) => tradeMenu(...a) }, get card() { return view.statCard ? (view.statCard.page || 0) : -1; }, get spellOn() { return view.battle && view.battle.spell ? (window.__spells || []).slice(-1)[0] : null; }, get music() { return Object.assign(Music.debug(), { name: Music.nowPlaying() }); }, get sfx() { return Sfx.log; }, get lvl() { return !!view.levelup; }, get exp() { return !!view.expbar; }, get pos() { return view.pos; }, get moves() { return human && human.ranges && human.stage === 'move' ? human.ranges.move : null; }, VW, VH };
 requestAnimationFrame(render);
 idb('readonly', os => os.get('fe8')).then(async buf => { if (buf && startWithRom(buf)) { for (const [k, v] of await idbAll()) { try { if (String(k).startsWith('game:')) { const res = FE8.addGame(v);
           if (res && res.ds) { const B = new Uint8Array(v), set = await FE8.dsLayoutsFrom((o, n) => Promise.resolve(B.subarray(o, o + n)));
